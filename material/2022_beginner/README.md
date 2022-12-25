@@ -1,6 +1,6 @@
 # Rworkshop at Arging Research Center, KI
 
-* This repository is to share the code for the R workshop exercise.
+* This folder is to share the code and slide for the R workshop exercise.
 * Data paquid_cog.csv and paquid_cov.csv are available in the data file.
 * The code in `example.R` contains solutions for the following questions.
 
