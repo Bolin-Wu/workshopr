@@ -3,9 +3,9 @@
 \docType{data}
 \name{paquid_cog}
 \alias{paquid_cog}
-\title{paquid: physical covariance}
+\title{paquid: cognitive functions}
 \format{
-Data frame with columns
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2250 rows and 8 columns.
 }
 \source{
 \url{https://www.rdocumentation.org/packages/lcmm/versions/1.8.1.1/topics/paquid}
@@ -14,12 +14,10 @@ Data frame with columns
 paquid_cog
 }
 \description{
-Can use this data to check the covariance of physical funciton decrease in paquid funciton.
+Can use this data to check the cognitive funciton in paquid dataset.
 }
 \examples{
   # load data
-  paquid_cov
-
-
+  paquid_cog
 }
 \keyword{datasets}

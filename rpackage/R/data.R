@@ -9,7 +9,7 @@
 #'   paquid_cov
 #'
 #'
-"paquid_cog"
+"paquid_cov"
 
 #' paquid: cognitive functions
 #'
@@ -19,4 +19,4 @@
 #' @examples
 #'   # load data
 #'   paquid_cog
-
+"paquid_cog"
