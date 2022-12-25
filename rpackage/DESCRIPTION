@@ -1,0 +1,16 @@
+Package: workshopr
+Type: Package
+Title: R Workshop at KI
+Version: 0.1.0
+Authors@R: person("Bolin", "Wu", email = "bolin.wu1026@gmail.com",
+  role = c("aut", "cre"))
+Description: Provide data and useful functionality for smooth tutorials.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    lcmm,
+    readr
+Depends: 
+    R (>= 2.10)
+RoxygenNote: 7.2.1
