@@ -3,6 +3,7 @@
 * This folder is to share the code and slide for the R workshop exercise.
 * Data paquid_cog.csv and paquid_cov.csv are available in the data file.
 * The code in `example.R` contains solutions for the following questions.
+* The slide is available in `slide.pdf`.
 
 
 ## Generate and label variables
