@@ -6,7 +6,7 @@ Workshops:
 * Year 2023, intermediate level: 
 
 
-The course has its own R package `workshopr` with data and functionality to simplify coding. To install the package just run the following:
+The course has its own R package `workshopr` with data and functionality to simplify coding. To install the package just run the following code in R studio:
 
 1. `install.packages("remotes")`
 2. `remotes::install\_github("MansMeg/IntroML", \\ subdir = "rpackage")`
