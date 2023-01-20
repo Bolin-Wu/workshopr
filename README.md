@@ -20,3 +20,6 @@ This session is lead by [Xin Xia](https://ki-su-arc.se/staff/xin-xia/). To load 
 workshopr::loop_session_code()
 ```
 
+## Tidyverse session
+
+
