@@ -14,7 +14,7 @@ This workshop focuses on beginner level.  The slides are  [here](https://github.
 This workshop focuses at intermidiate level.
 
 ## Loop session
-This session is lead by [Xin Xia](https://ki-su-arc.se/staff/xin-xia/). To load the example code:
+This session is lead by [Xin Xia](https://ki-su-arc.se/staff/xin-xia/). To load her example code:
 
 ```
 workshopr::loop_session_code()
