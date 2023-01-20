@@ -18,7 +18,7 @@ This workshop focuses at intermidiate level.
 Load her example code:
 
 ```
-workshopr::loop_session_code()
+workshopr::loop_session_2023()
 ```
 
 ## Tidyverse session
