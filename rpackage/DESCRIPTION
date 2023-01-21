@@ -4,7 +4,7 @@ Title: R Workshop at KI
 Version: 0.1.0
 Authors@R: person("Bolin", "Wu", email = "bolin.wu1026@gmail.com",
   role = c("aut", "cre"))
-Description: Provide data and useful functionality for smooth tutorials.
+Description: Provide data and functions for smooth tutorials.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

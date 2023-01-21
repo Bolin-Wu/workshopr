@@ -18,7 +18,7 @@ This workshop focuses at intermidiate level.
 Load her example code:
 
 ```
-workshopr::loop_session_2023()
+workshopr::get_code_2023(session = "loop")
 ```
 
 ## Tidyverse session
@@ -30,6 +30,6 @@ Load the data:
 
 Load example R code:
 ```
-
+workshopr::get_code_2023(session = "tidyverse")
 ```
 
