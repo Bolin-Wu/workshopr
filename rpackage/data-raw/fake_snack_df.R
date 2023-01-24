@@ -13,6 +13,7 @@ label_names <- get_label(fake_snack_df)
 fake_snack_df <- fake_snack_df %>%
   mutate(across(where(is.numeric), ~ rnorm(n = length(.)))) %>%
   mutate(across(where(is.Date), ~ sample(seq(as.Date("1700/01/01"), as.Date("1850/01/01"), by = "day"), size = length(.)))) %>%
+  mutate(Lopnr = sample.int(nrow(fake_snack_df))) %>%
   set_label(label = label_names)
 
 

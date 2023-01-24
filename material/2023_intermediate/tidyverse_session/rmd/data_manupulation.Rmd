@@ -16,10 +16,18 @@ output:
     
 ---
 
-```{r setup, include=FALSE}
-# By default, all codes are hidden. 
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, include = FALSE)
-library(haven)
+```{r setup, include=FALSE, purl=FALSE}
+# Default chunk settings
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, include = TRUE)
+```
+
+```{r}
+# run the install command if did not do it before
+# install.packages('remotes')
+# remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
+
+# load the package
+library(workshopr)
 library(tidyverse)
 library(here)
 ```
@@ -30,14 +38,112 @@ This document is share useful data manipulation skills at daily epidemiology wor
 
 The content includes:
 
+* transform data shape 
+* get the label from DTA and SPSS in R
 * assign function
 * apply, lapply, sapply
 * filter variables based on name pattern
 * check missing values
 * bin variables by percentiles
-* transform data shape 
 
 
-## Analysis
+# Transform data shape
+Transform data shape for many people, including me, sounds troublesome. Within the R world, its relevant functions are evolving overtime as well.
 
-## Conclusions
+In the beginning, I used [spread](https://tidyr.tidyverse.org/reference/spread.html) and [gather](https://tidyr.tidyverse.org/reference/gather.html).  Every time I use `spread` and `gather`, it takes me a while to figure out how to fill in 'key' and 'value'. But as you can see from their documentation, their 'lifecycle' is 'superseded'.
+
+Now I only use `pivot_longer` and `pivot_wider` for transforming data. You can find their comprehensive documentation [here](https://tidyr.tidyverse.org/articles/pivot.html). They come with better documentation, more powerful application, and better integration with tidyverse syntax.
+
+## Example
+
+Let's assumme we received a wide format data:
+
+```{r check data}
+head(fake_snack_df)
+```
+
+The column names are:
+
+```{r check column names}
+sort(colnames(fake_snack_df))
+```
+
+Now, assume for some reason, e.g. merge it with other data set, we want to transform it in a long format. There are two variables should be formated: 'Date' and 'dementia'. For beginners, I would recommend to start small. 
+
+* Select the interested columns
+
+```{r start small}
+fake_snack_df %>% 
+  select(contains("Date"))
+```
+
+* Read documentation, try to fill in the arguments. The 3 basic arguments are:
+  * `cols` tells R what variables to pivot.
+  * `names_to` defines a new name for columns in `cols`. 
+  * `values_to` gives a new name for values under the columns in `cols`.
+  
+Let's give a first try:
+
+  
+```{r pivot date}
+
+# check pivot_longer() documentation in R: ?pivot_longer()
+fake_snack_df %>% 
+  select(Lopnr,contains("Date")) %>% 
+  pivot_longer(cols = contains("Date"),
+               names_to = "wave", names_prefix = "Date",
+               values_to = "date")
+```
+
+The result above looks good, but 'wave' looks a bit strange. I will leave the task to audience to fix this column.
+
+
+* Do the same with 'dementia' columns
+
+```{r}
+fake_snack_df %>% 
+  select(Lopnr,contains("dementia")) %>% 
+  pivot_longer(cols = contains("dementia"),
+               names_to = "wave", names_prefix = "dementia",
+               values_to = "dementia")
+```
+
+
+
+
+## Task 
+1. Change the arguments in the pivot_longer function to get proper wave column. Result example:
+```{r, echo=FALSE, purl=FALSE}
+# answer 
+fake_snack_df %>% 
+  select(Lopnr,contains("Date")) %>% 
+  pivot_longer(cols = contains("Date"),
+               names_to = "wave", names_prefix = "Date_wave",
+               values_to = "date")
+```
+2. Merge the two long pivot dataset together.
+3. Optional: Pivot the original 'fake_snack_df' by using only one `pivot_longer` function. Put wave and date after 'Lopnr' column. *Hint: check the `names_to` argument and `relocate()` function*. Result example:
+
+```{r, echo=FALSE, purl=FALSE}
+# answer 
+fake_snack_df %>% 
+  pivot_longer(contains("wave"),
+    names_to = c(".value", "wave"),
+    names_sep = "_",
+    values_drop_na = TRUE
+  ) %>%
+  relocate(wave:Date, .after = Lopnr)
+```
+
+
+```{r, include=FALSE, eval=FALSE, purl=FALSE}
+
+pkg_path = "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/rpackage/inst/templates/rscript"
+
+knitr::purl('rmd/data_manupulation.Rmd', output = here('R','tidyverse_2023.R'),
+            documentation = 1)
+
+knitr::purl('rmd/data_manupulation.Rmd', output = paste0(pkg_path, '/tidyverse_2023.R'),
+            documentation = 1)
+```
+
