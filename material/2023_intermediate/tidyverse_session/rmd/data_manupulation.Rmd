@@ -1,0 +1,43 @@
+---
+title: "Data manupulation in R"
+author:
+  - name: "Bolin Wu"
+    affiliation: "KI"
+date: '2023-01-24 (updated: `r Sys.Date()`) '
+output:
+  rmdformats::downcute:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: false
+    highlight: tango
+    df_print: paged
+    
+    
+---
+
+```{r setup, include=FALSE}
+# By default, all codes are hidden. 
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, include = FALSE)
+library(haven)
+library(tidyverse)
+library(here)
+```
+
+## Introduction
+
+This document is share useful data manipulation skills at daily epidemiology work. My main goal is to follow the "dont't repeat yourself" (DRY) principle. It can make our code more readable and reduce our chance of making mistakes.
+
+The content includes:
+
+* assign function
+* apply, lapply, sapply
+* filter variables based on name pattern
+* check missing values
+* bin variables by percentiles
+* transform data shape 
+
+
+## Analysis
+
+## Conclusions

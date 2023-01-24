@@ -3,9 +3,9 @@
 \docType{data}
 \name{paquid_cov}
 \alias{paquid_cov}
-\title{paquid: physical covariance}
+\title{paquid: factors of cognition decrease}
 \format{
-Data frame with columns
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2250 rows and 7 columns.
 }
 \source{
 \url{https://www.rdocumentation.org/packages/lcmm/versions/1.8.1.1/topics/paquid}
@@ -14,12 +14,13 @@ Data frame with columns
 paquid_cov
 }
 \description{
-Can use this data to check the covariance of physical funciton decrease in paquid funciton.
+Factors of cognition decrease in paquid dataset.
 }
 \examples{
+\dontrun{
   # load data
-  paquid_cov
-
+  workshopr::paquid_cov
+}
 
 }
 \keyword{datasets}

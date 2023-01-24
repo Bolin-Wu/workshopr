@@ -23,19 +23,25 @@ get_code_2023 <-
     }
 
     # create a folder for Rmd
-    message("Create folder 'R_example_code'")
-    dir.create("R_example_code", showWarnings = FALSE)
+    subDir <- "R_example_code"
+    if (dir.exists(subDir)) {
+      message("'R_example_code' folder already exists.")
+    } else {
+      message("Create folder 'R_example_code'.")
+      dir.create(subDir, showWarnings = FALSE)
+    }
+
 
     # usethis::use_package("usethis")
     if (session == "loop") {
-      usethis::use_template("workshop_xinxia2023.R",
-        save_as = paste0("R_example_code/", "workshop_xinxia2023.R"),
+      usethis::use_template("rscript/workshop_xinxia2023.R",
+        save_as = paste0(subDir, "/workshop_xinxia2023.R"),
         data = list(),
         package = "workshopr", ..., open = open
       )
     } else if (session == "tidyverse") {
-      usethis::use_template("tidyverse_2023.R",
-        save_as = paste0("R_example_code/", "tidyverse_2023.R"),
+      usethis::use_template("rscript/tidyverse_2023.R",
+        save_as = paste0(subDir, "/tidyverse_2023.R"),
         data = list(),
         package = "workshopr", ..., open = open
       )

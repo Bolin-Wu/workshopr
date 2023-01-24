@@ -3,7 +3,7 @@
 \docType{data}
 \name{paquid_cog}
 \alias{paquid_cog}
-\title{paquid: cognitive functions}
+\title{paquid: cognitive measures}
 \format{
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2250 rows and 8 columns.
 }
@@ -14,10 +14,12 @@ An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) w
 paquid_cog
 }
 \description{
-Can use this data to check the cognitive funciton in paquid dataset.
+Measures of cognition related variables.
 }
 \examples{
+\dontrun{
   # load data
   paquid_cog
+  }
 }
 \keyword{datasets}
