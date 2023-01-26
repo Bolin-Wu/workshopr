@@ -1,6 +1,6 @@
 ---
 title: "R workshop"
-subtitle: "Data manupulation & R markdown"
+subtitle: "Data manupulation & Rmarkdown"
 author: "Bolin Wu"
 institute: "NEAR, Aging Research Center"
 date: "2023/01/26 (updated: `r Sys.Date()`)"
@@ -9,7 +9,7 @@ output:
     css: [default, ki, ki-fonts]
     lib_dir: libs
     nature:
-      highlightStyle: arta
+      # highlightStyle: github
       highlightLines: true
       contIncrementalSlides: false
     # chakra: libs/remark-latest.min.js
@@ -33,18 +33,18 @@ class: center, middle
 ---
 
 
-# Introduction
+## Introduction
 
 
-## Install the `workshopr` package
+### Install the `workshopr` package
 
 ```{r, eval=FALSE}
 # run the install command if did not do it before
-install.packages('remotes')
+install.packages("remotes")
 remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
 ```
 
-## Load the package 
+### Load the package 
 ```{r}
 library(workshopr)
 library(tidyverse)
@@ -190,3 +190,15 @@ class: center, middle
 ## Basics and daily work uses
 
 ---
+
+
+
+---
+
+```{r, include=FALSE, eval=TRUE}
+# transfer xaringan HTML to PDF:
+
+# remotes::install_github('rstudio/pagedown', force = TRUE)
+pagedown::chrome_print('index.html')
+```
+

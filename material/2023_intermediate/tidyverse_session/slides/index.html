@@ -17,7 +17,7 @@ class: center, middle, inverse, title-slide
 # R workshop
 ]
 .subtitle[
-## Data manupulation &amp; R markdown
+## Data manupulation &amp; Rmarkdown
 ]
 .author[
 ### Bolin Wu
@@ -44,74 +44,19 @@ class: center, middle
 ---
 
 
-# Introduction
+## Introduction
 
 
-## Install the `workshopr` package
+### Install the `workshopr` package
 
 
 ```r
 # run the install command if did not do it before
-install.packages('remotes')
-```
-
-```
-## The following package(s) are missing their DESCRIPTION files:
-## 
-## 	workshopr [C:/local_KI/personal/personal_development/workshopr/workshopr/material/2023_intermediate/tidyverse_session/slides/renv/library/R-4.1/x86_64-w64-mingw32/workshopr]
-## 
-## These may be left over from a prior, failed installation attempt.
-## Consider removing or reinstalling these packages.
-## 
-## Installing remotes [2.4.2] ...
-## 	OK [linked cache]
-```
-
-```r
+install.packages("remotes")
 remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
 ```
 
-```
-## Downloading GitHub repo Bolin-Wu/workshopr@HEAD
-```
-
-```
-## Warning in untar2(tarfile, files, list, exdir, restore_times): skipping
-## pax global extended headers
-
-## Warning in untar2(tarfile, files, list, exdir, restore_times): skipping
-## pax global extended headers
-```
-
-```
-## These packages have more recent versions available.
-## It is recommended to update all of them.
-## Which would you like to update?
-## 
-## 1: All                       
-## 2: CRAN packages only        
-## 3: None                      
-## 4: fs (1.5.2 -&gt; 1.6.0) [CRAN]
-```
-
-```
-## Running `R CMD build`...
-```
-
-```
-## * checking for file 'C:\Users\bolin.wu\AppData\Local\Temp\RtmpKC0tte\remotes899428411032\Bolin-Wu-workshopr-ad07294\rpackage/DESCRIPTION' ... OK
-## * preparing 'workshopr':
-## * checking DESCRIPTION meta-information ... OK
-## * checking for LF line-endings in source and make files and shell scripts
-## * checking for empty or unneeded directories
-## * building 'workshopr_0.1.0.tar.gz'
-```
-
-```
-## Warning: package 'workshopr' is in use and will not be installed
-```
-
-## Load the package 
+### Load the package 
 
 ```r
 library(workshopr)
@@ -119,7 +64,9 @@ library(tidyverse)
 library(here)
 ```
 
-This document is share useful data manipulation skills at daily epidemiology work. My main goal is to follow the "dont't repeat yourself" (DRY) principle. It can make our code more readable and reduce our chance of making mistakes.
+---
+
+This session is share useful data manipulation skills at daily epidemiology work. My main goal is to follow the "dont't repeat yourself" (DRY) principle. It can make our code more readable and reduce our chance of making mistakes.
 
 The content includes:
 
@@ -135,6 +82,8 @@ The content includes:
 
 # Transform data shape
 Transform data shape for many people, including me, sounds troublesome. Within the R world, its relevant functions are evolving overtime as well.
+
+--
 
 In the beginning, I used [spread](https://tidyr.tidyverse.org/reference/spread.html) and [gather](https://tidyr.tidyverse.org/reference/gather.html).  Every time I use `spread` and `gather`, it takes me a while to figure out how to fill in 'key' and 'value'. But as you can see from their documentation, their 'lifecycle' is 'superseded'.
 
@@ -338,7 +287,6 @@ class: center, middle
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "arta",
 "highlightLines": true,
 "contIncrementalSlides": false
 });
