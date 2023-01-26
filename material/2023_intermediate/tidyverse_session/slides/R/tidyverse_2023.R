@@ -1,4 +1,4 @@
-## ---------------------------------------------------------------------
+## ----------------------------------------------------------------------
 # run the install command if did not do it before
 # install.packages('remotes')
 # remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
@@ -9,20 +9,20 @@ library(tidyverse)
 library(here)
 
 
-## ----check data-------------------------------------------------------
+## ----check data--------------------------------------------------------
 head(fake_snack_df)
 
 
-## ----check column names-----------------------------------------------
+## ----check column names------------------------------------------------
 sort(colnames(fake_snack_df))
 
 
-## ----start small------------------------------------------------------
+## ----start small-------------------------------------------------------
 fake_snack_df %>% 
   select(contains("Date"))
 
 
-## ----pivot date-------------------------------------------------------
+## ----pivot date--------------------------------------------------------
 
 # check pivot_longer() documentation in R: ?pivot_longer()
 fake_snack_df %>% 
@@ -32,7 +32,7 @@ fake_snack_df %>%
                values_to = "date")
 
 
-## ---------------------------------------------------------------------
+## ----------------------------------------------------------------------
 fake_snack_df %>% 
   select(Lopnr,contains("dementia")) %>% 
   pivot_longer(cols = contains("dementia"),

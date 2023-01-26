@@ -23,56 +23,75 @@ options(
 )
 ```
 
+
+
+---
+## `workshopr` package
+
+### Install
+
+```{r, eval=FALSE}
+install.packages("remotes")
+remotes::install_github("Bolin-Wu/workshopr",
+  subdir = "rpackage",
+  force = TRUE
+)
+```
+
+### Load
+```{r, message=FALSE}
+library(workshopr)
+library(tidyverse)
+```
+
 ---
 class: center, middle
 
 # Data manupulation
 
-### assign, tidyverse
+### tidyverse, assign
 
 ---
-
-
 ## Introduction
 
+This session is to share useful data manipulation skills at daily epidemiology work. My main goal is to follow the "don't repeat yourself" (DRY) principle. 
 
-### Install the `workshopr` package
-
-```{r, eval=FALSE}
-# run the install command if did not do it before
-install.packages("remotes")
-remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
-```
-
-### Load the package 
-```{r}
-library(workshopr)
-library(tidyverse)
-library(here)
-```
-
+It can make our code more readable and reduce our chance of making mistakes.
 ---
 
-This session is share useful data manipulation skills at daily epidemiology work. My main goal is to follow the "dont't repeat yourself" (DRY) principle. It can make our code more readable and reduce our chance of making mistakes.
+## Content
 
-The content includes:
+- %>% syntax
+- transform data shape 
+- get the label from DTA and SPSS in R
+- filter variables based on name pattern
+- check missing values
+- bin variables by percentiles
+- assign function
 
-* transform data shape 
-* get the label from DTA and SPSS in R
-* assign function
-* apply, lapply, sapply
-* filter variables based on name pattern
-* check missing values
-* bin variables by percentiles
+???
 
+For example, change a variable name in the code, but forget to change other places
 ---
 
-# Transform data shape
-Transform data shape for many people, including me, sounds troublesome. Within the R world, its relevant functions are evolving overtime as well.
+## Tidyverse
+
+[Tidyverse](https://www.tidyverse.org/packages/) is a huge umbrella which includes several useful visualization and data manipulation package.
+
+
+We have to 
+
+Beautiful syntax with pipeline, just like playing LEGO.
+
+![](pic/legos.jpg)
+
+---
+## Transform data shape
+Transform data shape for many people, including me, sounds troublesome. In R, its relevant functions are evolving overtime as well.
 
 --
 
-In the beginning, I used [spread](https://tidyr.tidyverse.org/reference/spread.html) and [gather](https://tidyr.tidyverse.org/reference/gather.html).  Every time I use `spread` and `gather`, it takes me a while to figure out how to fill in 'key' and 'value'. But as you can see from their documentation, their 'lifecycle' is 'superseded'.
+In the beginning (2019), I used [spread](https://tidyr.tidyverse.org/reference/spread.html) and [gather](https://tidyr.tidyverse.org/reference/gather.html).  Every time I use `spread` and `gather`, it takes me a while to figure out how to fill in 'key' and 'value'. But as you can see from their documentation, their 'lifecycle' is 'superseded'.
 
 ---
 
@@ -165,20 +184,6 @@ fake_snack_df %>%
 ```
 
 
-```{r, include=FALSE, eval=FALSE, purl=FALSE}
-pkg_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/rpackage/inst/templates/rscript"
-
-knitr::purl("rmd/data_manupulation.Rmd",
-  output = here("R", "tidyverse_2023.R"),
-  documentation = 1
-)
-
-knitr::purl("rmd/data_manupulation.Rmd",
-  output = paste0(pkg_path, "/tidyverse_2023.R"),
-  documentation = 1
-)
-```
-
 
 
 
@@ -199,6 +204,21 @@ class: center, middle
 # transfer xaringan HTML to PDF:
 
 # remotes::install_github('rstudio/pagedown', force = TRUE)
-pagedown::chrome_print('index.html')
+pagedown::chrome_print("index.html")
+```
+
+
+```{r, include=FALSE, eval=FALSE, purl=FALSE}
+pkg_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/rpackage/inst/templates/rscript"
+
+knitr::purl("rmd/data_manupulation.Rmd",
+  output = here("R", "tidyverse_2023.R"),
+  documentation = 1
+)
+
+knitr::purl("rmd/data_manupulation.Rmd",
+  output = paste0(pkg_path, "/tidyverse_2023.R"),
+  documentation = 1
+)
 ```
 
