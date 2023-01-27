@@ -1,5 +1,5 @@
 # Introduction to R workshop
-Welcome to the Github repo for the R workshop in KI. This repo contains all necessary material and information for the course.
+Welcome to the Github repo for the R workshop in KI. This repo contains all necessary material and information for the workshop.
 
 # R package
 The workshop has its own R package `workshopr`. Please see [here](https://github.com/Bolin-Wu/workshopr/tree/main/rpackage) for installation and useage.
