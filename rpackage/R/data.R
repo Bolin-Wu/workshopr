@@ -1,30 +1,3 @@
-#' paquid: factors of cognition decrease
-#'
-#' Factors of cognition decrease in paquid dataset.
-#'
-#' @source \url{https://www.rdocumentation.org/packages/lcmm/versions/1.8.1.1/topics/paquid}
-#' @examples
-#' \dontrun{
-#'   # load data
-#'   workshopr::paquid_cov
-#'}
-#'
-"paquid_cov"
-
-#' paquid: cognitive measures
-#'
-#' Measures of cognition related variables.
-#'
-#' @source \url{https://www.rdocumentation.org/packages/lcmm/versions/1.8.1.1/topics/paquid}
-#'
-#' @examples
-#' \dontrun{
-#'   # load data
-#'   paquid_cog
-#'   }
-"paquid_cog"
-
-
 #' Fake SNAC-K data
 #'
 #' A randomized SNAC-K data set, with metadata preserved.

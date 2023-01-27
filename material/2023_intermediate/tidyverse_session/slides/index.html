@@ -26,13 +26,33 @@ class: center, middle, inverse, title-slide
 ### NEAR, Aging Research Center
 ]
 .date[
-### 2023/01/26 (updated: 2023-01-26)
+### 2023/01/26 (updated: 2023-01-27)
 ]
 
 ---
 
 
 
+
+---
+
+## About me 
+
+.pull-left[
+
+![](https://ki-su-arc.se/wp-content/uploads/2021/10/Bolin-Wu_foto-Maria-Yohuang-200x300.jpg)
+] 
+
+.pull-left[
+
+- MSc in Statistics, Uppsala University.
+- Statistician at [NEAR](https://www.near-aging.se/), KI.
+- Interests: 
+  - R package dev
+  - Statistics
+  - Data manipulation
+  - guitar
+]
 
 
 
@@ -41,7 +61,6 @@ class: center, middle, inverse, title-slide
 
 ### Install
 
-
 ```r
 install.packages("remotes")
 remotes::install_github("Bolin-Wu/workshopr",
@@ -49,6 +68,7 @@ remotes::install_github("Bolin-Wu/workshopr",
   force = TRUE
 )
 ```
+
 
 ### Load
 
@@ -89,10 +109,15 @@ For example, change a variable name in the code, but forget to change other plac
 
 ## Tidyverse
 
-[Tidyverse](https://www.tidyverse.org/packages/) is a huge umbrella which includes several useful visualization and data manipulation package.
+
+Many times we just `library(tidyverse)`, but [Tidyverse](https://www.tidyverse.org/packages/) is a huge umbrella consists of several powerful visualization and data manipulation package. For example:
+
+- [magrittr](https://magrittr.tidyverse.org/): pipeline operator `%&gt;%`.
+- [ggplot2](https://ggplot2.tidyverse.org/): `ggplot()`.
+- [dplyr](https://dplyr.tidyverse.org/): `select(), filter(), mutate()`
 
 
-We have to 
+---
 
 Beautiful syntax with pipeline, just like playing LEGO.
 

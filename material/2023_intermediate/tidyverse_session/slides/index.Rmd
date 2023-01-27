@@ -23,13 +23,32 @@ options(
 )
 ```
 
+---
+
+## About me 
+
+.pull-left[
+
+![](https://ki-su-arc.se/wp-content/uploads/2021/10/Bolin-Wu_foto-Maria-Yohuang-200x300.jpg)
+] 
+
+.pull-left[
+
+- MSc in Statistics, Uppsala University.
+- Statistician at [NEAR](https://www.near-aging.se/), KI.
+- Interests: 
+  - R package dev
+  - Statistics
+  - Data manipulation
+  - guitar
+]
+
 
 
 ---
 ## `workshopr` package
 
 ### Install
-
 ```{r, eval=FALSE}
 install.packages("remotes")
 remotes::install_github("Bolin-Wu/workshopr",
@@ -37,6 +56,7 @@ remotes::install_github("Bolin-Wu/workshopr",
   force = TRUE
 )
 ```
+
 
 ### Load
 ```{r, message=FALSE}
@@ -76,10 +96,15 @@ For example, change a variable name in the code, but forget to change other plac
 
 ## Tidyverse
 
-[Tidyverse](https://www.tidyverse.org/packages/) is a huge umbrella which includes several useful visualization and data manipulation package.
+
+Many times we just `library(tidyverse)`, but [Tidyverse](https://www.tidyverse.org/packages/) is a huge umbrella consists of several powerful visualization and data manipulation package. For example:
+
+- [magrittr](https://magrittr.tidyverse.org/): pipeline operator `%>%`.
+- [ggplot2](https://ggplot2.tidyverse.org/): `ggplot()`.
+- [dplyr](https://dplyr.tidyverse.org/): `select(), filter(), mutate()`
 
 
-We have to 
+---
 
 Beautiful syntax with pipeline, just like playing LEGO.
 
@@ -201,24 +226,24 @@ class: center, middle
 ---
 
 ```{r, include=FALSE, eval=TRUE}
-# transfer xaringan HTML to PDF:
-
 # remotes::install_github('rstudio/pagedown', force = TRUE)
-pagedown::chrome_print("index.html")
+# pagedown::chrome_print("index.html")
+# renderthis::to_pdf("index.html")
+# pagedown::chrome_print("index.Rmd")
 ```
 
 
 ```{r, include=FALSE, eval=FALSE, purl=FALSE}
-pkg_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/rpackage/inst/templates/rscript"
+# pkg_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/rpackage/inst/templates/rscript"
 
-knitr::purl("rmd/data_manupulation.Rmd",
-  output = here("R", "tidyverse_2023.R"),
-  documentation = 1
-)
-
-knitr::purl("rmd/data_manupulation.Rmd",
-  output = paste0(pkg_path, "/tidyverse_2023.R"),
-  documentation = 1
-)
+# knitr::purl("rmd/data_manupulation.Rmd",
+#   output = here("R", "tidyverse_2023.R"),
+#   documentation = 1
+# )
+# 
+# knitr::purl("rmd/data_manupulation.Rmd",
+#   output = paste0(pkg_path, "/tidyverse_2023.R"),
+#   documentation = 1
+# )
 ```
 
