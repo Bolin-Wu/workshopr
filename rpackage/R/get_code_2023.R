@@ -34,13 +34,13 @@ get_code_2023 <-
 
     # usethis::use_package("usethis")
     if (session == "loop") {
-      usethis::use_template("rscript/workshop_xinxia2023.R",
+      use_template("rscript/workshop_xinxia2023.R",
         save_as = paste0(subDir, "/workshop_xinxia2023.R"),
         data = list(),
         package = "workshopr", ..., open = open
       )
     } else if (session == "tidyverse") {
-      usethis::use_template("rscript/tidyverse_2023.R",
+      use_template("rscript/tidyverse_2023.R",
         save_as = paste0(subDir, "/tidyverse_2023.R"),
         data = list(),
         package = "workshopr", ..., open = open
