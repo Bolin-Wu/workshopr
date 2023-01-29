@@ -42,3 +42,8 @@ the data:
 Load example R code:
 
     workshopr::get_code_2023(session = "tidyverse")
+
+## Issues
+
+You can raise bug reports
+[here](https://github.com/Bolin-Wu/workshopr/issues).

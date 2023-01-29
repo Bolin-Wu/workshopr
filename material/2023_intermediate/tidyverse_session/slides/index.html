@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 ### NEAR, Aging Research Center
 ]
 .date[
-### 2023/01/26 (updated: 2023-01-27)
+### 2023/01/26 (updated: 2023-01-29)
 ]
 
 ---
@@ -145,7 +145,7 @@ head(fake_snack_df)
 ```
 
 ```
-## # A tibble: 6 x 15
+## # A tibble: 6 × 15
 ##   Lopnr    sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4
 ##   &lt;int&gt;  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
 ## 1  1284 -1.62  1848-01-16   -1.00   1703-06-26 1807-08-10 1764-12-13
@@ -154,7 +154,7 @@ head(fake_snack_df)
 ## 4  3190  0.682 1803-04-08    0.0943 1829-04-27 1744-02-04 1846-08-24
 ## 5  1103  0.521 1705-06-10    1.37   1734-12-24 1746-03-13 1829-11-30
 ## 6  2193  0.308 1733-11-07    0.771  1794-06-13 1738-06-02 1846-12-28
-## # ... with 8 more variables: Date_wave5 &lt;date&gt;, Date_wave6 &lt;date&gt;,
+## # … with 8 more variables: Date_wave5 &lt;date&gt;, Date_wave6 &lt;date&gt;,
 ## #   dementia_wave1 &lt;dbl&gt;, dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;,
 ## #   dementia_wave4 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
 ```
@@ -167,9 +167,10 @@ sort(colnames(fake_snack_df))
 ```
 
 ```
-##  [1] "Date_wave1"     "Date_wave2"     "Date_wave3"     "Date_wave4"    
-##  [5] "Date_wave5"     "Date_wave6"     "dementia_wave1" "dementia_wave2"
-##  [9] "dementia_wave3" "dementia_wave4" "dementia_wave5" "dementia_wave6"
+##  [1] "Date_wave1"     "Date_wave2"     "Date_wave3"    
+##  [4] "Date_wave4"     "Date_wave5"     "Date_wave6"    
+##  [7] "dementia_wave1" "dementia_wave2" "dementia_wave3"
+## [10] "dementia_wave4" "dementia_wave5" "dementia_wave6"
 ## [13] "education"      "Lopnr"          "sex"
 ```
 
@@ -184,7 +185,7 @@ fake_snack_df %&gt;%
 ```
 
 ```
-## # A tibble: 3,365 x 6
+## # A tibble: 3,365 × 6
 ##    Date_wave1 Date_wave2 Date_wave3 Date_wave4 Date_wave5 Date_wave6
 ##    &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
 ##  1 1848-01-16 1703-06-26 1807-08-10 1764-12-13 1774-04-04 1739-04-12
@@ -197,7 +198,7 @@ fake_snack_df %&gt;%
 ##  8 1768-04-16 1704-10-02 1773-10-25 1804-09-12 1722-06-18 1778-08-29
 ##  9 1810-02-09 1848-05-22 1812-01-08 1730-03-15 1719-02-22 1790-11-14
 ## 10 1722-08-02 1786-01-17 1845-01-13 1762-03-06 1778-01-19 1785-12-05
-## # ... with 3,355 more rows
+## # … with 3,355 more rows
 ```
 
 * Read documentation, try to fill in the arguments. The 3 basic arguments are:
@@ -221,7 +222,7 @@ fake_snack_df %&gt;%
 ```
 
 ```
-## # A tibble: 20,190 x 3
+## # A tibble: 20,190 × 3
 ##    Lopnr wave   date      
 ##    &lt;int&gt; &lt;chr&gt;  &lt;date&gt;    
 ##  1  1284 _wave1 1848-01-16
@@ -234,7 +235,7 @@ fake_snack_df %&gt;%
 ##  8  2013 _wave2 1785-09-24
 ##  9  2013 _wave3 1811-08-26
 ## 10  2013 _wave4 1812-05-24
-## # ... with 20,180 more rows
+## # … with 20,180 more rows
 ```
 
 The result above looks good, but 'wave' looks a bit strange. I will leave the task to audience to fix this column.
@@ -254,7 +255,7 @@ fake_snack_df %&gt;%
 ```
 
 ```
-## # A tibble: 20,190 x 3
+## # A tibble: 20,190 × 3
 ##    Lopnr wave   dementia
 ##    &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
 ##  1  1284 _wave1   -0.246
@@ -267,7 +268,7 @@ fake_snack_df %&gt;%
 ##  8  2013 _wave2    0.832
 ##  9  2013 _wave3   -0.824
 ## 10  2013 _wave4    2.37 
-## # ... with 20,180 more rows
+## # … with 20,180 more rows
 ```
 
 
@@ -277,7 +278,7 @@ fake_snack_df %&gt;%
 1. Change the arguments in the pivot_longer function to get proper wave column. Result example:
 
 ```
-## # A tibble: 20,190 x 3
+## # A tibble: 20,190 × 3
 ##    Lopnr wave  date      
 ##    &lt;int&gt; &lt;chr&gt; &lt;date&gt;    
 ##  1  1284 1     1848-01-16
@@ -290,14 +291,14 @@ fake_snack_df %&gt;%
 ##  8  2013 2     1785-09-24
 ##  9  2013 3     1811-08-26
 ## 10  2013 4     1812-05-24
-## # ... with 20,180 more rows
+## # … with 20,180 more rows
 ```
 2. Merge the two long pivot dataset together.
 3. Optional: Pivot the original 'fake_snack_df' by using only one `pivot_longer` function. Put wave and date after 'Lopnr' column. *Hint: check the `names_to` argument and `relocate()` function*. Result example:
 
 
 ```
-## # A tibble: 20,190 x 6
+## # A tibble: 20,190 × 6
 ##    Lopnr wave  Date          sex education dementia
 ##    &lt;int&gt; &lt;chr&gt; &lt;date&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 ##  1  1284 wave1 1848-01-16 -1.62     -1.00    -0.246
@@ -310,7 +311,7 @@ fake_snack_df %&gt;%
 ##  8  2013 wave2 1785-09-24  0.384     0.883    0.832
 ##  9  2013 wave3 1811-08-26  0.384     0.883   -0.824
 ## 10  2013 wave4 1812-05-24  0.384     0.883    2.37 
-## # ... with 20,180 more rows
+## # … with 20,180 more rows
 ```
 
 
