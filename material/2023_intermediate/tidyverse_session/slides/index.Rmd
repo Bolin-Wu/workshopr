@@ -18,8 +18,8 @@ output:
 
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```{r setup, include=FALSE, purl=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA, purl = TRUE)
 options(
   htmltools.dir.version = FALSE,
   htmltools.preserve.raw = FALSE
@@ -52,7 +52,7 @@ options(
 ## `workshopr` package
 
 ### Install
-```{r, eval=FALSE}
+```{r install package, eval=FALSE}
 install.packages("remotes")
 remotes::install_github("Bolin-Wu/workshopr",
   subdir = "rpackage",
@@ -62,7 +62,7 @@ remotes::install_github("Bolin-Wu/workshopr",
 
 
 ### Load
-```{r, message=FALSE}
+```{r load package, message=FALSE}
 library(workshopr)
 library(tidyverse)
 ```
@@ -81,25 +81,40 @@ This session is to share useful data manipulation skills at daily epidemiology w
 
 It can make our code more readable and reduce our chance of making mistakes.
 
+--
+
 *Note: Data frames may seem to be unfit in the slides. I do not user any html widges since the code will be pulled out for tutorial purpose. Attendants can run the code on their on machine instead to get better view.*
----
 
-## Content
-
-Based on real work scenario:
-
-- %>% syntax
-- join data frames (*join function*)
-- transform data shape (*pivot_longer*)
-- filter variables based on name pattern (*select*)
-- get the label from DTA and SPSS in R (*filter*)
-- check missing values 
-- bin variables by percentiles
-- assign function
 
 ???
 
 For example, change a variable name in the code, but forget to change other places
+
+---
+
+## Content
+
+The content is selected based on data manipulation in real work scenario.
+
+I hope by the end of the workshop, you will have them in your toolbox:
+
+- %>% syntax
+- **join** data frames (*join function*)
+- **transform** data shape (*pivot_longer*)
+- **filter** variables based on name pattern (*select*)
+- **extract** the label from DTA and SPSS in R (*filter*)
+- **check** missing values (*summarise & across*)
+- **mutate data** based on column types (*mutate & across*)
+- **bin** variables by percentiles (*cut*)
+- **assign** function
+
+---
+
+background-image: url(https://1.bp.blogspot.com/-UHpM76ze7Dk/YFVs4iGMWuI/AAAAAAAAA0s/3EpcYcl-PLce7rcdcD4YOUXntpdUbc3aACLcBGAsYHQ/s16000/7b5f79a7e88560bb863c6bc8bcfb7146.jpg)
+
+.footnote[picture credit: https://www.redarmy.in/]
+
+
 ---
 
 # Tidyverse
@@ -110,6 +125,8 @@ Many times we just `library(tidyverse)`. Actually [Tidyverse](https://www.tidyve
 - [magrittr](https://magrittr.tidyverse.org/): pipeline operator `%>%`.
 - [ggplot2](https://ggplot2.tidyverse.org/): `ggplot()`.
 - [dplyr](https://dplyr.tidyverse.org/): `select(), filter(), mutate()`
+
+--
 
 ### Notes
 
@@ -140,7 +157,7 @@ fake_snack_df %>%
 
 ---
 
-In addition, filter on the date column
+- In addition, filter on the date column
 
 ```{r continue example}
 fake_snack_df %>%
@@ -151,7 +168,7 @@ fake_snack_df %>%
 
 --
 
-You can further stacking group, filter, mutate, etc., with the pipeline operator.
+- You can further stacking group, filter, mutate, etc., with the pipeline operator.
 
 ???
 This syntax makes data manupulation convenient and easy to read.
@@ -167,7 +184,7 @@ This syntax makes data manupulation convenient and easy to read.
 
 ---
 
-Take `left_join()` as an example: 
+- Take `left_join()` as an example: 
 
 ```{r}
 # From  `dplyr` documentation:
@@ -323,9 +340,7 @@ fake_snack_df %>%
 
 - Merge the two long pivot data sets together. 
 
-
-???
-Consider: is it enough to only join on one column? Why or why not?
+*Consider: is it enough to only join on one column? Why or why not?*
 
 ---
 
@@ -405,11 +420,11 @@ I can show to test it in the online test website.
 
 ## Get labels from datasets
 
-When we get SPSS or STATA data sets, usually they come with labels. E.g. in SPSS, one can check them in the "Variable View" tab. 
+- When we get SPSS or STATA data sets, usually they come with labels. E.g. in SPSS, one can check them in the "Variable View" tab. 
 
 --
 
-In R, one can use `view()` function. In the example data, we have:
+- In R, one can use `view()` function. In the example data, we have:
 
 ```{r, eval=FALSE}
 view(fake_snack_df)
@@ -420,7 +435,12 @@ view(fake_snack_df)
 
 --
 
-A natural thing to consider is to extract label information in the data frame form.
+- A natural question to ask: how to extract the labels in R?
+
+???
+This can be useful when you got hundreds of variables in a file.
+
+There's one project has 200+ variables, I need to select the variables related to smoking.
 
 
 ---
@@ -475,44 +495,18 @@ label_df %>%
 ```
 
 
-???
-This can be useful when you got hundreds of variables in a file.
-
-There's one project has 200+ variables, I need to select the variables related to smoking.
 
 ---
 
 ## Missing values
 
-- Generate missing values in date columns
-
-```{r}
-
-miss_date_df <- missMethods::delete_MCAR(fake_snack_df,
-  p = seq(0.1, 0.8, length.out = length(fake_snack_df)))
-```
-
---
-
-
-- A quick question: what if you want to select the numeric columns?
-
-
----
-```{r}
-head(miss_date_df)
-```
-
-
-
----
 
 ### Count the NA
 
 - If count the NA of one column. It could something like:
 
 ```{r}
-sum(is.na(miss_date_df$Date_wave1))
+sum(is.na(fake_snack_df$Date_wave1))
 ```
 --
 
@@ -523,25 +517,124 @@ sum(is.na(miss_date_df$Date_wave1))
 ### Count NA in multiple columns
 
 ```{r Count NA in multiple columns}
-miss_date_df %>%
+fake_snack_df %>%
   summarise(across(
     where(lubridate::is.Date),
     ~ sum(is.na(.))
   ))
 ```
 
+- You may wonder: what is this `~ sum(is.na(.))`?
 
 --
 
-- One can also use `colSums(is.na(miss_date_df))`. 
+- It is a purrr-style [lambda function](https://en.wikipedia.org/wiki/Anonymous_function).
+
+???
+The wikipedia explanation is not straight-forward. My personal comprehension is that lambda function is any function you defined by yourself, which usually can not be found as a standard function like mean or sd.
+
+--
+
+- One can also use `colSums(is.na(fake_snack_df))`. 
+
+???
+Explain why I prefer the pipeline version
+
 
 ---
 
-## Missing value exercise (5 min)
+## Missing value exercise (5 - 10 min)
 
 - Read the documentation of `across()` function.
-- Count the NA of all numeric columns.
+- Count the NA of all numeric/int columns.
+- Count the NA of columns contains certain strings, e.g. 'edu'
 
+*Example result*
+
+```{r missing value exercise result, echo=FALSE, purl=FALSE}
+fake_snack_df %>%
+  summarise(across(
+    where(is.numeric),
+    ~ sum(is.na(.))
+  ))
+
+fake_snack_df %>%
+  summarise(across(
+    contains('edu'),
+    ~ sum(is.na(.))
+  ))
+
+```
+
+---
+
+## Mutation based on column type
+
+- Now you should have some understanding of `where()` function. 
+
+--
+
+- When you apply it with `mutate()` function, you can do many manipulations. E.g. round the digits of numeric columns.
+
+--
+
+```{r}
+fake_snack_df %>%
+  mutate(across(is.numeric, ~ round(., digits = 2)))
+```
+
+???
+This I often use for data visualization.
+
+---
+
+## Bin variables
+
+--
+
+- `cut()` function can do the work for us easily, it accommodates well with pipeline syntax.
+
+--
+
+- For example, if we want to bin the education variable.
+
+```{r}
+fake_snack_df %>%
+  transmute(education, edu_bin = cut(education,
+    breaks = 3,
+    labels = c("low", "medium", "high")
+  ))
+```
+
+
+
+---
+
+### Assign function
+
+I would like to spend some time introduce `assign()` function in R. 
+
+--
+
+- Even though it is not part of `tidyverse` family. But it is really useful! For example, when you bulk import databases into R environment; or you want to bulk change the imported data frame names.
+
+--
+
+- A simple example (run in your R studio):
+
+```{r, eval=FALSE}
+df_names <- c()
+set.seed(2023)
+for (i in 1:4) {
+  df_names[i] <- paste0("edu_", i)
+  assign(df_names[i], sample.int(3, 10, replace = T))
+  # print the result
+  cat(
+    "The df name is: ", df_names[i], "\n",
+    "its value is: ", get(df_names[i]), "\n"
+  )
+}
+```
 
 
 
@@ -554,13 +647,45 @@ class: center, middle
 
 ---
 
+## Introduction
+
+- A complete Rmarkdown documentation could be found [here](https://rmarkdown.rstudio.com/lesson-2.html).
+--
+
+- My understanding is: 
+
+**Rmarkdown = markdown + yaml heading + code chunk options.**
 
 
 ---
 
-### Exercise
+## Markdown
 
-- Optional: Pivot the original 'fake_snack_df' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. *Hint: check the `names_to` argument and `relocate()` function*. Result example:
+---
+
+## code chunk options
+
+---
+
+## YAML
+
+```yaml
+---
+title: "A Cool Presentation"
+output: html_document
+---
+```
+
+---
+
+# Final exercise
+
+
+- Calculate the NA of all columns except for id column.
+- Bin the education variable with your own defined cut points.
+- (optional) Pivot the original 'fake_snack_df' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. 
+
+*Hint: check the `names_to` argument and `relocate()` function*. 
 
 ```{r, echo=FALSE, purl=FALSE}
 # answer
@@ -570,7 +695,8 @@ fake_snack_df %>%
     names_sep = "_",
     values_drop_na = TRUE
   ) %>%
-  relocate(wave:Date, .after = Lopnr)
+  relocate(wave:Date, .after = Lopnr) %>%
+  slice(1:3)
 ```
 
 
@@ -578,26 +704,37 @@ fake_snack_df %>%
 
 ## Wrap up
 
-* This whole slide is written in Rmarkdown with some pretty cool functions. Check documentation [here](https://github.com/yihui/xaringan).
+* Many times, avoiding repetitive coding can help you, also others to review your code.
+--
 
-```{r, include=FALSE, eval=TRUE}
-# remotes::install_github('rstudio/pagedown', force = TRUE)
-# pagedown::chrome_print("index.html")
+* In the beginning, the Rmarkdown has steep learning curve, but once you are familiar with it, your life will be easier.
+--
+
+* This whole slide is written in Rmarkdown. Check documentation [here](https://github.com/yihui/xaringan). The R example code is pulled from Rmarkdown, I do not need to copy and paste.
+--
+
+- Hope today's content could be a useful enlightment to you. If you have any question, please contact me: bolin.wu@ki.se 
+
+
+```{r, include=FALSE, eval=TRUE, purl=FALSE}
+remotes::install_github('rstudio/pagedown', force = TRUE)
+pagedown::chrome_print("index.html")
 # renderthis::to_pdf("index.html")
 # pagedown::chrome_print("index.Rmd")
 ```
 
 
 ```{r, include=FALSE, eval=FALSE, purl=FALSE}
+# library(here)
 # pkg_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/rpackage/inst/templates/rscript"
-
-# knitr::purl("rmd/data_manupulation.Rmd",
+# 
+# knitr::purl("index.Rmd",
 #   output = here("R", "tidyverse_2023.R"),
 #   documentation = 1
 # )
-#
-# knitr::purl("rmd/data_manupulation.Rmd",
+# 
+# knitr::purl("index.Rmd",
 #   output = paste0(pkg_path, "/tidyverse_2023.R"),
 #   documentation = 1
-# )
+#  )
 ```

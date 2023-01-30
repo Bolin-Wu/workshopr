@@ -6,4 +6,3 @@
 #'
 #' @format A data frame with 15 variables and 3365 random obs.
 "fake_snack_df"
-

@@ -94,25 +94,40 @@ This session is to share useful data manipulation skills at daily epidemiology w
 
 It can make our code more readable and reduce our chance of making mistakes.
 
+--
+
 *Note: Data frames may seem to be unfit in the slides. I do not user any html widges since the code will be pulled out for tutorial purpose. Attendants can run the code on their on machine instead to get better view.*
----
 
-## Content
-
-Based on real work scenario:
-
-- %&gt;% syntax
-- join data frames (*join function*)
-- transform data shape (*pivot_longer*)
-- filter variables based on name pattern (*select*)
-- get the label from DTA and SPSS in R (*filter*)
-- check missing values 
-- bin variables by percentiles
-- assign function
 
 ???
 
 For example, change a variable name in the code, but forget to change other places
+
+---
+
+## Content
+
+The content is selected based on data manipulation in real work scenario.
+
+I hope by the end of the workshop, you will have them in your toolbox:
+
+- %&gt;% syntax
+- **join** data frames (*join function*)
+- **transform** data shape (*pivot_longer*)
+- **filter** variables based on name pattern (*select*)
+- **extract** the label from DTA and SPSS in R (*filter*)
+- **check** missing values (*summarise &amp; across*)
+- **mutate data** based on column types (*mutate &amp; across*)
+- **bin** variables by percentiles (*cut*)
+- **assign** function
+
+---
+
+background-image: url(https://1.bp.blogspot.com/-UHpM76ze7Dk/YFVs4iGMWuI/AAAAAAAAA0s/3EpcYcl-PLce7rcdcD4YOUXntpdUbc3aACLcBGAsYHQ/s16000/7b5f79a7e88560bb863c6bc8bcfb7146.jpg)
+
+.footnote[picture credit: https://www.redarmy.in/]
+
+
 ---
 
 # Tidyverse
@@ -123,6 +138,8 @@ Many times we just `library(tidyverse)`. Actually [Tidyverse](https://www.tidyve
 - [magrittr](https://magrittr.tidyverse.org/): pipeline operator `%&gt;%`.
 - [ggplot2](https://ggplot2.tidyverse.org/): `ggplot()`.
 - [dplyr](https://dplyr.tidyverse.org/): `select(), filter(), mutate()`
+
+--
 
 ### Notes
 
@@ -156,22 +173,22 @@ fake_snack_df %&gt;%
 # A tibble: 3,365 × 2
    Lopnr Date_wave1
    &lt;int&gt; &lt;date&gt;    
- 1  1284 1848-01-16
- 2  2013 1788-07-16
- 3  1618 1833-09-17
- 4  3190 1803-04-08
- 5  1103 1705-06-10
- 6  2193 1733-11-07
- 7  2555 1792-08-31
- 8   254 1768-04-16
- 9  2250 1810-02-09
-10  2258 1722-08-02
+ 1  1076 1775-04-30
+ 2    NA 1703-10-07
+ 3   378 1818-10-26
+ 4   436 1739-08-23
+ 5  2057 NA        
+ 6   935 1708-01-05
+ 7  3297 NA        
+ 8   588 1812-02-01
+ 9   916 NA        
+10  2407 1739-03-10
 # … with 3,355 more rows
 ```
 
 ---
 
-In addition, filter on the date column
+- In addition, filter on the date column
 
 
 ```r
@@ -185,16 +202,16 @@ fake_snack_df %&gt;%
 # A tibble: 5 × 2
   Lopnr Date_wave1
   &lt;int&gt; &lt;date&gt;    
-1  1284 1848-01-16
-2  1618 1833-09-17
-3  3190 1803-04-08
-4  2250 1810-02-09
-5  2835 1813-12-12
+1   378 1818-10-26
+2   588 1812-02-01
+3    NA 1849-06-26
+4   960 1804-12-04
+5  2542 1831-09-20
 ```
 
 --
 
-You can further stacking group, filter, mutate, etc., with the pipeline operator.
+- You can further stacking group, filter, mutate, etc., with the pipeline operator.
 
 ???
 This syntax makes data manupulation convenient and easy to read.
@@ -210,7 +227,7 @@ This syntax makes data manupulation convenient and easy to read.
 
 ---
 
-Take `left_join()` as an example: 
+- Take `left_join()` as an example: 
 
 
 ```r
@@ -272,13 +289,13 @@ head(fake_snack_df, n = 5)
 
 ```
 # A tibble: 5 × 15
-  Lopnr    sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4 Date_wave5
-  &lt;int&gt;  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-1  1284 -1.62  1848-01-16   -1.00   1703-06-26 1807-08-10 1764-12-13 1774-04-04
-2  2013  0.384 1788-07-16    0.883  1785-09-24 1811-08-26 1812-05-24 1777-11-08
-3  1618 -0.363 1833-09-17    0.0753 1792-10-19 1781-01-06 1746-09-20 1804-04-12
-4  3190  0.682 1803-04-08    0.0943 1829-04-27 1744-02-04 1846-08-24 1766-03-26
-5  1103  0.521 1705-06-10    1.37   1734-12-24 1746-03-13 1829-11-30 1711-02-15
+  Lopnr      sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4 Date_wave5
+  &lt;int&gt;    &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+1  1076  1.59    1775-04-30   -0.0783 1771-01-06 1727-08-03 NA         1749-09-06
+2    NA -0.290   1703-10-07   NA      1805-04-04 1774-03-16 1790-05-06 1750-08-30
+3   378 -0.494   1818-10-26   -0.409  NA         NA         NA         1803-08-21
+4   436 -0.00666 1739-08-23   NA      1797-11-12 NA         1791-07-09 NA        
+5  2057 NA       NA           -1.06   1792-04-16 1820-11-18 NA         NA        
 # … with 7 more variables: Date_wave6 &lt;date&gt;, dementia_wave1 &lt;dbl&gt;,
 #   dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;,
 #   dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
@@ -327,11 +344,11 @@ fake_snack_df %&gt;%
 # A tibble: 5 × 6
   Date_wave1 Date_wave2 Date_wave3 Date_wave4 Date_wave5 Date_wave6
   &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-1 1848-01-16 1703-06-26 1807-08-10 1764-12-13 1774-04-04 1739-04-12
-2 1788-07-16 1785-09-24 1811-08-26 1812-05-24 1777-11-08 1825-04-20
-3 1833-09-17 1792-10-19 1781-01-06 1746-09-20 1804-04-12 1764-11-26
-4 1803-04-08 1829-04-27 1744-02-04 1846-08-24 1766-03-26 1735-06-10
-5 1705-06-10 1734-12-24 1746-03-13 1829-11-30 1711-02-15 1710-06-12
+1 1775-04-30 1771-01-06 1727-08-03 NA         1749-09-06 NA        
+2 1703-10-07 1805-04-04 1774-03-16 1790-05-06 1750-08-30 1818-12-31
+3 1818-10-26 NA         NA         NA         1803-08-21 NA        
+4 1739-08-23 1797-11-12 NA         1791-07-09 NA         1719-11-19
+5 NA         1792-04-16 1820-11-18 NA         NA         NA        
 ```
 
 ---
@@ -371,16 +388,16 @@ fake_snack_df %&gt;%
 # A tibble: 20,190 × 3
    Lopnr wave   date      
    &lt;int&gt; &lt;chr&gt;  &lt;date&gt;    
- 1  1284 _wave1 1848-01-16
- 2  1284 _wave2 1703-06-26
- 3  1284 _wave3 1807-08-10
- 4  1284 _wave4 1764-12-13
- 5  1284 _wave5 1774-04-04
- 6  1284 _wave6 1739-04-12
- 7  2013 _wave1 1788-07-16
- 8  2013 _wave2 1785-09-24
- 9  2013 _wave3 1811-08-26
-10  2013 _wave4 1812-05-24
+ 1  1076 _wave1 1775-04-30
+ 2  1076 _wave2 1771-01-06
+ 3  1076 _wave3 1727-08-03
+ 4  1076 _wave4 NA        
+ 5  1076 _wave5 1749-09-06
+ 6  1076 _wave6 NA        
+ 7    NA _wave1 1703-10-07
+ 8    NA _wave2 1805-04-04
+ 9    NA _wave3 1774-03-16
+10    NA _wave4 1790-05-06
 # … with 20,180 more rows
 ```
 
@@ -412,16 +429,16 @@ fake_snack_df %&gt;%
 # A tibble: 20,190 × 3
    Lopnr wave   dementia
    &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
- 1  1284 _wave1   -0.246
- 2  1284 _wave2   -0.704
- 3  1284 _wave3   -0.508
- 4  1284 _wave4   -1.48 
- 5  1284 _wave5   -0.402
- 6  1284 _wave6    1.37 
- 7  2013 _wave1    0.377
- 8  2013 _wave2    0.832
- 9  2013 _wave3   -0.824
-10  2013 _wave4    2.37 
+ 1  1076 _wave1  NA     
+ 2  1076 _wave2  NA     
+ 3  1076 _wave3  NA     
+ 4  1076 _wave4  -0.0373
+ 5  1076 _wave5  NA     
+ 6  1076 _wave6  NA     
+ 7    NA _wave1  -1.22  
+ 8    NA _wave2  NA     
+ 9    NA _wave3  NA     
+10    NA _wave4  NA     
 # … with 20,180 more rows
 ```
 
@@ -441,20 +458,18 @@ Pay attention to what arguments are changed, what are not changed.
 # A tibble: 5 × 3
   Lopnr wave  date      
   &lt;int&gt; &lt;fct&gt; &lt;date&gt;    
-1  1284 1     1848-01-16
-2  1284 2     1703-06-26
-3  1284 3     1807-08-10
-4  1284 4     1764-12-13
-5  1284 5     1774-04-04
+1  1076 1     1775-04-30
+2  1076 2     1771-01-06
+3  1076 3     1727-08-03
+4  1076 4     NA        
+5  1076 5     1749-09-06
 ```
 
 --
 
 - Merge the two long pivot data sets together. 
 
-
-???
-Consider: is it enough to only join on one column? Why or why not?
+*Consider: is it enough to only join on one column? Why or why not?*
 
 ---
 
@@ -538,11 +553,11 @@ I can show to test it in the online test website.
 
 ## Get labels from datasets
 
-When we get SPSS or STATA data sets, usually they come with labels. E.g. in SPSS, one can check them in the "Variable View" tab. 
+- When we get SPSS or STATA data sets, usually they come with labels. E.g. in SPSS, one can check them in the "Variable View" tab. 
 
 --
 
-In R, one can use `view()` function. In the example data, we have:
+- In R, one can use `view()` function. In the example data, we have:
 
 
 ```r
@@ -554,7 +569,12 @@ view(fake_snack_df)
 
 --
 
-A natural thing to consider is to extract label information in the data frame form.
+- A natural question to ask: how to extract the labels in R?
+
+???
+This can be useful when you got hundreds of variables in a file.
+
+There's one project has 200+ variables, I need to select the variables related to smoking.
 
 
 ---
@@ -577,22 +597,16 @@ label_char
 ```
 
 ```
-                       Lopnr                          sex 
-                        "ID"                     "gender" 
-                  Date_wave1                    education 
-"date examination 2001-2004"                  "education" 
-                  Date_wave2                   Date_wave3 
-"date examination 2004-2007" "date examination 2007-2010" 
-                  Date_wave4                   Date_wave5 
-"Date examination 2010-2013" "Date examination 2013-2016" 
-                  Date_wave6               dementia_wave1 
-"Date examination 2016-2019"         "dementia 2001-2004" 
-              dementia_wave2               dementia_wave3 
-        "dementia 2004-2007"         "dementia 2007-2010" 
-              dementia_wave4               dementia_wave5 
-        "dementia 2010-2013"         "dementia 2013-2016" 
-              dementia_wave6 
-        "dementia 2016-2019" 
+                       Lopnr                          sex                   Date_wave1 
+                        "ID"                     "gender" "date examination 2001-2004" 
+                   education                   Date_wave2                   Date_wave3 
+                 "education" "date examination 2004-2007" "date examination 2007-2010" 
+                  Date_wave4                   Date_wave5                   Date_wave6 
+"Date examination 2010-2013" "Date examination 2013-2016" "Date examination 2016-2019" 
+              dementia_wave1               dementia_wave2               dementia_wave3 
+        "dementia 2001-2004"         "dementia 2004-2007"         "dementia 2007-2010" 
+              dementia_wave4               dementia_wave5               dementia_wave6 
+        "dementia 2010-2013"         "dementia 2013-2016"         "dementia 2016-2019" 
 ```
 
 
@@ -699,53 +713,11 @@ label_df %&gt;%
 ```
 
 
-???
-This can be useful when you got hundreds of variables in a file.
-
-There's one project has 200+ variables, I need to select the variables related to smoking.
 
 ---
 
 ## Missing values
 
-- Generate missing values in date columns
-
-
-```r
-miss_date_df &lt;- missMethods::delete_MCAR(fake_snack_df,
-  p = seq(0.1, 0.8, length.out = length(fake_snack_df)))
-```
-
---
-
-
-- A quick question: what if you want to select the numeric columns?
-
-
----
-
-```r
-head(miss_date_df)
-```
-
-```
-# A tibble: 6 × 15
-  Lopnr    sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4 Date_wave5
-  &lt;int&gt;  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-1  1284 -1.62  1848-01-16   -1.00   1703-06-26 NA         NA         1774-04-04
-2  2013  0.384 NA            0.883  NA         1811-08-26 1812-05-24 1777-11-08
-3  1618 NA     1833-09-17    0.0753 1792-10-19 NA         1746-09-20 NA        
-4  3190  0.682 1803-04-08    0.0943 1829-04-27 1744-02-04 NA         1766-03-26
-5  1103  0.521 NA           NA      1734-12-24 NA         1829-11-30 NA        
-6  2193  0.308 1733-11-07    0.771  NA         NA         NA         1750-10-02
-# … with 7 more variables: Date_wave6 &lt;date&gt;, dementia_wave1 &lt;dbl&gt;,
-#   dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;,
-#   dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
-```
-
-
-
----
 
 ### Count the NA
 
@@ -753,7 +725,7 @@ head(miss_date_df)
 
 
 ```r
-sum(is.na(miss_date_df$Date_wave1))
+sum(is.na(fake_snack_df$Date_wave1))
 ```
 
 ```
@@ -769,7 +741,7 @@ sum(is.na(miss_date_df$Date_wave1))
 
 
 ```r
-miss_date_df %&gt;%
+fake_snack_df %&gt;%
   summarise(across(
     where(lubridate::is.Date),
     ~ sum(is.na(.))
@@ -783,18 +755,158 @@ miss_date_df %&gt;%
 1        673       1010       1178       1346       1514       1682
 ```
 
+- You may wonder: what is this `~ sum(is.na(.))`?
 
 --
 
-- One can also use `colSums(is.na(miss_date_df))`. 
+- It is a purrr-style [lambda function](https://en.wikipedia.org/wiki/Anonymous_function).
+
+???
+The wikipedia explanation is not straight-forward. My personal comprehension is that lambda function is any function you defined by yourself, which usually can not be found as a standard function like mean or sd.
+
+--
+
+- One can also use `colSums(is.na(fake_snack_df))`. 
+
+???
+Explain why I prefer the pipeline version
+
 
 ---
 
-## Missing value exercise (5 min)
+## Missing value exercise (5 - 10 min)
 
 - Read the documentation of `across()` function.
-- Count the NA of all numeric columns.
+- Count the NA of all numeric/int columns.
+- Count the NA of columns contains certain strings, e.g. 'edu'
 
+*Example result*
+
+
+```
+# A tibble: 1 × 9
+  Lopnr   sex education dementia_wave1 dementia_wave2 dementi…¹ demen…² demen…³ demen…⁴
+  &lt;int&gt; &lt;int&gt;     &lt;int&gt;          &lt;int&gt;          &lt;int&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+1   336   505       841           1851           2019      2187    2356    2524    2692
+# … with abbreviated variable names ¹​dementia_wave3, ²​dementia_wave4, ³​dementia_wave5,
+#   ⁴​dementia_wave6
+```
+
+```
+# A tibble: 1 × 1
+  education
+      &lt;int&gt;
+1       841
+```
+
+---
+
+## Mutation based on column type
+
+- Now you should have some understanding of `where()` function. 
+
+--
+
+- When you apply it with `mutate()` function, you can do many manipulations. E.g. round the digits of numeric columns.
+
+--
+
+
+```r
+fake_snack_df %&gt;%
+  mutate(across(is.numeric, ~ round(., digits = 2)))
+```
+
+```
+# A tibble: 3,365 × 15
+   Lopnr   sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4 Date_wave5
+   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+ 1  1076  1.59 1775-04-30     -0.08 1771-01-06 1727-08-03 NA         1749-09-06
+ 2    NA -0.29 1703-10-07     NA    1805-04-04 1774-03-16 1790-05-06 1750-08-30
+ 3   378 -0.49 1818-10-26     -0.41 NA         NA         NA         1803-08-21
+ 4   436 -0.01 1739-08-23     NA    1797-11-12 NA         1791-07-09 NA        
+ 5  2057 NA    NA             -1.06 1792-04-16 1820-11-18 NA         NA        
+ 6   935 -0.84 1708-01-05     NA    1739-11-26 1753-12-10 NA         1770-01-28
+ 7  3297 -2.54 NA              0.92 1805-01-23 1835-07-13 1752-10-03 1790-01-23
+ 8   588  0.5  1812-02-01     -0.69 1721-07-16 NA         1771-07-07 1801-07-31
+ 9   916  2.4  NA              0.1  1813-10-26 1712-11-09 1746-12-08 NA        
+10  2407 -1.94 1739-03-10      0    1727-12-11 1766-01-10 1775-12-29 1760-01-28
+# … with 3,355 more rows, and 7 more variables: Date_wave6 &lt;date&gt;,
+#   dementia_wave1 &lt;dbl&gt;, dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;,
+#   dementia_wave4 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
+```
+
+???
+This I often use for data visualization.
+
+---
+
+## Bin variables
+
+--
+
+- `cut()` function can do the work for us easily, it accommodates well with pipeline syntax.
+
+--
+
+- For example, if we want to bin the education variable.
+
+
+```r
+fake_snack_df %&gt;%
+  transmute(education, edu_bin = cut(education,
+    breaks = 3,
+    labels = c("low", "medium", "high")
+  ))
+```
+
+```
+# A tibble: 3,365 × 2
+   education edu_bin
+       &lt;dbl&gt; &lt;fct&gt;  
+ 1  -0.0783  medium 
+ 2  NA       &lt;NA&gt;   
+ 3  -0.409   medium 
+ 4  NA       &lt;NA&gt;   
+ 5  -1.06    medium 
+ 6  NA       &lt;NA&gt;   
+ 7   0.924   medium 
+ 8  -0.687   medium 
+ 9   0.0968  medium 
+10  -0.00359 medium 
+# … with 3,355 more rows
+```
+
+
+
+---
+
+### Assign function
+
+I would like to spend some time introduce `assign()` function in R. 
+
+--
+
+- Even though it is not part of `tidyverse` family. But it is really useful! For example, when you bulk import databases into R environment; or you want to bulk change the imported data frame names.
+
+--
+
+- A simple example (run in your R studio):
+
+
+```r
+df_names &lt;- c()
+set.seed(2023)
+for (i in 1:4) {
+  df_names[i] &lt;- paste0("edu_", i)
+  assign(df_names[i], sample.int(3, 10, replace = T))
+  # print the result
+  cat(
+    "The df name is: ", df_names[i], "\n",
+    "its value is: ", get(df_names[i]), "\n"
+  )
+}
+```
 
 
 
@@ -807,30 +919,54 @@ class: center, middle
 
 ---
 
+## Introduction
+
+- A complete Rmarkdown documentation could be found [here](https://rmarkdown.rstudio.com/lesson-2.html).
+--
+
+- My understanding is: 
+
+**Rmarkdown = markdown + yaml heading + code chunk options.**
 
 
 ---
 
-### Exercise
+## Markdown
 
-- Optional: Pivot the original 'fake_snack_df' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. *Hint: check the `names_to` argument and `relocate()` function*. Result example:
+---
+
+## code chunk options
+
+---
+
+## YAML
+
+```yaml
+---
+title: "A Cool Presentation"
+output: html_document
+---
+```
+
+---
+
+# Final exercise
+
+
+- Calculate the NA of all columns except for id column.
+- Bin the education variable with your own defined cut points.
+- (optional) Pivot the original 'fake_snack_df' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. 
+
+*Hint: check the `names_to` argument and `relocate()` function*. 
 
 
 ```
-# A tibble: 20,190 × 6
-   Lopnr wave  Date          sex education dementia
-   &lt;int&gt; &lt;chr&gt; &lt;date&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
- 1  1284 wave1 1848-01-16 -1.62     -1.00    -0.246
- 2  1284 wave2 1703-06-26 -1.62     -1.00    -0.704
- 3  1284 wave3 1807-08-10 -1.62     -1.00    -0.508
- 4  1284 wave4 1764-12-13 -1.62     -1.00    -1.48 
- 5  1284 wave5 1774-04-04 -1.62     -1.00    -0.402
- 6  1284 wave6 1739-04-12 -1.62     -1.00     1.37 
- 7  2013 wave1 1788-07-16  0.384     0.883    0.377
- 8  2013 wave2 1785-09-24  0.384     0.883    0.832
- 9  2013 wave3 1811-08-26  0.384     0.883   -0.824
-10  2013 wave4 1812-05-24  0.384     0.883    2.37 
-# … with 20,180 more rows
+# A tibble: 3 × 6
+  Lopnr wave  Date         sex education dementia
+  &lt;int&gt; &lt;chr&gt; &lt;date&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1  1076 wave1 1775-04-30  1.59   -0.0783       NA
+2  1076 wave2 1771-01-06  1.59   -0.0783       NA
+3  1076 wave3 1727-08-03  1.59   -0.0783       NA
 ```
 
 
@@ -838,7 +974,17 @@ class: center, middle
 
 ## Wrap up
 
-* This whole slide is written in Rmarkdown with some pretty cool functions. Check documentation [here](https://github.com/yihui/xaringan).
+* Many times, avoiding repetitive coding can help you, also others to review your code.
+--
+
+* In the beginning, the Rmarkdown has steep learning curve, but once you are familiar with it, your life will be easier.
+--
+
+* This whole slide is written in Rmarkdown. Check documentation [here](https://github.com/yihui/xaringan). The R example code is pulled from Rmarkdown, I do not need to copy and paste.
+--
+
+- Hope today's content could be a useful enlightment to you. If you have any question, please contact me: bolin.wu@ki.se 
+
 
 
 
