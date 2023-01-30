@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 ### NEAR, Aging Research Center
 ]
 .date[
-### 2023/01/26 (updated: 2023-01-29)
+### 2023/01/26 (updated: 2023-01-30)
 ]
 
 ---
@@ -116,9 +116,17 @@ Many times we just `library(tidyverse)`, but [Tidyverse](https://www.tidyverse.o
 - [ggplot2](https://ggplot2.tidyverse.org/): `ggplot()`.
 - [dplyr](https://dplyr.tidyverse.org/): `select(), filter(), mutate()`
 
+### Notes
+
+- Advantage: All at once.
+- Disadvantage: 
+  - Slower to download and load the package. 
+  - Potential conflicts of function names with other packages. Example [here](https://tidyverse.tidyverse.org/reference/tidyverse_conflicts.html).
+
 
 ---
 
+## Pipeline operator `%&gt;%`
 Beautiful syntax with pipeline, just like playing LEGO.
 
 ![](pic/legos.jpg)
@@ -167,10 +175,9 @@ sort(colnames(fake_snack_df))
 ```
 
 ```
-##  [1] "Date_wave1"     "Date_wave2"     "Date_wave3"    
-##  [4] "Date_wave4"     "Date_wave5"     "Date_wave6"    
-##  [7] "dementia_wave1" "dementia_wave2" "dementia_wave3"
-## [10] "dementia_wave4" "dementia_wave5" "dementia_wave6"
+##  [1] "Date_wave1"     "Date_wave2"     "Date_wave3"     "Date_wave4"    
+##  [5] "Date_wave5"     "Date_wave6"     "dementia_wave1" "dementia_wave2"
+##  [9] "dementia_wave3" "dementia_wave4" "dementia_wave5" "dementia_wave6"
 ## [13] "education"      "Lopnr"          "sex"
 ```
 

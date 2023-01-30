@@ -103,9 +103,17 @@ Many times we just `library(tidyverse)`, but [Tidyverse](https://www.tidyverse.o
 - [ggplot2](https://ggplot2.tidyverse.org/): `ggplot()`.
 - [dplyr](https://dplyr.tidyverse.org/): `select(), filter(), mutate()`
 
+### Notes
+
+- Advantage: All at once.
+- Disadvantage: 
+  - Slower to download and load the package. 
+  - Potential conflicts of function names with other packages. Example [here](https://tidyverse.tidyverse.org/reference/tidyverse_conflicts.html).
+
 
 ---
 
+## Pipeline operator `%>%`
 Beautiful syntax with pipeline, just like playing LEGO.
 
 ![](pic/legos.jpg)
