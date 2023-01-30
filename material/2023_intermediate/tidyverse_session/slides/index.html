@@ -34,19 +34,22 @@ class: center, middle, inverse, title-slide
 
 
 
+
+
+
 ---
 
 ## About me 
 
 .pull-left[
 
-![](https://ki-su-arc.se/wp-content/uploads/2021/10/Bolin-Wu_foto-Maria-Yohuang-200x300.jpg)
+![](pic/Bolin_pic.png)
 ] 
 
 .pull-left[
 
-- MSc in Statistics, Uppsala University.
 - Statistician at [NEAR](https://www.near-aging.se/), KI.
+- MSc in Statistics, Uppsala University.
 - Interests: 
   - R package dev
   - Statistics
@@ -90,11 +93,16 @@ class: center, middle
 This session is to share useful data manipulation skills at daily epidemiology work. My main goal is to follow the "don't repeat yourself" (DRY) principle. 
 
 It can make our code more readable and reduce our chance of making mistakes.
+
+*Note: Data frames may seem to be unfit in the slides. I do not user any html widges since the code will be pulled out for tutorial purpose. Attendants can run the code on their on machine instead to get better view.*
 ---
 
 ## Content
 
+Based on real work scenario:
+
 - %&gt;% syntax
+- join data frames
 - transform data shape 
 - get the label from DTA and SPSS in R
 - filter variables based on name pattern
@@ -110,7 +118,7 @@ For example, change a variable name in the code, but forget to change other plac
 ## Tidyverse
 
 
-Many times we just `library(tidyverse)`, but [Tidyverse](https://www.tidyverse.org/packages/) is a huge umbrella consists of several powerful visualization and data manipulation package. For example:
+Many times we just `library(tidyverse)`. Actually [Tidyverse](https://www.tidyverse.org/packages/) is a huge umbrella consists of several powerful visualization and data manipulation package. For example:
 
 - [magrittr](https://magrittr.tidyverse.org/): pipeline operator `%&gt;%`.
 - [ggplot2](https://ggplot2.tidyverse.org/): `ggplot()`.
@@ -120,9 +128,12 @@ Many times we just `library(tidyverse)`, but [Tidyverse](https://www.tidyverse.o
 
 - Advantage: All at once.
 - Disadvantage: 
-  - Slower to download and load the package. 
+  - Slower to load the whole package. 
   - Potential conflicts of function names with other packages. Example [here](https://tidyverse.tidyverse.org/reference/tidyverse_conflicts.html).
 
+???
+
+Just heads up, in case in the future you find one function does not work as it expected. Then you know it could because of the conflicts of tidyverse.
 
 ---
 
@@ -132,40 +143,150 @@ Beautiful syntax with pipeline, just like playing LEGO.
 ![](pic/legos.jpg)
 
 ---
-## Transform data shape
-Transform data shape for many people, including me, sounds troublesome. In R, its relevant functions are evolving overtime as well.
 
---
-
-In the beginning (2019), I used [spread](https://tidyr.tidyverse.org/reference/spread.html) and [gather](https://tidyr.tidyverse.org/reference/gather.html).  Every time I use `spread` and `gather`, it takes me a while to figure out how to fill in 'key' and 'value'. But as you can see from their documentation, their 'lifecycle' is 'superseded'.
-
----
-
-Now I only use `pivot_longer` and `pivot_wider` for transforming data. You can find their comprehensive documentation [here](https://tidyr.tidyverse.org/articles/pivot.html). They come with better documentation, more powerful application, and better integration with tidyverse syntax.
-
-# Example
-
-Let's assumme we received a wide format data:
+### Example
 
 
 ```r
-head(fake_snack_df)
+fake_snack_df %&gt;%
+  select(Lopnr, Date_wave1)
 ```
 
 ```
-## # A tibble: 6 × 15
-##   Lopnr    sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4
-##   &lt;int&gt;  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-## 1  1284 -1.62  1848-01-16   -1.00   1703-06-26 1807-08-10 1764-12-13
-## 2  2013  0.384 1788-07-16    0.883  1785-09-24 1811-08-26 1812-05-24
-## 3  1618 -0.363 1833-09-17    0.0753 1792-10-19 1781-01-06 1746-09-20
-## 4  3190  0.682 1803-04-08    0.0943 1829-04-27 1744-02-04 1846-08-24
-## 5  1103  0.521 1705-06-10    1.37   1734-12-24 1746-03-13 1829-11-30
-## 6  2193  0.308 1733-11-07    0.771  1794-06-13 1738-06-02 1846-12-28
-## # … with 8 more variables: Date_wave5 &lt;date&gt;, Date_wave6 &lt;date&gt;,
-## #   dementia_wave1 &lt;dbl&gt;, dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;,
-## #   dementia_wave4 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
+# A tibble: 3,365 × 2
+   Lopnr Date_wave1
+   &lt;int&gt; &lt;date&gt;    
+ 1  1284 1848-01-16
+ 2  2013 1788-07-16
+ 3  1618 1833-09-17
+ 4  3190 1803-04-08
+ 5  1103 1705-06-10
+ 6  2193 1733-11-07
+ 7  2555 1792-08-31
+ 8   254 1768-04-16
+ 9  2250 1810-02-09
+10  2258 1722-08-02
+# … with 3,355 more rows
 ```
+
+---
+
+In addition, filter on the date column
+
+
+```r
+fake_snack_df %&gt;%
+  select(Lopnr, Date_wave1) %&gt;%
+  filter(Date_wave1 &gt; "1800-01-01") %&gt;%
+  slice(1:5)
+```
+
+```
+# A tibble: 5 × 2
+  Lopnr Date_wave1
+  &lt;int&gt; &lt;date&gt;    
+1  1284 1848-01-16
+2  1618 1833-09-17
+3  3190 1803-04-08
+4  2250 1810-02-09
+5  2835 1813-12-12
+```
+
+--
+
+You can further stacking group, filter, mutate, etc., with the pipeline operator.
+
+???
+This syntax makes data manupulation convenient and easy to read.
+
+---
+## Join data frames
+
+
+* With `.*_join` function: There are 4 common types of joins.
+
+
+![](pic/join_tabel.png)
+
+---
+
+Take `left_join` as an example: 
+
+
+```r
+# From  `dplyr` documentation: 
+df1 &lt;- tibble(x = 1:3)
+df2 &lt;- tibble(x = c(1, 1, 2), 
+              y = c("first", "second", "third"))
+df1 %&gt;% left_join(df2)
+```
+
+```
+Joining, by = "x"
+```
+
+```
+# A tibble: 4 × 2
+      x y     
+  &lt;dbl&gt; &lt;chr&gt; 
+1     1 first 
+2     1 second
+3     2 third 
+4     3 &lt;NA&gt;  
+```
+
+???
+Please note, in this example, df1 is on the left side.
+
+
+
+---
+## Transform data shape
+Transform data shape is frequently used to clean data. However, for many people, including me, it sounds troublesome. In R, its relevant functions are evolving overtime as well.
+
+--
+
+In the beginning (2019), I used [spread()](https://tidyr.tidyverse.org/reference/spread.html) and [gather()](https://tidyr.tidyverse.org/reference/gather.html).  Every time I use `spread()` and `gather()`, it takes me a while to figure out how to fill in 'key' and 'value'. But as you can see from their documentation, their 'lifecycle' is 'superseded'.
+
+---
+## Transform data shape
+
+Now I only use `pivot_longer()` and `pivot_wider()` for transforming data. You can find their comprehensive documentation [here](https://tidyr.tidyverse.org/articles/pivot.html). 
+
+--
+
+They come with better documentation, more powerful application, and better integration with tidyverse syntax.
+
+---
+
+### Example
+
+Let's assume we received a wide format data:
+
+
+```r
+head(fake_snack_df, n = 5)
+```
+
+```
+# A tibble: 5 × 15
+  Lopnr    sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4
+  &lt;int&gt;  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+1  1284 -1.62  1848-01-16   -1.00   1703-06-26 1807-08-10 1764-12-13
+2  2013  0.384 1788-07-16    0.883  1785-09-24 1811-08-26 1812-05-24
+3  1618 -0.363 1833-09-17    0.0753 1792-10-19 1781-01-06 1746-09-20
+4  3190  0.682 1803-04-08    0.0943 1829-04-27 1744-02-04 1846-08-24
+5  1103  0.521 1705-06-10    1.37   1734-12-24 1746-03-13 1829-11-30
+# … with 8 more variables: Date_wave5 &lt;date&gt;, Date_wave6 &lt;date&gt;,
+#   dementia_wave1 &lt;dbl&gt;, dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;,
+#   dementia_wave4 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
+```
+
+???
+Please run the code in your R studio to get a better view.
+---
+
+### Example
 
 The column names are:
 
@@ -175,152 +296,171 @@ sort(colnames(fake_snack_df))
 ```
 
 ```
-##  [1] "Date_wave1"     "Date_wave2"     "Date_wave3"     "Date_wave4"    
-##  [5] "Date_wave5"     "Date_wave6"     "dementia_wave1" "dementia_wave2"
-##  [9] "dementia_wave3" "dementia_wave4" "dementia_wave5" "dementia_wave6"
-## [13] "education"      "Lopnr"          "sex"
+ [1] "Date_wave1"     "Date_wave2"     "Date_wave3"     "Date_wave4"    
+ [5] "Date_wave5"     "Date_wave6"     "dementia_wave1" "dementia_wave2"
+ [9] "dementia_wave3" "dementia_wave4" "dementia_wave5" "dementia_wave6"
+[13] "education"      "Lopnr"          "sex"           
 ```
 
-Now, assume for some reason, e.g. merge it with other data set, we want to transform it in a long format. There are two variables should be formated: 'Date' and 'dementia'. For beginners, I would recommend to start small. 
+--
 
-* Select the interested columns
+Now, assume for some reason, e.g. merge it with other data set, we want to transform it in a long format. 
+
+--
+
+There are two variables with prefix should be formatted: 'Date' and 'dementia'. For beginners, I would recommend to start small. 
+
+---
+### Example
+- Select the interested columns
 
 
 ```r
 fake_snack_df %&gt;%
-  select(contains("Date"))
+  select(contains("Date")) %&gt;%
+  slice(1:5)
 ```
 
 ```
-## # A tibble: 3,365 × 6
-##    Date_wave1 Date_wave2 Date_wave3 Date_wave4 Date_wave5 Date_wave6
-##    &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-##  1 1848-01-16 1703-06-26 1807-08-10 1764-12-13 1774-04-04 1739-04-12
-##  2 1788-07-16 1785-09-24 1811-08-26 1812-05-24 1777-11-08 1825-04-20
-##  3 1833-09-17 1792-10-19 1781-01-06 1746-09-20 1804-04-12 1764-11-26
-##  4 1803-04-08 1829-04-27 1744-02-04 1846-08-24 1766-03-26 1735-06-10
-##  5 1705-06-10 1734-12-24 1746-03-13 1829-11-30 1711-02-15 1710-06-12
-##  6 1733-11-07 1794-06-13 1738-06-02 1846-12-28 1750-10-02 1714-08-09
-##  7 1792-08-31 1727-07-07 1848-10-20 1807-12-03 1819-11-05 1708-06-04
-##  8 1768-04-16 1704-10-02 1773-10-25 1804-09-12 1722-06-18 1778-08-29
-##  9 1810-02-09 1848-05-22 1812-01-08 1730-03-15 1719-02-22 1790-11-14
-## 10 1722-08-02 1786-01-17 1845-01-13 1762-03-06 1778-01-19 1785-12-05
-## # … with 3,355 more rows
+# A tibble: 5 × 6
+  Date_wave1 Date_wave2 Date_wave3 Date_wave4 Date_wave5 Date_wave6
+  &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+1 1848-01-16 1703-06-26 1807-08-10 1764-12-13 1774-04-04 1739-04-12
+2 1788-07-16 1785-09-24 1811-08-26 1812-05-24 1777-11-08 1825-04-20
+3 1833-09-17 1792-10-19 1781-01-06 1746-09-20 1804-04-12 1764-11-26
+4 1803-04-08 1829-04-27 1744-02-04 1846-08-24 1766-03-26 1735-06-10
+5 1705-06-10 1734-12-24 1746-03-13 1829-11-30 1711-02-15 1710-06-12
 ```
 
-* Read documentation, try to fill in the arguments. The 3 basic arguments are:
-  * `cols` tells R what variables to pivot.
-  * `names_to` defines a new name for columns in `cols`. 
-  * `values_to` gives a new name for values under the columns in `cols`.
-  
+---
+### Example
+
+Read documentation, try to fill in the arguments. 
+
+```r
+?tidyr::pivot_longer()
+```
+
+--
+
+- The 3 basic arguments are:
+  * `cols`: tells R what variables to pivot.
+  * `names_to`:  a new name for columns in `cols`. 
+  * `values_to`: a new name for **values** under the columns in `cols`.
+
+---
+
+### Example
 Let's give a first try:
 
   
 
 ```r
-# check pivot_longer() documentation in R: ?pivot_longer()
 fake_snack_df %&gt;%
   select(Lopnr, contains("Date")) %&gt;%
   pivot_longer(
     cols = contains("Date"),
-    names_to = "wave", names_prefix = "Date",
-    values_to = "date"
+    names_to = "wave", values_to = "date",
+    names_prefix = "Date"
   )
 ```
 
 ```
-## # A tibble: 20,190 × 3
-##    Lopnr wave   date      
-##    &lt;int&gt; &lt;chr&gt;  &lt;date&gt;    
-##  1  1284 _wave1 1848-01-16
-##  2  1284 _wave2 1703-06-26
-##  3  1284 _wave3 1807-08-10
-##  4  1284 _wave4 1764-12-13
-##  5  1284 _wave5 1774-04-04
-##  6  1284 _wave6 1739-04-12
-##  7  2013 _wave1 1788-07-16
-##  8  2013 _wave2 1785-09-24
-##  9  2013 _wave3 1811-08-26
-## 10  2013 _wave4 1812-05-24
-## # … with 20,180 more rows
+# A tibble: 20,190 × 3
+   Lopnr wave   date      
+   &lt;int&gt; &lt;chr&gt;  &lt;date&gt;    
+ 1  1284 _wave1 1848-01-16
+ 2  1284 _wave2 1703-06-26
+ 3  1284 _wave3 1807-08-10
+ 4  1284 _wave4 1764-12-13
+ 5  1284 _wave5 1774-04-04
+ 6  1284 _wave6 1739-04-12
+ 7  2013 _wave1 1788-07-16
+ 8  2013 _wave2 1785-09-24
+ 9  2013 _wave3 1811-08-26
+10  2013 _wave4 1812-05-24
+# … with 20,180 more rows
 ```
+
+
+---
+
+### Example
 
 The result above looks good, but 'wave' looks a bit strange. I will leave the task to audience to fix this column.
 
 
+--
 * Do the same with 'dementia' columns
+
+--
 
 
 ```r
 fake_snack_df %&gt;%
   select(Lopnr, contains("dementia")) %&gt;%
   pivot_longer(
-    cols = contains("dementia"),
+    cols = contains("dementia"), 
     names_to = "wave", names_prefix = "dementia",
     values_to = "dementia"
   )
 ```
 
 ```
-## # A tibble: 20,190 × 3
-##    Lopnr wave   dementia
-##    &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
-##  1  1284 _wave1   -0.246
-##  2  1284 _wave2   -0.704
-##  3  1284 _wave3   -0.508
-##  4  1284 _wave4   -1.48 
-##  5  1284 _wave5   -0.402
-##  6  1284 _wave6    1.37 
-##  7  2013 _wave1    0.377
-##  8  2013 _wave2    0.832
-##  9  2013 _wave3   -0.824
-## 10  2013 _wave4    2.37 
-## # … with 20,180 more rows
+# A tibble: 20,190 × 3
+   Lopnr wave   dementia
+   &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
+ 1  1284 _wave1   -0.246
+ 2  1284 _wave2   -0.704
+ 3  1284 _wave3   -0.508
+ 4  1284 _wave4   -1.48 
+ 5  1284 _wave5   -0.402
+ 6  1284 _wave6    1.37 
+ 7  2013 _wave1    0.377
+ 8  2013 _wave2    0.832
+ 9  2013 _wave3   -0.824
+10  2013 _wave4    2.37 
+# … with 20,180 more rows
 ```
 
+???
+Pay attention to what arguments are changed, what are not changed.
 
+---
 
+### Data transform task (5 - 10 min)
 
-## Task 
-1. Change the arguments in the pivot_longer function to get proper wave column. Result example:
+- Read documentation. Change the arguments in the `pivot_longer` function to get proper wave column. 
 
-```
-## # A tibble: 20,190 × 3
-##    Lopnr wave  date      
-##    &lt;int&gt; &lt;chr&gt; &lt;date&gt;    
-##  1  1284 1     1848-01-16
-##  2  1284 2     1703-06-26
-##  3  1284 3     1807-08-10
-##  4  1284 4     1764-12-13
-##  5  1284 5     1774-04-04
-##  6  1284 6     1739-04-12
-##  7  2013 1     1788-07-16
-##  8  2013 2     1785-09-24
-##  9  2013 3     1811-08-26
-## 10  2013 4     1812-05-24
-## # … with 20,180 more rows
-```
-2. Merge the two long pivot dataset together.
-3. Optional: Pivot the original 'fake_snack_df' by using only one `pivot_longer` function. Put wave and date after 'Lopnr' column. *Hint: check the `names_to` argument and `relocate()` function*. Result example:
+*Example result (first 5 rows):*
 
 
 ```
-## # A tibble: 20,190 × 6
-##    Lopnr wave  Date          sex education dementia
-##    &lt;int&gt; &lt;chr&gt; &lt;date&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-##  1  1284 wave1 1848-01-16 -1.62     -1.00    -0.246
-##  2  1284 wave2 1703-06-26 -1.62     -1.00    -0.704
-##  3  1284 wave3 1807-08-10 -1.62     -1.00    -0.508
-##  4  1284 wave4 1764-12-13 -1.62     -1.00    -1.48 
-##  5  1284 wave5 1774-04-04 -1.62     -1.00    -0.402
-##  6  1284 wave6 1739-04-12 -1.62     -1.00     1.37 
-##  7  2013 wave1 1788-07-16  0.384     0.883    0.377
-##  8  2013 wave2 1785-09-24  0.384     0.883    0.832
-##  9  2013 wave3 1811-08-26  0.384     0.883   -0.824
-## 10  2013 wave4 1812-05-24  0.384     0.883    2.37 
-## # … with 20,180 more rows
+# A tibble: 5 × 3
+  Lopnr wave  date      
+  &lt;int&gt; &lt;fct&gt; &lt;date&gt;    
+1  1284 1     1848-01-16
+2  1284 2     1703-06-26
+3  1284 3     1807-08-10
+4  1284 4     1764-12-13
+5  1284 5     1774-04-04
 ```
 
+--
+
+- Merge the two long pivot data sets together. 
+
+
+???
+Consider: is it enough to only join on one column? Why or why not?
+
+---
+
+## Get labels from datasets
+
+When we get SPSS or STATA data sets, usually they come with labels. For example, in the example data, we have:
+
+![](pic/df_label.png)
 
 
 
@@ -338,6 +478,34 @@ class: center, middle
 
 ---
 
+### Exercise
+
+- Optional: Pivot the original 'fake_snack_df' by using only one `pivot_longer` function. Put wave and date after 'Lopnr' column. *Hint: check the `names_to` argument and `relocate()` function*. Result example:
+
+
+```
+# A tibble: 20,190 × 6
+   Lopnr wave  Date          sex education dementia
+   &lt;int&gt; &lt;chr&gt; &lt;date&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1  1284 wave1 1848-01-16 -1.62     -1.00    -0.246
+ 2  1284 wave2 1703-06-26 -1.62     -1.00    -0.704
+ 3  1284 wave3 1807-08-10 -1.62     -1.00    -0.508
+ 4  1284 wave4 1764-12-13 -1.62     -1.00    -1.48 
+ 5  1284 wave5 1774-04-04 -1.62     -1.00    -0.402
+ 6  1284 wave6 1739-04-12 -1.62     -1.00     1.37 
+ 7  2013 wave1 1788-07-16  0.384     0.883    0.377
+ 8  2013 wave2 1785-09-24  0.384     0.883    0.832
+ 9  2013 wave3 1811-08-26  0.384     0.883   -0.824
+10  2013 wave4 1812-05-24  0.384     0.883    2.37 
+# … with 20,180 more rows
+```
+
+
+---
+
+## Wrap up
+
+* This whole slide is written in Rmarkdown with some pretty cool functions. Check documentation [here](https://github.com/yihui/xaringan).
 
 
 
@@ -347,6 +515,7 @@ class: center, middle
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
+"highlightStyle": "github",
 "highlightLines": true,
 "contIncrementalSlides": false
 });
