@@ -102,11 +102,11 @@ It can make our code more readable and reduce our chance of making mistakes.
 Based on real work scenario:
 
 - %&gt;% syntax
-- join data frames
-- transform data shape 
-- get the label from DTA and SPSS in R
-- filter variables based on name pattern
-- check missing values
+- join data frames (*join function*)
+- transform data shape (*pivot_longer*)
+- filter variables based on name pattern (*select*)
+- get the label from DTA and SPSS in R (*filter*)
+- check missing values 
 - bin variables by percentiles
 - assign function
 
@@ -115,7 +115,7 @@ Based on real work scenario:
 For example, change a variable name in the code, but forget to change other places
 ---
 
-## Tidyverse
+# Tidyverse
 
 
 Many times we just `library(tidyverse)`. Actually [Tidyverse](https://www.tidyverse.org/packages/) is a huge umbrella consists of several powerful visualization and data manipulation package. For example:
@@ -203,21 +203,23 @@ This syntax makes data manupulation convenient and easy to read.
 ## Join data frames
 
 
-* With `.*_join` function: There are 4 common types of joins.
+* With `.*_join()` function: There are 4 common types of joins.
 
 
 ![](pic/join_tabel.png)
 
 ---
 
-Take `left_join` as an example: 
+Take `left_join()` as an example: 
 
 
 ```r
-# From  `dplyr` documentation: 
+# From  `dplyr` documentation:
 df1 &lt;- tibble(x = 1:3)
-df2 &lt;- tibble(x = c(1, 1, 2), 
-              y = c("first", "second", "third"))
+df2 &lt;- tibble(
+  x = c(1, 1, 2),
+  y = c("first", "second", "third")
+)
 df1 %&gt;% left_join(df2)
 ```
 
@@ -270,16 +272,16 @@ head(fake_snack_df, n = 5)
 
 ```
 # A tibble: 5 × 15
-  Lopnr    sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4
-  &lt;int&gt;  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-1  1284 -1.62  1848-01-16   -1.00   1703-06-26 1807-08-10 1764-12-13
-2  2013  0.384 1788-07-16    0.883  1785-09-24 1811-08-26 1812-05-24
-3  1618 -0.363 1833-09-17    0.0753 1792-10-19 1781-01-06 1746-09-20
-4  3190  0.682 1803-04-08    0.0943 1829-04-27 1744-02-04 1846-08-24
-5  1103  0.521 1705-06-10    1.37   1734-12-24 1746-03-13 1829-11-30
-# … with 8 more variables: Date_wave5 &lt;date&gt;, Date_wave6 &lt;date&gt;,
-#   dementia_wave1 &lt;dbl&gt;, dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;,
-#   dementia_wave4 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
+  Lopnr    sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4 Date_wave5
+  &lt;int&gt;  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+1  1284 -1.62  1848-01-16   -1.00   1703-06-26 1807-08-10 1764-12-13 1774-04-04
+2  2013  0.384 1788-07-16    0.883  1785-09-24 1811-08-26 1812-05-24 1777-11-08
+3  1618 -0.363 1833-09-17    0.0753 1792-10-19 1781-01-06 1746-09-20 1804-04-12
+4  3190  0.682 1803-04-08    0.0943 1829-04-27 1744-02-04 1846-08-24 1766-03-26
+5  1103  0.521 1705-06-10    1.37   1734-12-24 1746-03-13 1829-11-30 1711-02-15
+# … with 7 more variables: Date_wave6 &lt;date&gt;, dementia_wave1 &lt;dbl&gt;,
+#   dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;,
+#   dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
 ```
 
 ???
@@ -344,9 +346,9 @@ Read documentation, try to fill in the arguments.
 --
 
 - The 3 basic arguments are:
-  * `cols`: tells R what variables to pivot.
-  * `names_to`:  a new name for columns in `cols`. 
-  * `values_to`: a new name for **values** under the columns in `cols`.
+  * `cols()`: tells R what variables to pivot.
+  * `names_to()`:  a new name for columns in `cols()`. 
+  * `values_to()`: a new name for **values** under the columns in `cols()`.
 
 ---
 
@@ -400,7 +402,7 @@ The result above looks good, but 'wave' looks a bit strange. I will leave the ta
 fake_snack_df %&gt;%
   select(Lopnr, contains("dementia")) %&gt;%
   pivot_longer(
-    cols = contains("dementia"), 
+    cols = contains("dementia"),
     names_to = "wave", names_prefix = "dementia",
     values_to = "dementia"
   )
@@ -428,9 +430,9 @@ Pay attention to what arguments are changed, what are not changed.
 
 ---
 
-### Data transform task (5 - 10 min)
+### Data transform exercise (5 - 10 min)
 
-- Read documentation. Change the arguments in the `pivot_longer` function to get proper wave column. 
+- Read documentation. Change the arguments in the `pivot_longer()` function to get proper wave column. 
 
 *Example result (first 5 rows):*
 
@@ -456,11 +458,342 @@ Consider: is it enough to only join on one column? Why or why not?
 
 ---
 
+## Select variables by name pattern
+
+Some times you get data with specific variables. E.g.
+
+- Each wave has its own specific prefix.
+- Questionnaire/in person test has its own prefix.
+- ...
+
+--
+
+In this case, the `select()` function can help you. Some useful **selection helpers** are
+
+- `starts_with()`
+- `contains()`
+- `matches()`
+- ...
+
+More details please see documentation:
+
+```r
+?select()
+```
+
+???
+Explain them. 90% of the time I just use these four.
+
+---
+
+### starts_with
+
+
+```r
+fake_snack_df %&gt;%
+  select(starts_with("Date"))
+```
+
+### contains
+
+
+```r
+fake_snack_df %&gt;%
+  select(contains("Date") &amp; contains("wave"))
+```
+
+--
+
+- Imagine if only using `contains('Date')` without '&amp;' operator. What result would look like? Then try it.
+
+---
+
+### match
+
+- `match()` is more advanced since it uses [regular expression (regex)](https://en.wikipedia.org/wiki/Regular_expression). 
+
+--
+
+- There are many regex cheatsheets online. For exmaple [this](https://www.rexegg.com/regex-quickstart.html).
+
+--
+
+- One useful website to test regex is [here](https://regex101.com).
+
+
+```r
+fake_snack_df %&gt;%
+  select(matches("Date_wave\\d"))
+```
+
+
+???
+
+With match basically you can filter any pattern of variable names you want.
+
+I can show to test it in the online test website.
+
+
+---
+
 ## Get labels from datasets
 
-When we get SPSS or STATA data sets, usually they come with labels. For example, in the example data, we have:
+When we get SPSS or STATA data sets, usually they come with labels. E.g. in SPSS, one can check them in the "Variable View" tab. 
+
+--
+
+In R, one can use `view()` function. In the example data, we have:
+
+
+```r
+view(fake_snack_df)
+```
+
 
 ![](pic/df_label.png)
+
+--
+
+A natural thing to consider is to extract label information in the data frame form.
+
+
+---
+
+If you run `str()` function, the labels are in the "label" attribute. There are multiple ways to extract the labels.
+
+
+```r
+str(fake_snack_df)
+```
+
+--
+
+The one I use is the [sjlabelled](https://strengejacke.github.io/sjlabelled/articles/labelleddata.html) R package.
+
+
+```r
+label_char &lt;- sjlabelled::get_label(fake_snack_df)
+label_char
+```
+
+```
+                       Lopnr                          sex 
+                        "ID"                     "gender" 
+                  Date_wave1                    education 
+"date examination 2001-2004"                  "education" 
+                  Date_wave2                   Date_wave3 
+"date examination 2004-2007" "date examination 2007-2010" 
+                  Date_wave4                   Date_wave5 
+"Date examination 2010-2013" "Date examination 2013-2016" 
+                  Date_wave6               dementia_wave1 
+"Date examination 2016-2019"         "dementia 2001-2004" 
+              dementia_wave2               dementia_wave3 
+        "dementia 2004-2007"         "dementia 2007-2010" 
+              dementia_wave4               dementia_wave5 
+        "dementia 2010-2013"         "dementia 2013-2016" 
+              dementia_wave6 
+        "dementia 2016-2019" 
+```
+
+
+|               |x                          |
+|:--------------|:--------------------------|
+|Lopnr          |ID                         |
+|sex            |gender                     |
+|Date_wave1     |date examination 2001-2004 |
+|education      |education                  |
+|Date_wave2     |date examination 2004-2007 |
+|Date_wave3     |date examination 2007-2010 |
+|Date_wave4     |Date examination 2010-2013 |
+|Date_wave5     |Date examination 2013-2016 |
+|Date_wave6     |Date examination 2016-2019 |
+|dementia_wave1 |dementia 2001-2004         |
+|dementia_wave2 |dementia 2004-2007         |
+|dementia_wave3 |dementia 2007-2010         |
+|dementia_wave4 |dementia 2010-2013         |
+|dementia_wave5 |dementia 2013-2016         |
+|dementia_wave6 |dementia 2016-2019         |
+
+---
+
+The result looks terrible, so we have to fix it by transforming it to be tibble:
+
+
+```r
+label_df &lt;- tibble::rownames_to_column(as.data.frame(label_char), "variable")
+label_df &lt;- tibble::as_tibble(label_df)
+label_df
+```
+
+```
+# A tibble: 15 × 2
+   variable       label_char                
+   &lt;chr&gt;          &lt;chr&gt;                     
+ 1 Lopnr          ID                        
+ 2 sex            gender                    
+ 3 Date_wave1     date examination 2001-2004
+ 4 education      education                 
+ 5 Date_wave2     date examination 2004-2007
+ 6 Date_wave3     date examination 2007-2010
+ 7 Date_wave4     Date examination 2010-2013
+ 8 Date_wave5     Date examination 2013-2016
+ 9 Date_wave6     Date examination 2016-2019
+10 dementia_wave1 dementia 2001-2004        
+11 dementia_wave2 dementia 2004-2007        
+12 dementia_wave3 dementia 2007-2010        
+13 dementia_wave4 dementia 2010-2013        
+14 dementia_wave5 dementia 2013-2016        
+15 dementia_wave6 dementia 2016-2019        
+```
+
+---
+
+The result looks much better! Now we can do lots of things with pipeline.
+
+- filter the label contains 'dementia'
+
+
+```r
+label_df %&gt;%
+  filter(grepl("dementia", label_char))
+```
+
+```
+# A tibble: 6 × 2
+  variable       label_char        
+  &lt;chr&gt;          &lt;chr&gt;             
+1 dementia_wave1 dementia 2001-2004
+2 dementia_wave2 dementia 2004-2007
+3 dementia_wave3 dementia 2007-2010
+4 dementia_wave4 dementia 2010-2013
+5 dementia_wave5 dementia 2013-2016
+6 dementia_wave6 dementia 2016-2019
+```
+
+---
+
+- filter the variable contains 'wave'
+
+
+```r
+label_df %&gt;%
+  filter(grepl("wave", variable))
+```
+
+```
+# A tibble: 12 × 2
+   variable       label_char                
+   &lt;chr&gt;          &lt;chr&gt;                     
+ 1 Date_wave1     date examination 2001-2004
+ 2 Date_wave2     date examination 2004-2007
+ 3 Date_wave3     date examination 2007-2010
+ 4 Date_wave4     Date examination 2010-2013
+ 5 Date_wave5     Date examination 2013-2016
+ 6 Date_wave6     Date examination 2016-2019
+ 7 dementia_wave1 dementia 2001-2004        
+ 8 dementia_wave2 dementia 2004-2007        
+ 9 dementia_wave3 dementia 2007-2010        
+10 dementia_wave4 dementia 2010-2013        
+11 dementia_wave5 dementia 2013-2016        
+12 dementia_wave6 dementia 2016-2019        
+```
+
+
+???
+This can be useful when you got hundreds of variables in a file.
+
+There's one project has 200+ variables, I need to select the variables related to smoking.
+
+---
+
+## Missing values
+
+- Generate missing values in date columns
+
+
+```r
+miss_date_df &lt;- missMethods::delete_MCAR(fake_snack_df,
+  p = seq(0.1, 0.8, length.out = length(fake_snack_df)))
+```
+
+--
+
+
+- A quick question: what if you want to select the numeric columns?
+
+
+---
+
+```r
+head(miss_date_df)
+```
+
+```
+# A tibble: 6 × 15
+  Lopnr    sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4 Date_wave5
+  &lt;int&gt;  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+1  1284 -1.62  1848-01-16   -1.00   1703-06-26 NA         NA         1774-04-04
+2  2013  0.384 NA            0.883  NA         1811-08-26 1812-05-24 1777-11-08
+3  1618 NA     1833-09-17    0.0753 1792-10-19 NA         1746-09-20 NA        
+4  3190  0.682 1803-04-08    0.0943 1829-04-27 1744-02-04 NA         1766-03-26
+5  1103  0.521 NA           NA      1734-12-24 NA         1829-11-30 NA        
+6  2193  0.308 1733-11-07    0.771  NA         NA         NA         1750-10-02
+# … with 7 more variables: Date_wave6 &lt;date&gt;, dementia_wave1 &lt;dbl&gt;,
+#   dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;,
+#   dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
+```
+
+
+
+---
+
+### Count the NA
+
+- If count the NA of one column. It could something like:
+
+
+```r
+sum(is.na(miss_date_df$Date_wave1))
+```
+
+```
+[1] 673
+```
+--
+
+- What if multiple columns?
+
+---
+
+### Count NA in multiple columns
+
+
+```r
+miss_date_df %&gt;%
+  summarise(across(
+    where(lubridate::is.Date),
+    ~ sum(is.na(.))
+  ))
+```
+
+```
+# A tibble: 1 × 6
+  Date_wave1 Date_wave2 Date_wave3 Date_wave4 Date_wave5 Date_wave6
+       &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;
+1        673       1010       1178       1346       1514       1682
+```
+
+
+--
+
+- One can also use `colSums(is.na(miss_date_df))`. 
+
+---
+
+## Missing value exercise (5 min)
+
+- Read the documentation of `across()` function.
+- Count the NA of all numeric columns.
 
 
 
@@ -480,7 +813,7 @@ class: center, middle
 
 ### Exercise
 
-- Optional: Pivot the original 'fake_snack_df' by using only one `pivot_longer` function. Put wave and date after 'Lopnr' column. *Hint: check the `names_to` argument and `relocate()` function*. Result example:
+- Optional: Pivot the original 'fake_snack_df' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. *Hint: check the `names_to` argument and `relocate()` function*. Result example:
 
 
 ```

@@ -89,11 +89,11 @@ It can make our code more readable and reduce our chance of making mistakes.
 Based on real work scenario:
 
 - %>% syntax
-- join data frames
-- transform data shape 
-- get the label from DTA and SPSS in R
-- filter variables based on name pattern
-- check missing values
+- join data frames (*join function*)
+- transform data shape (*pivot_longer*)
+- filter variables based on name pattern (*select*)
+- get the label from DTA and SPSS in R (*filter*)
+- check missing values 
 - bin variables by percentiles
 - assign function
 
@@ -102,7 +102,7 @@ Based on real work scenario:
 For example, change a variable name in the code, but forget to change other places
 ---
 
-## Tidyverse
+# Tidyverse
 
 
 Many times we just `library(tidyverse)`. Actually [Tidyverse](https://www.tidyverse.org/packages/) is a huge umbrella consists of several powerful visualization and data manipulation package. For example:
@@ -160,20 +160,22 @@ This syntax makes data manupulation convenient and easy to read.
 ## Join data frames
 
 
-* With `.*_join` function: There are 4 common types of joins.
+* With `.*_join()` function: There are 4 common types of joins.
 
 
 ![](pic/join_tabel.png)
 
 ---
 
-Take `left_join` as an example: 
+Take `left_join()` as an example: 
 
 ```{r}
-# From  `dplyr` documentation: 
+# From  `dplyr` documentation:
 df1 <- tibble(x = 1:3)
-df2 <- tibble(x = c(1, 1, 2), 
-              y = c("first", "second", "third"))
+df2 <- tibble(
+  x = c(1, 1, 2),
+  y = c("first", "second", "third")
+)
 df1 %>% left_join(df2)
 ```
 
@@ -250,9 +252,9 @@ Read documentation, try to fill in the arguments.
 --
 
 - The 3 basic arguments are:
-  * `cols`: tells R what variables to pivot.
-  * `names_to`:  a new name for columns in `cols`. 
-  * `values_to`: a new name for **values** under the columns in `cols`.
+  * `cols()`: tells R what variables to pivot.
+  * `names_to()`:  a new name for columns in `cols()`. 
+  * `values_to()`: a new name for **values** under the columns in `cols()`.
 
 ---
 
@@ -287,7 +289,7 @@ The result above looks good, but 'wave' looks a bit strange. I will leave the ta
 fake_snack_df %>%
   select(Lopnr, contains("dementia")) %>%
   pivot_longer(
-    cols = contains("dementia"), 
+    cols = contains("dementia"),
     names_to = "wave", names_prefix = "dementia",
     values_to = "dementia"
   )
@@ -298,9 +300,9 @@ Pay attention to what arguments are changed, what are not changed.
 
 ---
 
-### Data transform task (5 - 10 min)
+### Data transform exercise (5 - 10 min)
 
-- Read documentation. Change the arguments in the `pivot_longer` function to get proper wave column. 
+- Read documentation. Change the arguments in the `pivot_longer()` function to get proper wave column. 
 
 *Example result (first 5 rows):*
 
@@ -313,7 +315,7 @@ fake_snack_df %>%
     names_to = "wave", names_prefix = "Date_wave",
     values_to = "date"
   ) %>%
-  mutate(wave = as.factor(wave)) %>% 
+  mutate(wave = as.factor(wave)) %>%
   slice_head(n = 5)
 ```
 
@@ -327,11 +329,218 @@ Consider: is it enough to only join on one column? Why or why not?
 
 ---
 
+## Select variables by name pattern
+
+Some times you get data with specific variables. E.g.
+
+- Each wave has its own specific prefix.
+- Questionnaire/in person test has its own prefix.
+- ...
+
+--
+
+In this case, the `select()` function can help you. Some useful **selection helpers** are
+
+- `starts_with()`
+- `contains()`
+- `matches()`
+- ...
+
+More details please see documentation:
+```{r, eval=FALSE}
+?select()
+```
+
+???
+Explain them. 90% of the time I just use these four.
+
+---
+
+### starts_with
+
+```{r, eval=FALSE}
+fake_snack_df %>%
+  select(starts_with("Date"))
+```
+
+### contains
+
+```{r, eval=FALSE}
+fake_snack_df %>%
+  select(contains("Date") & contains("wave"))
+```
+
+--
+
+- Imagine if only using `contains('Date')` without '&' operator. What result would look like? Then try it.
+
+---
+
+### match
+
+- `match()` is more advanced since it uses [regular expression (regex)](https://en.wikipedia.org/wiki/Regular_expression). 
+
+--
+
+- There are many regex cheatsheets online. For exmaple [this](https://www.rexegg.com/regex-quickstart.html).
+
+--
+
+- One useful website to test regex is [here](https://regex101.com).
+
+```{r, eval=FALSE}
+fake_snack_df %>%
+  select(matches("Date_wave\\d"))
+```
+
+
+???
+
+With match basically you can filter any pattern of variable names you want.
+
+I can show to test it in the online test website.
+
+
+---
+
 ## Get labels from datasets
 
-When we get SPSS or STATA data sets, usually they come with labels. For example, in the example data, we have:
+When we get SPSS or STATA data sets, usually they come with labels. E.g. in SPSS, one can check them in the "Variable View" tab. 
+
+--
+
+In R, one can use `view()` function. In the example data, we have:
+
+```{r, eval=FALSE}
+view(fake_snack_df)
+```
+
 
 ![](pic/df_label.png)
+
+--
+
+A natural thing to consider is to extract label information in the data frame form.
+
+
+---
+
+If you run `str()` function, the labels are in the "label" attribute. There are multiple ways to extract the labels.
+
+```{r, eval=FALSE}
+str(fake_snack_df)
+```
+
+--
+
+The one I use is the [sjlabelled](https://strengejacke.github.io/sjlabelled/articles/labelleddata.html) R package.
+
+```{r}
+label_char <- sjlabelled::get_label(fake_snack_df)
+label_char
+```
+
+```{r, purl=FALSE, echo=FALSE}
+knitr::kable(label_char)
+```
+
+---
+
+The result looks terrible, so we have to fix it by transforming it to be tibble:
+
+```{r}
+label_df <- tibble::rownames_to_column(as.data.frame(label_char), "variable")
+label_df <- tibble::as_tibble(label_df)
+label_df
+```
+
+---
+
+The result looks much better! Now we can do lots of things with pipeline.
+
+- filter the label contains 'dementia'
+
+```{r}
+label_df %>%
+  filter(grepl("dementia", label_char))
+```
+
+---
+
+- filter the variable contains 'wave'
+
+```{r}
+label_df %>%
+  filter(grepl("wave", variable))
+```
+
+
+???
+This can be useful when you got hundreds of variables in a file.
+
+There's one project has 200+ variables, I need to select the variables related to smoking.
+
+---
+
+## Missing values
+
+- Generate missing values in date columns
+
+```{r}
+
+miss_date_df <- missMethods::delete_MCAR(fake_snack_df,
+  p = seq(0.1, 0.8, length.out = length(fake_snack_df)))
+```
+
+--
+
+
+- A quick question: what if you want to select the numeric columns?
+
+
+---
+```{r}
+head(miss_date_df)
+```
+
+
+
+---
+
+### Count the NA
+
+- If count the NA of one column. It could something like:
+
+```{r}
+sum(is.na(miss_date_df$Date_wave1))
+```
+--
+
+- What if multiple columns?
+
+---
+
+### Count NA in multiple columns
+
+```{r Count NA in multiple columns}
+miss_date_df %>%
+  summarise(across(
+    where(lubridate::is.Date),
+    ~ sum(is.na(.))
+  ))
+```
+
+
+--
+
+- One can also use `colSums(is.na(miss_date_df))`. 
+
+---
+
+## Missing value exercise (5 min)
+
+- Read the documentation of `across()` function.
+- Count the NA of all numeric columns.
 
 
 
@@ -351,7 +560,7 @@ class: center, middle
 
 ### Exercise
 
-- Optional: Pivot the original 'fake_snack_df' by using only one `pivot_longer` function. Put wave and date after 'Lopnr' column. *Hint: check the `names_to` argument and `relocate()` function*. Result example:
+- Optional: Pivot the original 'fake_snack_df' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. *Hint: check the `names_to` argument and `relocate()` function*. Result example:
 
 ```{r, echo=FALSE, purl=FALSE}
 # answer
