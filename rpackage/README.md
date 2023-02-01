@@ -14,7 +14,7 @@ accessible.
 ## Installation
 
 You can install the development version of workshopr from
-[GitHub](https://github.com/Bolin-Wu/workshopr) with:
+[GitHub](https://github.com/Bolin-Wu/workshopr):
 
 ``` r
 install.packages("remotes")
@@ -24,7 +24,7 @@ remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
 ## Data
 
 ``` r
-workshopr::fake_snack_df
+workshopr::fake_snack_df 
 ```
 
 ## R script
