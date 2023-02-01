@@ -4,6 +4,8 @@
 # workshopr
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/Bolin-Wu/workshopr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Bolin-Wu/workshopr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of `workshopr` is to make example data and script easily
