@@ -152,7 +152,7 @@ Beautiful syntax with pipeline, just like playing LEGO.
 ### Example
 
 ```{r}
-fake_snack_df %>%
+fake_data %>%
   select(Lopnr, Date_wave1)
 ```
 
@@ -161,9 +161,9 @@ fake_snack_df %>%
 - In addition, filter on the date column
 
 ```{r continue example}
-fake_snack_df %>%
+fake_data %>%
   select(Lopnr, Date_wave1) %>%
-  filter(Date_wave1 > "1800-01-01") %>%
+  filter(Date_wave1 > "2002-01-01") %>%
   slice(1:5)
 ```
 
@@ -226,7 +226,7 @@ They come with better documentation, more powerful application, and better integ
 Let's assume we received a wide format data:
 
 ```{r check data}
-head(fake_snack_df, n = 5)
+head(fake_data, n = 5)
 ```
 
 ???
@@ -238,7 +238,7 @@ Please run the code in your R studio to get a better view.
 The column names are:
 
 ```{r check column names}
-sort(colnames(fake_snack_df))
+sort(colnames(fake_data))
 ```
 
 --
@@ -254,7 +254,7 @@ There are two variables with prefix should be formatted: 'Date' and 'dementia'. 
 - Select the interested columns
 
 ```{r start small}
-fake_snack_df %>%
+fake_data %>%
   select(contains("Date")) %>%
   slice(1:5)
 ```
@@ -281,7 +281,7 @@ Let's give a first try:
 
   
 ```{r pivot date}
-fake_snack_df %>%
+fake_data %>%
   select(Lopnr, contains("Date")) %>%
   pivot_longer(
     cols = contains("Date"),
@@ -304,7 +304,7 @@ The result above looks good, but 'wave' looks a bit strange. I will leave the ta
 --
 
 ```{r}
-fake_snack_df %>%
+fake_data %>%
   select(Lopnr, contains("dementia")) %>%
   pivot_longer(
     cols = contains("dementia"),
@@ -326,7 +326,7 @@ Pay attention to what arguments are changed, what are not changed.
 
 ```{r, echo=FALSE, purl=FALSE}
 # answer
-fake_snack_df %>%
+fake_data %>%
   select(Lopnr, contains("Date")) %>%
   pivot_longer(
     cols = contains("Date"),
@@ -375,14 +375,14 @@ Explain them. 90% of the time I just use these four.
 ### starts_with
 
 ```{r, eval=FALSE}
-fake_snack_df %>%
+fake_data %>%
   select(starts_with("Date"))
 ```
 
 ### contains
 
 ```{r, eval=FALSE}
-fake_snack_df %>%
+fake_data %>%
   select(contains("Date") & contains("wave"))
 ```
 
@@ -405,7 +405,7 @@ fake_snack_df %>%
 - One useful website to test regex is [here](https://regex101.com).
 
 ```{r, eval=FALSE}
-fake_snack_df %>%
+fake_data %>%
   select(matches("Date_wave\\d"))
 ```
 
@@ -428,7 +428,7 @@ I can show to test it in the online test website.
 - In R, one can use `view()` function. In the example data, we have:
 
 ```{r, eval=FALSE}
-view(fake_snack_df)
+view(fake_data)
 ```
 
 
@@ -449,7 +449,7 @@ There's one project has 200+ variables, I need to select the variables related t
 If you run `str()` function, the labels are in the "label" attribute. There are multiple ways to extract the labels.
 
 ```{r, eval=FALSE}
-str(fake_snack_df)
+str(fake_data)
 ```
 
 --
@@ -457,7 +457,7 @@ str(fake_snack_df)
 The one I use is the [sjlabelled](https://strengejacke.github.io/sjlabelled/articles/labelleddata.html) R package.
 
 ```{r}
-label_char <- sjlabelled::get_label(fake_snack_df)
+label_char <- sjlabelled::get_label(fake_data)
 label_char
 ```
 
@@ -507,7 +507,7 @@ label_df %>%
 - If count the NA of one column. It could something like:
 
 ```{r}
-sum(is.na(fake_snack_df$Date_wave1))
+sum(is.na(fake_data$Date_wave1))
 ```
 --
 
@@ -518,7 +518,7 @@ sum(is.na(fake_snack_df$Date_wave1))
 ### Count NA in multiple columns
 
 ```{r Count NA in multiple columns}
-fake_snack_df %>%
+fake_data %>%
   summarise(across(
     where(lubridate::is.Date),
     ~ sum(is.na(.))
@@ -536,7 +536,7 @@ The wikipedia explanation is not straight-forward. My personal comprehension is 
 
 --
 
-- One can also use `colSums(is.na(fake_snack_df))`. 
+- One can also use `colSums(is.na(fake_data))`. 
 
 ???
 Explain why I prefer the pipeline version
@@ -553,13 +553,13 @@ Explain why I prefer the pipeline version
 *Example result*
 
 ```{r missing value exercise result, echo=FALSE, purl=FALSE}
-fake_snack_df %>%
+fake_data %>%
   summarise(across(
     where(is.numeric),
     ~ sum(is.na(.))
   ))
 
-fake_snack_df %>%
+fake_data %>%
   summarise(across(
     contains("edu"),
     ~ sum(is.na(.))
@@ -579,7 +579,7 @@ fake_snack_df %>%
 --
 
 ```{r}
-fake_snack_df %>%
+fake_data %>%
   mutate(across(is.numeric, ~ round(., digits = 2)))
 ```
 
@@ -599,7 +599,7 @@ This I often use for data visualization.
 - For example, if we want to bin the education variable.
 
 ```{r}
-fake_snack_df %>%
+fake_data %>%
   transmute(education, edu_bin = cut(education,
     breaks = 3,
     labels = c("low", "medium", "high")
@@ -732,7 +732,7 @@ output: html_document
 - Calculate the NA of all columns except for id column.
 - Bin the education variable with your own defined cut points instead of setting the number of bins.
 - (optional) Read `stringr` documentation, find appropriate function to filter out 'objects_name' that contains "SNAC".
-- (optional) Pivot the original 'fake_snack_df' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. 
+- (optional) Pivot the original 'fake_data' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. 
 
 *Hint: check the `names_to` argument and `relocate()` function*. 
 
@@ -740,7 +740,7 @@ output: html_document
 
 ```{r, echo=FALSE, purl=FALSE}
 # answer
-fake_snack_df %>%
+fake_data %>%
   pivot_longer(contains("wave"),
     names_to = c(".value", "wave"),
     names_sep = "_",
