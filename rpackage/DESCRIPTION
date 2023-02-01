@@ -20,5 +20,6 @@ Depends:
 RoxygenNote: 7.2.3
 Imports: 
     usethis
-URL: https://github.com/Bolin-Wu/workshopr
+URL: https://github.com/Bolin-Wu/workshopr,
+    https://bolin-wu.github.io/workshopr/
 BugReports: https://github.com/Bolin-Wu/workshopr/issues
