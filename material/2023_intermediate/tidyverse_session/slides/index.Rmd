@@ -124,7 +124,8 @@ Many times we just `library(tidyverse)`. Actually [Tidyverse](https://www.tidyve
 
 - [magrittr](https://magrittr.tidyverse.org/): pipeline operator `%>%`.
 - [ggplot2](https://ggplot2.tidyverse.org/): `ggplot()`.
-- [dplyr](https://dplyr.tidyverse.org/): `select(), filter(), mutate()`
+- [dplyr](https://dplyr.tidyverse.org/): `select(), filter(), mutate()`.
+- [stringr](https://stringr.tidyverse.org/): `str_detect(), str_subset()`.
 
 --
 
@@ -729,10 +730,13 @@ output: html_document
 
 
 - Calculate the NA of all columns except for id column.
-- Bin the education variable with your own defined cut points.
+- Bin the education variable with your own defined cut points instead of setting the number of bins.
+- (optional) Read `stringr` documentation, find appropriate function to filter out 'objects_name' that contains "SNAC".
 - (optional) Pivot the original 'fake_snack_df' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. 
 
 *Hint: check the `names_to` argument and `relocate()` function*. 
+
+---
 
 ```{r, echo=FALSE, purl=FALSE}
 # answer
@@ -764,7 +768,7 @@ fake_snack_df %>%
 
 
 ```{r, include=FALSE, eval=TRUE, purl=FALSE}
-remotes::install_github("rstudio/pagedown", force = TRUE)
+# remotes::install_github("rstudio/pagedown", force = TRUE)
 pagedown::chrome_print("index.html")
 # renderthis::to_pdf("index.html")
 # pagedown::chrome_print("index.Rmd")

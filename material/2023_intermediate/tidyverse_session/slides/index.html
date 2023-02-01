@@ -137,7 +137,8 @@ Many times we just `library(tidyverse)`. Actually [Tidyverse](https://www.tidyve
 
 - [magrittr](https://magrittr.tidyverse.org/): pipeline operator `%&gt;%`.
 - [ggplot2](https://ggplot2.tidyverse.org/): `ggplot()`.
-- [dplyr](https://dplyr.tidyverse.org/): `select(), filter(), mutate()`
+- [dplyr](https://dplyr.tidyverse.org/): `select(), filter(), mutate()`.
+- [stringr](https://stringr.tidyverse.org/): `str_detect(), str_subset()`.
 
 --
 
@@ -289,16 +290,16 @@ head(fake_snack_df, n = 5)
 
 ```
 # A tibble: 5 x 15
-  Lopnr    sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4
-  &lt;int&gt;  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-1  1284 -1.62  1848-01-16   -1.00   1703-06-26 1807-08-10 1764-12-13
-2  2013  0.384 1788-07-16    0.883  1785-09-24 1811-08-26 1812-05-24
-3  1618 -0.363 1833-09-17    0.0753 1792-10-19 1781-01-06 1746-09-20
-4  3190  0.682 1803-04-08    0.0943 1829-04-27 1744-02-04 1846-08-24
-5  1103  0.521 1705-06-10    1.37   1734-12-24 1746-03-13 1829-11-30
-# ... with 8 more variables: Date_wave5 &lt;date&gt;, Date_wave6 &lt;date&gt;,
-#   dementia_wave1 &lt;dbl&gt;, dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;,
-#   dementia_wave4 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
+  Lopnr    sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4 Date_wave5
+  &lt;int&gt;  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+1  1284 -1.62  1848-01-16   -1.00   1703-06-26 1807-08-10 1764-12-13 1774-04-04
+2  2013  0.384 1788-07-16    0.883  1785-09-24 1811-08-26 1812-05-24 1777-11-08
+3  1618 -0.363 1833-09-17    0.0753 1792-10-19 1781-01-06 1746-09-20 1804-04-12
+4  3190  0.682 1803-04-08    0.0943 1829-04-27 1744-02-04 1846-08-24 1766-03-26
+5  1103  0.521 1705-06-10    1.37   1734-12-24 1746-03-13 1829-11-30 1711-02-15
+# ... with 7 more variables: Date_wave6 &lt;date&gt;, dementia_wave1 &lt;dbl&gt;,
+#   dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;,
+#   dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
 ```
 
 ???
@@ -791,12 +792,11 @@ Explain why I prefer the pipeline version
 
 ```
 # A tibble: 1 x 9
-  Lopnr   sex education dementi~1 demen~2 demen~3 demen~4 demen~5 demen~6
-  &lt;int&gt; &lt;int&gt;     &lt;int&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     0     0         0         0       0       0       0       0       0
-# ... with abbreviated variable names 1: dementia_wave1,
-#   2: dementia_wave2, 3: dementia_wave3, 4: dementia_wave4,
-#   5: dementia_wave5, 6: dementia_wave6
+  Lopnr   sex education dementia_wave1 dementi~1 demen~2 demen~3 demen~4 demen~5
+  &lt;int&gt; &lt;int&gt;     &lt;int&gt;          &lt;int&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+1     0     0         0              0         0       0       0       0       0
+# ... with abbreviated variable names 1: dementia_wave2, 2: dementia_wave3,
+#   3: dementia_wave4, 4: dementia_wave5, 5: dementia_wave6
 ```
 
 ```
@@ -825,23 +825,32 @@ fake_snack_df %&gt;%
 ```
 
 ```
+Warning: Use of bare predicate functions was deprecated in tidyselect 1.1.0.
+i Please use wrap predicates in `where()` instead.
+  # Was:
+  data %&gt;% select(is.numeric)
+
+  # Now:
+  data %&gt;% select(where(is.numeric))
+```
+
+```
 # A tibble: 3,365 x 15
-   Lopnr   sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4
-   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
- 1  1284 -1.62 1848-01-16     -1    1703-06-26 1807-08-10 1764-12-13
- 2  2013  0.38 1788-07-16      0.88 1785-09-24 1811-08-26 1812-05-24
- 3  1618 -0.36 1833-09-17      0.08 1792-10-19 1781-01-06 1746-09-20
- 4  3190  0.68 1803-04-08      0.09 1829-04-27 1744-02-04 1846-08-24
- 5  1103  0.52 1705-06-10      1.37 1734-12-24 1746-03-13 1829-11-30
- 6  2193  0.31 1733-11-07      0.77 1794-06-13 1738-06-02 1846-12-28
- 7  2555  1.17 1792-08-31      0.56 1727-07-07 1848-10-20 1807-12-03
- 8   254  1.07 1768-04-16     -0.16 1704-10-02 1773-10-25 1804-09-12
- 9  2250  0.24 1810-02-09     -0.29 1848-05-22 1812-01-08 1730-03-15
-10  2258 -0.06 1722-08-02      1.84 1786-01-17 1845-01-13 1762-03-06
-# ... with 3,355 more rows, and 8 more variables: Date_wave5 &lt;date&gt;,
-#   Date_wave6 &lt;date&gt;, dementia_wave1 &lt;dbl&gt;, dementia_wave2 &lt;dbl&gt;,
-#   dementia_wave3 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;,
-#   dementia_wave6 &lt;dbl&gt;
+   Lopnr   sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4 Date_wave5
+   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+ 1  1284 -1.62 1848-01-16     -1    1703-06-26 1807-08-10 1764-12-13 1774-04-04
+ 2  2013  0.38 1788-07-16      0.88 1785-09-24 1811-08-26 1812-05-24 1777-11-08
+ 3  1618 -0.36 1833-09-17      0.08 1792-10-19 1781-01-06 1746-09-20 1804-04-12
+ 4  3190  0.68 1803-04-08      0.09 1829-04-27 1744-02-04 1846-08-24 1766-03-26
+ 5  1103  0.52 1705-06-10      1.37 1734-12-24 1746-03-13 1829-11-30 1711-02-15
+ 6  2193  0.31 1733-11-07      0.77 1794-06-13 1738-06-02 1846-12-28 1750-10-02
+ 7  2555  1.17 1792-08-31      0.56 1727-07-07 1848-10-20 1807-12-03 1819-11-05
+ 8   254  1.07 1768-04-16     -0.16 1704-10-02 1773-10-25 1804-09-12 1722-06-18
+ 9  2250  0.24 1810-02-09     -0.29 1848-05-22 1812-01-08 1730-03-15 1719-02-22
+10  2258 -0.06 1722-08-02      1.84 1786-01-17 1845-01-13 1762-03-06 1778-01-19
+# ... with 3,355 more rows, and 7 more variables: Date_wave6 &lt;date&gt;,
+#   dementia_wave1 &lt;dbl&gt;, dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;,
+#   dementia_wave4 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
 ```
 
 ???
@@ -961,9 +970,8 @@ clean_names[1:5]
 ```
 
 ```
-[1] "Cohort1_Baseline_BMI"  "Cohort1_FU1_BMI"      
-[3] "Cohort1_FU2_BMI"       "Cohort1FU3_Cohort2FU2"
-[5] "Cohort2_Baseline_BMI" 
+[1] "Cohort1_Baseline_BMI"  "Cohort1_FU1_BMI"       "Cohort1_FU2_BMI"      
+[4] "Cohort1FU3_Cohort2FU2" "Cohort2_Baseline_BMI" 
 ```
 
 --
@@ -1018,10 +1026,13 @@ output: html_document
 
 
 - Calculate the NA of all columns except for id column.
-- Bin the education variable with your own defined cut points.
+- Bin the education variable with your own defined cut points instead of setting the number of bins.
+- (optional) Read `stringr` documentation, find appropriate function to filter out 'objects_name' that contains "SNAC".
 - (optional) Pivot the original 'fake_snack_df' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. 
 
 *Hint: check the `names_to` argument and `relocate()` function*. 
+
+---
 
 
 ```
