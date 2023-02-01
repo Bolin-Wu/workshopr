@@ -6,3 +6,12 @@
 #'
 #' @format A data frame with 15 variables and 3365 random obs.
 "fake_snack_df"
+
+
+#' Fake data
+#'
+#' A simulated fake data set created by Xin Xia.
+#'
+#'
+#' @format A data frame with 28 variables and 3000 random obs.
+"fake_data"
