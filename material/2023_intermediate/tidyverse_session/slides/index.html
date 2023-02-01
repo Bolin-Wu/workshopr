@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 ### NEAR, Aging Research Center
 ]
 .date[
-### 2023/01/26 (updated: 2023-01-30)
+### 2023/01/26 (updated: 2023-02-01)
 ]
 
 ---
@@ -170,20 +170,20 @@ fake_snack_df %&gt;%
 ```
 
 ```
-# A tibble: 3,365 × 2
+# A tibble: 3,365 x 2
    Lopnr Date_wave1
    &lt;int&gt; &lt;date&gt;    
- 1  1076 1775-04-30
- 2    NA 1703-10-07
- 3   378 1818-10-26
- 4   436 1739-08-23
- 5  2057 NA        
- 6   935 1708-01-05
- 7  3297 NA        
- 8   588 1812-02-01
- 9   916 NA        
-10  2407 1739-03-10
-# … with 3,355 more rows
+ 1  1284 1848-01-16
+ 2  2013 1788-07-16
+ 3  1618 1833-09-17
+ 4  3190 1803-04-08
+ 5  1103 1705-06-10
+ 6  2193 1733-11-07
+ 7  2555 1792-08-31
+ 8   254 1768-04-16
+ 9  2250 1810-02-09
+10  2258 1722-08-02
+# ... with 3,355 more rows
 ```
 
 ---
@@ -199,14 +199,14 @@ fake_snack_df %&gt;%
 ```
 
 ```
-# A tibble: 5 × 2
+# A tibble: 5 x 2
   Lopnr Date_wave1
   &lt;int&gt; &lt;date&gt;    
-1   378 1818-10-26
-2   588 1812-02-01
-3    NA 1849-06-26
-4   960 1804-12-04
-5  2542 1831-09-20
+1  1284 1848-01-16
+2  1618 1833-09-17
+3  3190 1803-04-08
+4  2250 1810-02-09
+5  2835 1813-12-12
 ```
 
 --
@@ -245,7 +245,7 @@ Joining, by = "x"
 ```
 
 ```
-# A tibble: 4 × 2
+# A tibble: 4 x 2
       x y     
   &lt;dbl&gt; &lt;chr&gt; 
 1     1 first 
@@ -288,17 +288,17 @@ head(fake_snack_df, n = 5)
 ```
 
 ```
-# A tibble: 5 × 15
-  Lopnr      sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4 Date_wave5
-  &lt;int&gt;    &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-1  1076  1.59    1775-04-30   -0.0783 1771-01-06 1727-08-03 NA         1749-09-06
-2    NA -0.290   1703-10-07   NA      1805-04-04 1774-03-16 1790-05-06 1750-08-30
-3   378 -0.494   1818-10-26   -0.409  NA         NA         NA         1803-08-21
-4   436 -0.00666 1739-08-23   NA      1797-11-12 NA         1791-07-09 NA        
-5  2057 NA       NA           -1.06   1792-04-16 1820-11-18 NA         NA        
-# … with 7 more variables: Date_wave6 &lt;date&gt;, dementia_wave1 &lt;dbl&gt;,
-#   dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;,
-#   dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
+# A tibble: 5 x 15
+  Lopnr    sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4
+  &lt;int&gt;  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+1  1284 -1.62  1848-01-16   -1.00   1703-06-26 1807-08-10 1764-12-13
+2  2013  0.384 1788-07-16    0.883  1785-09-24 1811-08-26 1812-05-24
+3  1618 -0.363 1833-09-17    0.0753 1792-10-19 1781-01-06 1746-09-20
+4  3190  0.682 1803-04-08    0.0943 1829-04-27 1744-02-04 1846-08-24
+5  1103  0.521 1705-06-10    1.37   1734-12-24 1746-03-13 1829-11-30
+# ... with 8 more variables: Date_wave5 &lt;date&gt;, Date_wave6 &lt;date&gt;,
+#   dementia_wave1 &lt;dbl&gt;, dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;,
+#   dementia_wave4 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
 ```
 
 ???
@@ -341,14 +341,14 @@ fake_snack_df %&gt;%
 ```
 
 ```
-# A tibble: 5 × 6
+# A tibble: 5 x 6
   Date_wave1 Date_wave2 Date_wave3 Date_wave4 Date_wave5 Date_wave6
   &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-1 1775-04-30 1771-01-06 1727-08-03 NA         1749-09-06 NA        
-2 1703-10-07 1805-04-04 1774-03-16 1790-05-06 1750-08-30 1818-12-31
-3 1818-10-26 NA         NA         NA         1803-08-21 NA        
-4 1739-08-23 1797-11-12 NA         1791-07-09 NA         1719-11-19
-5 NA         1792-04-16 1820-11-18 NA         NA         NA        
+1 1848-01-16 1703-06-26 1807-08-10 1764-12-13 1774-04-04 1739-04-12
+2 1788-07-16 1785-09-24 1811-08-26 1812-05-24 1777-11-08 1825-04-20
+3 1833-09-17 1792-10-19 1781-01-06 1746-09-20 1804-04-12 1764-11-26
+4 1803-04-08 1829-04-27 1744-02-04 1846-08-24 1766-03-26 1735-06-10
+5 1705-06-10 1734-12-24 1746-03-13 1829-11-30 1711-02-15 1710-06-12
 ```
 
 ---
@@ -385,20 +385,20 @@ fake_snack_df %&gt;%
 ```
 
 ```
-# A tibble: 20,190 × 3
+# A tibble: 20,190 x 3
    Lopnr wave   date      
    &lt;int&gt; &lt;chr&gt;  &lt;date&gt;    
- 1  1076 _wave1 1775-04-30
- 2  1076 _wave2 1771-01-06
- 3  1076 _wave3 1727-08-03
- 4  1076 _wave4 NA        
- 5  1076 _wave5 1749-09-06
- 6  1076 _wave6 NA        
- 7    NA _wave1 1703-10-07
- 8    NA _wave2 1805-04-04
- 9    NA _wave3 1774-03-16
-10    NA _wave4 1790-05-06
-# … with 20,180 more rows
+ 1  1284 _wave1 1848-01-16
+ 2  1284 _wave2 1703-06-26
+ 3  1284 _wave3 1807-08-10
+ 4  1284 _wave4 1764-12-13
+ 5  1284 _wave5 1774-04-04
+ 6  1284 _wave6 1739-04-12
+ 7  2013 _wave1 1788-07-16
+ 8  2013 _wave2 1785-09-24
+ 9  2013 _wave3 1811-08-26
+10  2013 _wave4 1812-05-24
+# ... with 20,180 more rows
 ```
 
 
@@ -426,20 +426,20 @@ fake_snack_df %&gt;%
 ```
 
 ```
-# A tibble: 20,190 × 3
+# A tibble: 20,190 x 3
    Lopnr wave   dementia
    &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
- 1  1076 _wave1  NA     
- 2  1076 _wave2  NA     
- 3  1076 _wave3  NA     
- 4  1076 _wave4  -0.0373
- 5  1076 _wave5  NA     
- 6  1076 _wave6  NA     
- 7    NA _wave1  -1.22  
- 8    NA _wave2  NA     
- 9    NA _wave3  NA     
-10    NA _wave4  NA     
-# … with 20,180 more rows
+ 1  1284 _wave1   -0.246
+ 2  1284 _wave2   -0.704
+ 3  1284 _wave3   -0.508
+ 4  1284 _wave4   -1.48 
+ 5  1284 _wave5   -0.402
+ 6  1284 _wave6    1.37 
+ 7  2013 _wave1    0.377
+ 8  2013 _wave2    0.832
+ 9  2013 _wave3   -0.824
+10  2013 _wave4    2.37 
+# ... with 20,180 more rows
 ```
 
 ???
@@ -455,14 +455,14 @@ Pay attention to what arguments are changed, what are not changed.
 
 
 ```
-# A tibble: 5 × 3
+# A tibble: 5 x 3
   Lopnr wave  date      
   &lt;int&gt; &lt;fct&gt; &lt;date&gt;    
-1  1076 1     1775-04-30
-2  1076 2     1771-01-06
-3  1076 3     1727-08-03
-4  1076 4     NA        
-5  1076 5     1749-09-06
+1  1284 1     1848-01-16
+2  1284 2     1703-06-26
+3  1284 3     1807-08-10
+4  1284 4     1764-12-13
+5  1284 5     1774-04-04
 ```
 
 --
@@ -597,16 +597,22 @@ label_char
 ```
 
 ```
-                       Lopnr                          sex                   Date_wave1 
-                        "ID"                     "gender" "date examination 2001-2004" 
-                   education                   Date_wave2                   Date_wave3 
-                 "education" "date examination 2004-2007" "date examination 2007-2010" 
-                  Date_wave4                   Date_wave5                   Date_wave6 
-"Date examination 2010-2013" "Date examination 2013-2016" "Date examination 2016-2019" 
-              dementia_wave1               dementia_wave2               dementia_wave3 
-        "dementia 2001-2004"         "dementia 2004-2007"         "dementia 2007-2010" 
-              dementia_wave4               dementia_wave5               dementia_wave6 
-        "dementia 2010-2013"         "dementia 2013-2016"         "dementia 2016-2019" 
+                       Lopnr                          sex 
+                        "ID"                     "gender" 
+                  Date_wave1                    education 
+"date examination 2001-2004"                  "education" 
+                  Date_wave2                   Date_wave3 
+"date examination 2004-2007" "date examination 2007-2010" 
+                  Date_wave4                   Date_wave5 
+"Date examination 2010-2013" "Date examination 2013-2016" 
+                  Date_wave6               dementia_wave1 
+"Date examination 2016-2019"         "dementia 2001-2004" 
+              dementia_wave2               dementia_wave3 
+        "dementia 2004-2007"         "dementia 2007-2010" 
+              dementia_wave4               dementia_wave5 
+        "dementia 2010-2013"         "dementia 2013-2016" 
+              dementia_wave6 
+        "dementia 2016-2019" 
 ```
 
 
@@ -640,7 +646,7 @@ label_df
 ```
 
 ```
-# A tibble: 15 × 2
+# A tibble: 15 x 2
    variable       label_char                
    &lt;chr&gt;          &lt;chr&gt;                     
  1 Lopnr          ID                        
@@ -673,7 +679,7 @@ label_df %&gt;%
 ```
 
 ```
-# A tibble: 6 × 2
+# A tibble: 6 x 2
   variable       label_char        
   &lt;chr&gt;          &lt;chr&gt;             
 1 dementia_wave1 dementia 2001-2004
@@ -695,7 +701,7 @@ label_df %&gt;%
 ```
 
 ```
-# A tibble: 12 × 2
+# A tibble: 12 x 2
    variable       label_char                
    &lt;chr&gt;          &lt;chr&gt;                     
  1 Date_wave1     date examination 2001-2004
@@ -729,7 +735,7 @@ sum(is.na(fake_snack_df$Date_wave1))
 ```
 
 ```
-[1] 673
+[1] 0
 ```
 --
 
@@ -749,10 +755,10 @@ fake_snack_df %&gt;%
 ```
 
 ```
-# A tibble: 1 × 6
+# A tibble: 1 x 6
   Date_wave1 Date_wave2 Date_wave3 Date_wave4 Date_wave5 Date_wave6
        &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;      &lt;int&gt;
-1        673       1010       1178       1346       1514       1682
+1          0          0          0          0          0          0
 ```
 
 - You may wonder: what is this `~ sum(is.na(.))`?
@@ -784,19 +790,20 @@ Explain why I prefer the pipeline version
 
 
 ```
-# A tibble: 1 × 9
-  Lopnr   sex education dementia_wave1 dementia_wave2 dementi…¹ demen…² demen…³ demen…⁴
-  &lt;int&gt; &lt;int&gt;     &lt;int&gt;          &lt;int&gt;          &lt;int&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1   336   505       841           1851           2019      2187    2356    2524    2692
-# … with abbreviated variable names ¹​dementia_wave3, ²​dementia_wave4, ³​dementia_wave5,
-#   ⁴​dementia_wave6
+# A tibble: 1 x 9
+  Lopnr   sex education dementi~1 demen~2 demen~3 demen~4 demen~5 demen~6
+  &lt;int&gt; &lt;int&gt;     &lt;int&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+1     0     0         0         0       0       0       0       0       0
+# ... with abbreviated variable names 1: dementia_wave1,
+#   2: dementia_wave2, 3: dementia_wave3, 4: dementia_wave4,
+#   5: dementia_wave5, 6: dementia_wave6
 ```
 
 ```
-# A tibble: 1 × 1
+# A tibble: 1 x 1
   education
       &lt;int&gt;
-1       841
+1         0
 ```
 
 ---
@@ -818,22 +825,23 @@ fake_snack_df %&gt;%
 ```
 
 ```
-# A tibble: 3,365 × 15
-   Lopnr   sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4 Date_wave5
-   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
- 1  1076  1.59 1775-04-30     -0.08 1771-01-06 1727-08-03 NA         1749-09-06
- 2    NA -0.29 1703-10-07     NA    1805-04-04 1774-03-16 1790-05-06 1750-08-30
- 3   378 -0.49 1818-10-26     -0.41 NA         NA         NA         1803-08-21
- 4   436 -0.01 1739-08-23     NA    1797-11-12 NA         1791-07-09 NA        
- 5  2057 NA    NA             -1.06 1792-04-16 1820-11-18 NA         NA        
- 6   935 -0.84 1708-01-05     NA    1739-11-26 1753-12-10 NA         1770-01-28
- 7  3297 -2.54 NA              0.92 1805-01-23 1835-07-13 1752-10-03 1790-01-23
- 8   588  0.5  1812-02-01     -0.69 1721-07-16 NA         1771-07-07 1801-07-31
- 9   916  2.4  NA              0.1  1813-10-26 1712-11-09 1746-12-08 NA        
-10  2407 -1.94 1739-03-10      0    1727-12-11 1766-01-10 1775-12-29 1760-01-28
-# … with 3,355 more rows, and 7 more variables: Date_wave6 &lt;date&gt;,
-#   dementia_wave1 &lt;dbl&gt;, dementia_wave2 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;,
-#   dementia_wave4 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;
+# A tibble: 3,365 x 15
+   Lopnr   sex Date_wave1 education Date_wave2 Date_wave3 Date_wave4
+   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+ 1  1284 -1.62 1848-01-16     -1    1703-06-26 1807-08-10 1764-12-13
+ 2  2013  0.38 1788-07-16      0.88 1785-09-24 1811-08-26 1812-05-24
+ 3  1618 -0.36 1833-09-17      0.08 1792-10-19 1781-01-06 1746-09-20
+ 4  3190  0.68 1803-04-08      0.09 1829-04-27 1744-02-04 1846-08-24
+ 5  1103  0.52 1705-06-10      1.37 1734-12-24 1746-03-13 1829-11-30
+ 6  2193  0.31 1733-11-07      0.77 1794-06-13 1738-06-02 1846-12-28
+ 7  2555  1.17 1792-08-31      0.56 1727-07-07 1848-10-20 1807-12-03
+ 8   254  1.07 1768-04-16     -0.16 1704-10-02 1773-10-25 1804-09-12
+ 9  2250  0.24 1810-02-09     -0.29 1848-05-22 1812-01-08 1730-03-15
+10  2258 -0.06 1722-08-02      1.84 1786-01-17 1845-01-13 1762-03-06
+# ... with 3,355 more rows, and 8 more variables: Date_wave5 &lt;date&gt;,
+#   Date_wave6 &lt;date&gt;, dementia_wave1 &lt;dbl&gt;, dementia_wave2 &lt;dbl&gt;,
+#   dementia_wave3 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;,
+#   dementia_wave6 &lt;dbl&gt;
 ```
 
 ???
@@ -861,20 +869,20 @@ fake_snack_df %&gt;%
 ```
 
 ```
-# A tibble: 3,365 × 2
+# A tibble: 3,365 x 2
    education edu_bin
        &lt;dbl&gt; &lt;fct&gt;  
- 1  -0.0783  medium 
- 2  NA       &lt;NA&gt;   
- 3  -0.409   medium 
- 4  NA       &lt;NA&gt;   
- 5  -1.06    medium 
- 6  NA       &lt;NA&gt;   
- 7   0.924   medium 
- 8  -0.687   medium 
- 9   0.0968  medium 
-10  -0.00359 medium 
-# … with 3,355 more rows
+ 1   -1.00   medium 
+ 2    0.883  medium 
+ 3    0.0753 medium 
+ 4    0.0943 medium 
+ 5    1.37   high   
+ 6    0.771  medium 
+ 7    0.562  medium 
+ 8   -0.159  medium 
+ 9   -0.289  medium 
+10    1.84   high   
+# ... with 3,355 more rows
 ```
 
 
@@ -908,6 +916,62 @@ for (i in 1:4) {
 }
 ```
 
+---
+
+### Messy dataframe name
+
+- Imagine in your environment you have these dataframe. 
+  - Chances are that they are named this way when you get the data files from someone. They have spaces, "-", horrible!
+  
+
+```r
+objects_name &lt;- c(
+  "Cohort1_Baseline_BMI", "Cohort1_FU1_BMI", "Cohort1_FU2_BMI",
+  "Cohort1FU3_Cohort2FU2", "Cohort2_Baseline_BMI", "envir_name",
+  "Gender data request_20230111", "Gender data request_20230116",
+  "index", "NEAR_BMI-mortality", "SNAC-K C1 B-F6 cohort file",
+  "SNAC-K C1_B", "SNAC-K C1_F1", "SNAC-K C1_F2", "SNAC-K C1_F3",
+  "SNAC-K C1_F4", "SNAC-K C1_F5"
+)
+
+for (i in 1:length(objects_name)) {
+  # assign some values to these objects
+  assign(objects_name[i], sample(100,10))
+}
+```
+
+---
+
+- Look at your 'Environment' panel. Or `ls()` can retrieve all object names in your R environment. Do you feel familiar?
+
+---
+
+### Let's fix it with `assign()` function (one possible way).
+
+
+```r
+clean_names &lt;- gsub(" |-", "_", objects_name)
+
+for (i in 1:length(clean_names)) {
+  assign(clean_names[i], get(objects_name[i]))
+}
+
+# just show the first few
+clean_names[1:5]
+```
+
+```
+[1] "Cohort1_Baseline_BMI"  "Cohort1_FU1_BMI"      
+[3] "Cohort1_FU2_BMI"       "Cohort1FU3_Cohort2FU2"
+[5] "Cohort2_Baseline_BMI" 
+```
+
+--
+
+- Check your 'Environment' panel again.
+--
+
+- The `gsub()` part can be customized with regex syntax. Basically you can fix any kind of unclean dataframe names.
 
 
 ---
@@ -961,12 +1025,12 @@ output: html_document
 
 
 ```
-# A tibble: 3 × 6
+# A tibble: 3 x 6
   Lopnr wave  Date         sex education dementia
   &lt;int&gt; &lt;chr&gt; &lt;date&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1  1076 wave1 1775-04-30  1.59   -0.0783       NA
-2  1076 wave2 1771-01-06  1.59   -0.0783       NA
-3  1076 wave3 1727-08-03  1.59   -0.0783       NA
+1  1284 wave1 1848-01-16 -1.62     -1.00   -0.246
+2  1284 wave2 1703-06-26 -1.62     -1.00   -0.704
+3  1284 wave3 1807-08-10 -1.62     -1.00   -0.508
 ```
 
 

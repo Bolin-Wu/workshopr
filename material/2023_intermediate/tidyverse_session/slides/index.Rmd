@@ -560,10 +560,9 @@ fake_snack_df %>%
 
 fake_snack_df %>%
   summarise(across(
-    contains('edu'),
+    contains("edu"),
     ~ sum(is.na(.))
   ))
-
 ```
 
 ---
@@ -636,6 +635,54 @@ for (i in 1:4) {
 }
 ```
 
+---
+
+### Messy dataframe name
+
+- Imagine in your environment you have these dataframe. 
+  - Chances are that they are named this way when you get the data files from someone. They have spaces, "-", horrible!
+  
+```{r}
+objects_name <- c(
+  "Cohort1_Baseline_BMI", "Cohort1_FU1_BMI", "Cohort1_FU2_BMI",
+  "Cohort1FU3_Cohort2FU2", "Cohort2_Baseline_BMI", "envir_name",
+  "Gender data request_20230111", "Gender data request_20230116",
+  "index", "NEAR_BMI-mortality", "SNAC-K C1 B-F6 cohort file",
+  "SNAC-K C1_B", "SNAC-K C1_F1", "SNAC-K C1_F2", "SNAC-K C1_F3",
+  "SNAC-K C1_F4", "SNAC-K C1_F5"
+)
+
+for (i in 1:length(objects_name)) {
+  # assign some values to these objects
+  assign(objects_name[i], sample(100,10))
+}
+```
+
+---
+
+- Look at your 'Environment' panel. Or `ls()` can retrieve all object names in your R environment. Do you feel familiar?
+
+---
+
+### Let's fix it with `assign()` function (one possible way).
+
+```{r}
+clean_names <- gsub(" |-", "_", objects_name)
+
+for (i in 1:length(clean_names)) {
+  assign(clean_names[i], get(objects_name[i]))
+}
+
+# just show the first few
+clean_names[1:5]
+```
+
+--
+
+- Check your 'Environment' panel again.
+--
+
+- The `gsub()` part can be customized with regex syntax. Basically you can fix any kind of unclean dataframe names.
 
 
 ---
@@ -717,7 +764,7 @@ fake_snack_df %>%
 
 
 ```{r, include=FALSE, eval=TRUE, purl=FALSE}
-remotes::install_github('rstudio/pagedown', force = TRUE)
+remotes::install_github("rstudio/pagedown", force = TRUE)
 pagedown::chrome_print("index.html")
 # renderthis::to_pdf("index.html")
 # pagedown::chrome_print("index.Rmd")
@@ -727,12 +774,12 @@ pagedown::chrome_print("index.html")
 ```{r, include=FALSE, eval=FALSE, purl=FALSE}
 # library(here)
 # pkg_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/rpackage/inst/templates/rscript"
-# 
+#
 # knitr::purl("index.Rmd",
 #   output = here("R", "tidyverse_2023.R"),
 #   documentation = 1
 # )
-# 
+#
 # knitr::purl("index.Rmd",
 #   output = paste0(pkg_path, "/tidyverse_2023.R"),
 #   documentation = 1
