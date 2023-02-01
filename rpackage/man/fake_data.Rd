@@ -5,12 +5,15 @@
 \alias{fake_data}
 \title{Fake data}
 \format{
-A data frame with 28 variables and 3000 random obs.
+A data frame with 28 variables and 3000 simulated obs.
+}
+\source{
+Xin Xia's simulation.
 }
 \usage{
 fake_data
 }
 \description{
-A simulated fake data set created by Xin Xia.
+A simulated fake data set created by Xin Xia. It has mmse, age, date, education, dementia, etc.
 }
 \keyword{datasets}
