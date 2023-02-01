@@ -52,7 +52,7 @@ options(
 ## `workshopr` package
 
 ### Install
-```{r install package, eval=FALSE}
+```{r install package, eval=TRUE}
 install.packages("remotes")
 remotes::install_github("Bolin-Wu/workshopr",
   subdir = "rpackage",
@@ -769,23 +769,23 @@ fake_snack_df %>%
 
 ```{r, include=FALSE, eval=TRUE, purl=FALSE}
 # remotes::install_github("rstudio/pagedown", force = TRUE)
-pagedown::chrome_print("index.html")
+# pagedown::chrome_print("index.html")
 # renderthis::to_pdf("index.html")
 # pagedown::chrome_print("index.Rmd")
 ```
 
 
 ```{r, include=FALSE, eval=FALSE, purl=FALSE}
-# library(here)
-# pkg_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/rpackage/inst/templates/rscript"
-#
-# knitr::purl("index.Rmd",
-#   output = here("R", "tidyverse_2023.R"),
-#   documentation = 1
-# )
-#
-# knitr::purl("index.Rmd",
-#   output = paste0(pkg_path, "/tidyverse_2023.R"),
-#   documentation = 1
-#  )
+library(here)
+pkg_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/rpackage/inst/templates/rscript"
+
+knitr::purl("index.Rmd",
+  output = here("R", "tidyverse_2023.R"),
+  documentation = 1
+)
+
+knitr::purl("index.Rmd",
+  output = paste0(pkg_path, "/tidyverse_2023.R"),
+  documentation = 1
+ )
 ```
