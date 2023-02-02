@@ -2,10 +2,6 @@ library(foreign)
 library(dplyr)
 library(haven)
 library(tidyr)
-library(xlsx)
-
-#set working directory
-setwd("C:/Users/xin.xia/OneDrive - KI.SE/Skrivbordet/PhD education/Workshops/workshop 2023 by xin and bolin/R workshop")
 
 
 #### 1. loop basics ####
@@ -109,11 +105,11 @@ unlist(mapply(rep,1:4,4:1))
 
 
 #tapply-subset of objects
-paquid_wide<-read.csv("paquid_wide.csv")
-tapply(paquid_wide$MMSE_1, paquid_wide$male, mean, na.rm=TRUE)
-tapply(paquid_wide$MMSE_1, list(paquid_wide$male,paquid_wide$CEP), mean, na.rm=TRUE)
-tapply(paquid_wide$MMSE_1, list(paquid_wide$male,paquid_wide$CEP,paquid_wide$dem), 
-       mean, na.rm=TRUE)
+
+fake_data <- read_dta("fake data.dta")
+tapply(fake_data$mmse_wave1, fake_data$sex, mean, na.rm=TRUE)
+tapply(fake_data$mmse_wave1, list(fake_data$sex,fake_data$education), mean, na.rm=TRUE)
+
 
 
 #### 3. generate variables with loop ####
@@ -167,34 +163,29 @@ data_ex1<-data_ex1_fun(id=7,sex=1,age=65,city="uppsala")
 
 
 #### 5. loops over models ####
-#use paquid data, data information:https://www.rdocumentation.org/packages/lcmm/versions/1.8.1.1/topics/paquid
-paquid_wide$dem<-factor(paquid_wide$dem,levels = c("0","1"),labels = c("No dementia","Dementia"))
-paquid_wide$male<-factor(paquid_wide$male,levels = c("0","1"),labels = c("Female","Male"))
-
-
 #### 5.1. use loop to run linear regression with different sets of covariates ####
-cov_list<-c("age_init","age_init+male","age_init+male+CEP")
+cov_list<-c("age_base","age_base+sex","age_base+sex+education")
 for (i in 1:length(cov_list)){
-  print(summary(glm(formula = as.formula(paste0("MMSE_1~",cov_list[[i]])),family = "gaussian",data = paquid_wide)))
+  print(summary(glm(formula = as.formula(paste0("mmse_wave1~",cov_list[[i]])),family = "gaussian",data = fake_data)))
 }
 
 
 #### 5.2. use loop to run linear regression with different datasets ####
 #combine datasets to a list
-data_list<-list(subset(paquid_wide,male=="Female"),subset(paquid_wide,male=="Male"))
-names(data_list)<-c("paquid_wide_female","paquid_wide_male")
-cov_list2<-c("age_init","age_init+CEP")
+data_list<-list(subset(fake_data,sex==0),subset(fake_data,sex==1))
+names(data_list)<-c("fake_data_male","fake_data_female")
+cov_list2<-c("age_base","age_base+education")
 
 for (i in 1:length(cov_list2)){
   for (j in 1:length(data_list)){
-    print(summary(glm(formula = as.formula(paste0("MMSE_1~",cov_list2[[i]])),family = "gaussian",data = data_list[[j]])))
+    print(summary(glm(formula = as.formula(paste0("mmse_wave1~",cov_list2[[i]])),family = "gaussian",data = data_list[[j]])))
   }
 }
 
 #Alternative: use function to run models with different covariates through datasets
 lm_exa<-lapply(cov_list2,function(i){
   lapply(data_list,function(j){
-    print(summary(glm(formula = as.formula(paste0("MMSE_1~",i)),family = "gaussian",data = j)))
+    print(summary(glm(formula = as.formula(paste0("mmse_wave1~",i)),family = "gaussian",data = j)))
   })
 })
 
@@ -202,7 +193,7 @@ lm_exa<-lapply(cov_list2,function(i){
 
 #### 5.3. use loop to summarize results from statistical models ####
 #run a single model
-model_exe<-glm(formula = MMSE_1~age_init+male+CEP,family = "gaussian",data = paquid_wide)
+model_exe<-glm(formula = mmse_wave1~age_base+sex+education,family = "gaussian",data = fake_data)
 
 #summarize model
 summary(model_exe)
@@ -222,7 +213,7 @@ lm_results<-data.frame(model=character(0),dataset=character(0),predictor=charact
                        estimates=numeric(0),lb=numeric(0),ub=numeric(0),p_value=numeric(0))
 for (i in 1:length(cov_list2)){
   for (j in 1:length(data_list)){
-    temp_model<-glm(formula = as.formula(paste0("MMSE_1~",cov_list2[[i]])),family = "gaussian",data = data_list[[j]])
+    temp_model<-glm(formula = as.formula(paste0("mmse_wave1~",cov_list2[[i]])),family = "gaussian",data = data_list[[j]])
     for (n in 1:length(row.names(summary(temp_model)$coefficients))){
       model<-paste("Model",i,sep = " ")
       dataset<-names(data_list[j])
@@ -244,8 +235,5 @@ lm_results$point_ci<-paste0(lm_results$estimates," (",lm_results$lb,",",lm_resul
 lm_results$point_ci2<-paste0(lm_results$estimates," (",lm_results$lb,"-",lm_results$ub,")")
 lm_results$p_value<-ifelse(lm_results$p_value<0.0001,"<0.0001",lm_results$p_value)
 
-#export the results to excel
-write.xlsx(lm_results,"lm_results.xlsx",sheetName = "linear model",append = T)
-#install "xlsx":https://www.guru99.com/r-exporting-data.html#1
 
 write.csv(lm_results, "lm_results.csv")
