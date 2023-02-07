@@ -735,6 +735,8 @@ Before I had to a thing called LaTex editor, compile & debug all the time.
 
 With overleaf, life becomes much easier. I wrote my master thesis with it.
 
+No need to worry about the font size, color, logo, etc. Just write!
+
 ---
 
 ## code chunk options
