@@ -36,6 +36,7 @@ workshopr::get_code_2023(session = "tidyverse")
 ```
 
 ## R markdown
+[Bolin](https://staff.ki.se/people/bolin-wu) leads this session.
 
 Get the rmd templates with html and word output:
 
