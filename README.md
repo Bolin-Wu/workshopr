@@ -36,7 +36,7 @@ workshopr::get_code_2023(session = "tidyverse")
 ```
 
 ## R markdown
-[Bolin](https://staff.ki.se/people/bolin-wu) leads this session.
+[Bolin](https://staff.ki.se/people/bolin-wu) leads this session. The slide is available [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
 
 Get the rmd templates with html and word output:
 
