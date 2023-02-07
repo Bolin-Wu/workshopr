@@ -66,56 +66,10 @@ class: center, middle, inverse, title-slide
 
 ```r
 install.packages("remotes")
-```
-
-```
-Installing remotes [2.4.2] ...
-	OK [linked cache]
-```
-
-```r
 remotes::install_github("Bolin-Wu/workshopr",
   subdir = "rpackage",
   force = TRUE
 )
-```
-
-```
-Downloading GitHub repo Bolin-Wu/workshopr@HEAD
-```
-
-```
-── R CMD build ───────────────────────────────────────────────────────────────────────
-  
-   checking for file ‘/private/var/folders/37/82_ksqzn12z1d7jmth3pqq2m0000gq/T/RtmpO2pwqG/remotes102682c2780c6/Bolin-Wu-workshopr-86286cf/rpackage/DESCRIPTION’ ...
-  
-✔  checking for file ‘/private/var/folders/37/82_ksqzn12z1d7jmth3pqq2m0000gq/T/RtmpO2pwqG/remotes102682c2780c6/Bolin-Wu-workshopr-86286cf/rpackage/DESCRIPTION’
-
-  
-─  preparing ‘workshopr’:
-  
-  
-   checking DESCRIPTION meta-information ...
-  
-✔  checking DESCRIPTION meta-information
-
-  
-─  checking for LF line-endings in source and make files and shell scripts
-
-  
-─  checking for empty or unneeded directories
-
-  
-─  building ‘workshopr_0.1.0.tar.gz’
-
-  
-   
-
-```
-
-```
-Installing package into '/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/material/2023_intermediate/tidyverse_rmd_session/slides/renv/library/R-4.2/aarch64-apple-darwin20'
-(as 'lib' is unspecified)
 ```
 
 
@@ -124,6 +78,7 @@ Installing package into '/Users/bolin/Documents/KI_local/work_tasks/presentation
 ```r
 library(workshopr)
 library(tidyverse)
+library(here)
 ```
 
 ---
@@ -285,10 +240,6 @@ df2 &lt;- tibble(
   y = c("first", "second", "third")
 )
 df1 %&gt;% left_join(df2)
-```
-
-```
-Joining, by = "x"
 ```
 
 ```
@@ -901,16 +852,6 @@ fake_data %&gt;%
 ```
 
 ```
-Warning: Use of bare predicate functions was deprecated in tidyselect 1.1.0.
-ℹ Please use wrap predicates in `where()` instead.
-  # Was:
-  data %&gt;% select(is.numeric)
-
-  # Now:
-  data %&gt;% select(where(is.numeric))
-```
-
-```
 # A tibble: 3,000 × 28
    Lopnr Date_wave1 age_wave1 mmse_wave1 dementia…¹ Date_wave2 age_w…² mmse_…³ demen…⁴
    &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -1025,7 +966,7 @@ objects_name &lt;- c(
 
 for (i in 1:length(objects_name)) {
   # assign some values to these objects
-  assign(objects_name[i], sample(100,10))
+  assign(objects_name[i], sample(100, 10))
 }
 ```
 
@@ -1135,12 +1076,16 @@ No need to worry about the font size, color, logo, etc. Just write!
 
 ### Example
 
-````markdown
-```{r, message = FALSE}
-# the message of this code chunk will be surpressed.
-library(tidyverse)
-```
-````
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pic/local_set.png" alt="local option"  /&gt;
+&lt;p class="caption"&gt;local option&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pic/global_set.png" alt="global option"  /&gt;
+&lt;p class="caption"&gt;global option&lt;/p&gt;
+&lt;/div&gt;
+
 
 --
 
@@ -1181,8 +1126,17 @@ output:
 
 ### Live demo in R studio
 
-* Get the template:
+* Get the templates of html or word output:
 
+
+```r
+workshopr::get_rmd_2023(name = "pretty_template", output_file = "word")
+workshopr::get_rmd_2023(name = "pretty_template", output_file = "html")
+```
+
+--
+
+* Let's take a look together!
 
 ---
 
@@ -1219,10 +1173,15 @@ output:
 * In the beginning, the Rmarkdown has steep learning curve, but once you are familiar with it, your life will be easier.
 --
 
-* This whole slide is written in Rmarkdown. Check documentation [here](https://github.com/yihui/xaringan). The R example code is pulled from Rmarkdown, I do not need to copy and paste.
+* This whole slide is written in Rmarkdown. Source code is  [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.Rmd). The R example code is pulled from Rmarkdown, I do not need to copy and paste.
 --
 
-- Hope today's content could be a useful enlightment to you. If you have any question, please contact me: bolin.wu@ki.se 
+- The materials are collected in Github repo: https://github.com/Bolin-Wu/workshopr
+
+--
+
+- Hope today's content could be an enlightment to you. If you have any question, please contact me: bolin.wu@ki.se; 
+
 
 
 

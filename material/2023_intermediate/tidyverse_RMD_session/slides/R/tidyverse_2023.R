@@ -1,4 +1,4 @@
-## ----install package, eval=TRUE------------------------------
+## ----install package, results= FALSE------------------------------------------------
 install.packages("remotes")
 remotes::install_github("Bolin-Wu/workshopr",
   subdir = "rpackage",
@@ -6,24 +6,25 @@ remotes::install_github("Bolin-Wu/workshopr",
 )
 
 
-## ----load package, message=FALSE-----------------------------
+## ----load package, results= FALSE---------------------------------------------------
 library(workshopr)
 library(tidyverse)
+library(here)
 
 
-## ------------------------------------------------------------
-fake_snack_df %>%
+## -----------------------------------------------------------------------------------
+fake_data %>%
   select(Lopnr, Date_wave1)
 
 
-## ----continue example----------------------------------------
-fake_snack_df %>%
+## ----continue example---------------------------------------------------------------
+fake_data %>%
   select(Lopnr, Date_wave1) %>%
-  filter(Date_wave1 > "1800-01-01") %>%
+  filter(Date_wave1 > "2002-01-01") %>%
   slice(1:5)
 
 
-## ------------------------------------------------------------
+## -----------------------------------------------------------------------------------
 # From  `dplyr` documentation:
 df1 <- tibble(x = 1:3)
 df2 <- tibble(
@@ -33,26 +34,26 @@ df2 <- tibble(
 df1 %>% left_join(df2)
 
 
-## ----check data----------------------------------------------
-head(fake_snack_df, n = 5)
+## ----check data---------------------------------------------------------------------
+head(fake_data, n = 5)
 
 
-## ----check column names--------------------------------------
-sort(colnames(fake_snack_df))
+## ----check column names-------------------------------------------------------------
+sort(colnames(fake_data))
 
 
-## ----start small---------------------------------------------
-fake_snack_df %>%
+## ----start small--------------------------------------------------------------------
+fake_data %>%
   select(contains("Date")) %>%
   slice(1:5)
 
 
-## ---- eval=FALSE---------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------------
 ## ?tidyr::pivot_longer()
 
 
-## ----pivot date----------------------------------------------
-fake_snack_df %>%
+## ----pivot date---------------------------------------------------------------------
+fake_data %>%
   select(Lopnr, contains("Date")) %>%
   pivot_longer(
     cols = contains("Date"),
@@ -61,8 +62,8 @@ fake_snack_df %>%
   )
 
 
-## ------------------------------------------------------------
-fake_snack_df %>%
+## -----------------------------------------------------------------------------------
+fake_data %>%
   select(Lopnr, contains("dementia")) %>%
   pivot_longer(
     cols = contains("dementia"),
@@ -73,62 +74,62 @@ fake_snack_df %>%
 
 
 
-## ---- eval=FALSE---------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------------
 ## ?select()
 
 
-## ---- eval=FALSE---------------------------------------------
-## fake_snack_df %>%
+## ---- eval=FALSE--------------------------------------------------------------------
+## fake_data %>%
 ##   select(starts_with("Date"))
 
 
-## ---- eval=FALSE---------------------------------------------
-## fake_snack_df %>%
+## ---- eval=FALSE--------------------------------------------------------------------
+## fake_data %>%
 ##   select(contains("Date") & contains("wave"))
 
 
-## ---- eval=FALSE---------------------------------------------
-## fake_snack_df %>%
+## ---- eval=FALSE--------------------------------------------------------------------
+## fake_data %>%
 ##   select(matches("Date_wave\\d"))
 
 
-## ---- eval=FALSE---------------------------------------------
-## view(fake_snack_df)
+## ---- eval=FALSE--------------------------------------------------------------------
+## view(fake_data)
 
 
-## ---- eval=FALSE---------------------------------------------
-## str(fake_snack_df)
+## ---- eval=FALSE--------------------------------------------------------------------
+## str(fake_data)
 
 
-## ------------------------------------------------------------
-label_char <- sjlabelled::get_label(fake_snack_df)
+## -----------------------------------------------------------------------------------
+label_char <- sjlabelled::get_label(fake_data)
 label_char
 
 
 
 
-## ------------------------------------------------------------
+## -----------------------------------------------------------------------------------
 label_df <- tibble::rownames_to_column(as.data.frame(label_char), "variable")
 label_df <- tibble::as_tibble(label_df)
 label_df
 
 
-## ------------------------------------------------------------
+## -----------------------------------------------------------------------------------
 label_df %>%
   filter(grepl("dementia", label_char))
 
 
-## ------------------------------------------------------------
+## -----------------------------------------------------------------------------------
 label_df %>%
   filter(grepl("wave", variable))
 
 
-## ------------------------------------------------------------
-sum(is.na(fake_snack_df$Date_wave1))
+## -----------------------------------------------------------------------------------
+sum(is.na(fake_data$Date_wave1))
 
 
-## ----Count NA in multiple columns----------------------------
-fake_snack_df %>%
+## ----Count NA in multiple columns---------------------------------------------------
+fake_data %>%
   summarise(across(
     where(lubridate::is.Date),
     ~ sum(is.na(.))
@@ -137,20 +138,20 @@ fake_snack_df %>%
 
 
 
-## ------------------------------------------------------------
-fake_snack_df %>%
+## -----------------------------------------------------------------------------------
+fake_data %>%
   mutate(across(is.numeric, ~ round(., digits = 2)))
 
 
-## ------------------------------------------------------------
-fake_snack_df %>%
+## -----------------------------------------------------------------------------------
+fake_data %>%
   transmute(education, edu_bin = cut(education,
     breaks = 3,
     labels = c("low", "medium", "high")
   ))
 
 
-## ---- eval=FALSE---------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------------
 ## df_names <- c()
 ## set.seed(2023)
 ## for (i in 1:4) {
@@ -164,7 +165,7 @@ fake_snack_df %>%
 ## }
 
 
-## ------------------------------------------------------------
+## -----------------------------------------------------------------------------------
 objects_name <- c(
   "Cohort1_Baseline_BMI", "Cohort1_FU1_BMI", "Cohort1_FU2_BMI",
   "Cohort1FU3_Cohort2FU2", "Cohort2_Baseline_BMI", "envir_name",
@@ -176,11 +177,11 @@ objects_name <- c(
 
 for (i in 1:length(objects_name)) {
   # assign some values to these objects
-  assign(objects_name[i], sample(100,10))
+  assign(objects_name[i], sample(100, 10))
 }
 
 
-## ------------------------------------------------------------
+## -----------------------------------------------------------------------------------
 clean_names <- gsub(" |-", "_", objects_name)
 
 for (i in 1:length(clean_names)) {
@@ -189,4 +190,13 @@ for (i in 1:length(clean_names)) {
 
 # just show the first few
 clean_names[1:5]
+
+
+
+
+
+
+## ---- include = TRUE, eval = FALSE--------------------------------------------------
+## workshopr::get_rmd_2023(name = "pretty_template", output_file = "word")
+## workshopr::get_rmd_2023(name = "pretty_template", output_file = "html")
 

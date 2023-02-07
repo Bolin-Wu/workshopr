@@ -19,7 +19,7 @@ output:
 
 
 ```{r setup, include=FALSE, purl=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = NA, purl = TRUE)
+knitr::opts_chunk$set(echo = TRUE, comment = NA, purl = TRUE, message=FALSE)
 options(
   htmltools.dir.version = FALSE,
   htmltools.preserve.raw = FALSE
@@ -52,7 +52,7 @@ options(
 ## `workshopr` package
 
 ### Install
-```{r install package, eval=TRUE}
+```{r install package, results= FALSE}
 install.packages("remotes")
 remotes::install_github("Bolin-Wu/workshopr",
   subdir = "rpackage",
@@ -62,9 +62,10 @@ remotes::install_github("Bolin-Wu/workshopr",
 
 
 ### Load
-```{r load package, message=FALSE}
+```{r load package, results= FALSE}
 library(workshopr)
 library(tidyverse)
+library(here)
 ```
 
 ---
@@ -655,7 +656,7 @@ objects_name <- c(
 
 for (i in 1:length(objects_name)) {
   # assign some values to these objects
-  assign(objects_name[i], sample(100,10))
+  assign(objects_name[i], sample(100, 10))
 }
 ```
 
@@ -759,12 +760,14 @@ No need to worry about the font size, color, logo, etc. Just write!
 
 ### Example
 
-````markdown
-`r ''````{r, message = FALSE}
-# the message of this code chunk will be surpressed.
-library(tidyverse)
+```{r, include=TRUE, echo=FALSE,fig.align = 'center', fig.cap = 'local option', purl=FALSE}
+knitr::include_graphics(here("pic", "local_set.png"))
 ```
-````
+
+```{r, include=TRUE, echo=FALSE,fig.align = 'center', fig.cap = 'global option', purl=FALSE}
+knitr::include_graphics(here("pic", "global_set.png"))
+```
+
 
 --
 
@@ -805,8 +808,16 @@ output:
 
 ### Live demo in R studio
 
-* Get the template:
+* Get the templates of html or word output:
 
+```{r, include = TRUE, eval = FALSE}
+workshopr::get_rmd_2023(name = "pretty_template", output_file = "word")
+workshopr::get_rmd_2023(name = "pretty_template", output_file = "html")
+```
+
+--
+
+* Let's take a look together!
 
 ---
 
@@ -845,10 +856,14 @@ fake_data %>%
 * In the beginning, the Rmarkdown has steep learning curve, but once you are familiar with it, your life will be easier.
 --
 
-* This whole slide is written in Rmarkdown. Check documentation [here](https://github.com/yihui/xaringan). The R example code is pulled from Rmarkdown, I do not need to copy and paste.
+* This whole slide is written in Rmarkdown. Source code is  [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.Rmd). The R example code is pulled from Rmarkdown, I do not need to copy and paste.
 --
 
-- Hope today's content could be a useful enlightment to you. If you have any question, please contact me: bolin.wu@ki.se 
+- The materials are collected in Github repo: https://github.com/Bolin-Wu/workshopr
+
+--
+
+- Hope today's content could be an enlightment to you. If you have any question, please contact me: bolin.wu@ki.se; 
 
 
 ```{r, include=FALSE, eval=TRUE, purl=FALSE}
@@ -862,14 +877,16 @@ fake_data %>%
 ```{r, include=FALSE, eval=FALSE, purl=FALSE}
 library(here)
 pkg_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/rpackage/inst/templates/rscript"
+material_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/material/2023_intermediate/tidyverse_rmd_session/rscript"
 
 knitr::purl("index.Rmd",
-  output = here("R", "tidyverse_2023.R"),
+  output =paste0(material_path,"/tidyverse_2023.R"),
   documentation = 1
 )
 
 knitr::purl("index.Rmd",
   output = paste0(pkg_path, "/tidyverse_2023.R"),
   documentation = 1
- )
+)
 ```
+

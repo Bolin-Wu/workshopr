@@ -1,0 +1,69 @@
+---
+title: "Template"
+author: "Your Name"
+date: 'YYYY-MM-DD (updated: `r Sys.Date()`) '
+output:
+  word_document:
+    toc: yes
+    toc_depth: 2
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+# By default, all codes are hidden.
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, include = FALSE, comment = NA, ft_max_row = 6, tab.topcaption = FALSE, ft.align = "left")
+library(knitr)
+library(tidyverse)
+library(workshopr)
+library(flextable)
+set_flextable_defaults(font.size = 11, padding = 3)
+```
+
+# Introduction
+
+This document is to demonstrate some rmd basic functions.
+
+
+# Flextable
+`flextable` is a useful package for printing tables for **word** file output. It is similar to `kable()`.
+
+
+If one wants to generate tables by loop:
+
+```{r, include=TRUE, echo=FALSE, results='asis'}
+for (i in 1:10) {
+  cat("Table: ", i)
+  ft <- flextable(cars[i, ])
+  caption_name <- paste0("Print row: ", i)
+  ft <- set_caption(ft, caption_name)
+  ft <- autofit(ft)
+  flextable_to_rmd(ft)
+}
+```
+
+This could be useful when one needs to do repetitive work, e.g. printing significant variables from `lm()` function. Please note that the result has to be set to 'asis'.
+
+
+# Visualization
+
+When you compile the rmd, plots can be generated automatically.
+
+```{r, include = TRUE, eval=TRUE, echo=TRUE}
+cbPalette <- c(
+  "#A50026", "#D73027", "#F46D43", "#FDAE61", "#FEE090", "#FFFFBF",
+  "#E0F3F8", "#ABD9E9", "#74ADD1", "#4575B4", "#313695"
+)
+fake_data %>%
+  select(Lopnr, contains("mmse")) %>%
+  pivot_longer(
+    cols = contains("mmse"),
+    names_to = "wave", values_to = "mmse",
+    names_prefix = "mmse_"
+  ) %>%
+  ggplot(aes(x = wave, y = mmse, fill = wave)) +
+  geom_boxplot(na.rm = T) +
+  scale_fill_manual(
+    name = "MMSE Measures",
+    values = cbPalette
+  )
+```
