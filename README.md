@@ -15,20 +15,22 @@ This workshop focuses at intermidiate level.
 
 ## Loop session
 [Ashley Tate](https://staff.ki.se/people/ashley-tate) leads this session. 
-Load her example code:
+Get her example code:
 
 ```
 workshopr::get_code_2023(session = "loop")
 ```
 
 ## Tidyverse session
-[Bolin](https://staff.ki.se/people/bolin-wu) leads this session.
-Load the data:
-```
+[Bolin](https://staff.ki.se/people/bolin-wu) leads this session. The slide is available [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
+
+Get the example data:
 
 ```
+workshopr::fake_data
+```
 
-Load example R code:
+Get example R code:
 ```
 workshopr::get_code_2023(session = "tidyverse")
 ```
