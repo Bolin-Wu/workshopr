@@ -13,7 +13,7 @@ This workshop focuses on beginner level.  The slides are  [here](https://github.
 # Workshop 2023
 This workshop focuses at intermidiate level.
 
-## Loop session
+## Loop
 [Ashley Tate](https://staff.ki.se/people/ashley-tate) leads this session. 
 Get her example code:
 
@@ -21,7 +21,7 @@ Get her example code:
 workshopr::get_code_2023(session = "loop")
 ```
 
-## Tidyverse session
+## Tidyverse
 [Bolin](https://staff.ki.se/people/bolin-wu) leads this session. The slide is available [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
 
 Get the example data:
@@ -35,7 +35,7 @@ Get example R code:
 workshopr::get_code_2023(session = "tidyverse")
 ```
 
-## R markdown session
+## R markdown
 
 Get the rmd templates with html and word output:
 
