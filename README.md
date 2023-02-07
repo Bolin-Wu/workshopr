@@ -35,3 +35,11 @@ Get example R code:
 workshopr::get_code_2023(session = "tidyverse")
 ```
 
+## R markdown session
+
+Get the rmd templates with html and word output:
+
+```
+workshopr::get_rmd_2023(output_file = "html")
+workshopr::get_rmd_2023(output_file = "word")
+```
