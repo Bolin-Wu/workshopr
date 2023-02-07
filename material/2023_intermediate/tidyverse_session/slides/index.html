@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 ### NEAR, Aging Research Center
 ]
 .date[
-### 2023/01/26 (updated: 2023-02-01)
+### 2023/01/26 (updated: 2023-02-07)
 ]
 
 ---
@@ -85,10 +85,11 @@ Downloading GitHub repo Bolin-Wu/workshopr@HEAD
 ```
 
 ```
-
-── R CMD build ─────────────────────────────────────────────────────────────────
+── R CMD build ────────────────────────────────────────────────────────────────────────
   
-✔  checking for file ‘/private/var/folders/37/82_ksqzn12z1d7jmth3pqq2m0000gq/T/RtmpeN57ny/remotesd4163b8ec8a5/Bolin-Wu-workshopr-0435a78/rpackage/DESCRIPTION’
+   checking for file ‘/private/var/folders/37/82_ksqzn12z1d7jmth3pqq2m0000gq/T/RtmpOcCeEP/remotese64c336a072e/Bolin-Wu-workshopr-f10eb31/rpackage/DESCRIPTION’ ...
+  
+✔  checking for file ‘/private/var/folders/37/82_ksqzn12z1d7jmth3pqq2m0000gq/T/RtmpOcCeEP/remotese64c336a072e/Bolin-Wu-workshopr-f10eb31/rpackage/DESCRIPTION’
 
   
 ─  preparing ‘workshopr’:
@@ -335,20 +336,20 @@ head(fake_data, n = 5)
 
 ```
 # A tibble: 5 × 28
-  Lopnr Date_wave1 age_wave1 mmse_w…¹ demen…² Date_wave2 age_w…³ mmse_…⁴ demen…⁵
-  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1     1 2001-06-11      77.6     28.7       0 2003-06-03    79.5    28.6       0
-2     2 2002-04-08      72.6     18.2       0 2004-03-07    74.5    15.2       0
-3     3 2001-09-12      79.9     21.6       0 NA            NA      NA         0
-4     4 2001-06-13      79.9     25.7       0 2003-05-12    81.8    24.0       0
-5     5 2001-02-12      82.6     NA         0 2003-04-20    84.8    21.9       0
-# … with 19 more variables: Date_wave3 &lt;date&gt;, age_wave3 &lt;dbl&gt;,
-#   mmse_wave3 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;, age_wave4 &lt;dbl&gt;,
-#   mmse_wave4 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;, age_wave5 &lt;dbl&gt;,
-#   mmse_wave5 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, Date_wave6 &lt;date&gt;, age_wave6 &lt;dbl&gt;,
-#   mmse_wave6 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;, age_base &lt;dbl&gt;, sex &lt;dbl+lbl&gt;,
-#   education &lt;dbl+lbl&gt;, and abbreviated variable names ¹​mmse_wave1,
-#   ²​dementia_wave1, ³​age_wave2, ⁴​mmse_wave2, ⁵​dementia_wave2
+  Lopnr Date_wave1 age_wave1 mmse_wave1 dementia_w…¹ Date_wave2 age_w…² mmse_…³ demen…⁴
+  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1     1 2001-06-11      77.6         29            0 2003-06-03    79.5      29       0
+2     2 2002-04-08      72.6         18            0 2004-03-07    74.5      15       0
+3     3 2001-09-12      79.9         22            0 NA            NA        NA      NA
+4     4 2001-06-13      79.9         26            0 2003-05-12    81.8      24       0
+5     5 2001-02-12      82.6         NA            0 2003-04-20    84.8      22       0
+# … with 19 more variables: Date_wave3 &lt;date&gt;, age_wave3 &lt;dbl&gt;, mmse_wave3 &lt;dbl&gt;,
+#   dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;, age_wave4 &lt;dbl&gt;, mmse_wave4 &lt;dbl&gt;,
+#   dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;, age_wave5 &lt;dbl&gt;, mmse_wave5 &lt;dbl&gt;,
+#   dementia_wave5 &lt;dbl&gt;, Date_wave6 &lt;date&gt;, age_wave6 &lt;dbl&gt;, mmse_wave6 &lt;dbl&gt;,
+#   dementia_wave6 &lt;dbl&gt;, age_base &lt;dbl&gt;, sex &lt;dbl+lbl&gt;, education &lt;dbl+lbl&gt;, and
+#   abbreviated variable names ¹​dementia_wave1, ²​age_wave2, ³​mmse_wave2,
+#   ⁴​dementia_wave2
 ```
 
 ???
@@ -864,16 +865,14 @@ Explain why I prefer the pipeline version
 
 ```
 # A tibble: 1 × 22
-  Lopnr age_wa…¹ mmse_…² demen…³ age_w…⁴ mmse_…⁵ demen…⁶ age_w…⁷ mmse_…⁸ demen…⁹
-  &lt;int&gt;    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     0        0     135       0     207     323       0     489     605       0
-# … with 12 more variables: age_wave4 &lt;int&gt;, mmse_wave4 &lt;int&gt;,
-#   dementia_wave4 &lt;int&gt;, age_wave5 &lt;int&gt;, mmse_wave5 &lt;int&gt;,
-#   dementia_wave5 &lt;int&gt;, age_wave6 &lt;int&gt;, mmse_wave6 &lt;int&gt;,
-#   dementia_wave6 &lt;int&gt;, age_base &lt;int&gt;, sex &lt;int&gt;, education &lt;int&gt;, and
-#   abbreviated variable names ¹​age_wave1, ²​mmse_wave1, ³​dementia_wave1,
-#   ⁴​age_wave2, ⁵​mmse_wave2, ⁶​dementia_wave2, ⁷​age_wave3, ⁸​mmse_wave3,
-#   ⁹​dementia_wave3
+  Lopnr age_w…¹ mmse_…² demen…³ age_w…⁴ mmse_…⁵ demen…⁶ age_w…⁷ mmse_…⁸ demen…⁹ age_w…˟
+  &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+1     0       0     135       0     207     323     207     489     605     489     748
+# … with 11 more variables: mmse_wave4 &lt;int&gt;, dementia_wave4 &lt;int&gt;, age_wave5 &lt;int&gt;,
+#   mmse_wave5 &lt;int&gt;, dementia_wave5 &lt;int&gt;, age_wave6 &lt;int&gt;, mmse_wave6 &lt;int&gt;,
+#   dementia_wave6 &lt;int&gt;, age_base &lt;int&gt;, sex &lt;int&gt;, education &lt;int&gt;, and abbreviated
+#   variable names ¹​age_wave1, ²​mmse_wave1, ³​dementia_wave1, ⁴​age_wave2, ⁵​mmse_wave2,
+#   ⁶​dementia_wave2, ⁷​age_wave3, ⁸​mmse_wave3, ⁹​dementia_wave3, ˟​age_wave4
 ```
 
 ```
@@ -902,36 +901,26 @@ fake_data %&gt;%
 ```
 
 ```
-Warning: Use of bare predicate functions was deprecated in tidyselect 1.1.0.
-ℹ Please use wrap predicates in `where()` instead.
-  # Was:
-  data %&gt;% select(is.numeric)
-
-  # Now:
-  data %&gt;% select(where(is.numeric))
-```
-
-```
 # A tibble: 3,000 × 28
-   Lopnr Date_wave1 age_wave1 mmse_…¹ demen…² Date_wave2 age_w…³ mmse_…⁴ demen…⁵
-   &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1     1 2001-06-11      77.6    28.8       0 2003-06-03    79.5    28.6       0
- 2     2 2002-04-08      72.6    18.2       0 2004-03-07    74.5    15.2       0
- 3     3 2001-09-12      80.0    21.6       0 NA            NA      NA         0
- 4     4 2001-06-13      79.9    25.7       0 2003-05-12    81.8    24.0       0
- 5     5 2001-02-12      82.6    NA         0 2003-04-20    84.8    21.9       0
- 6     6 2001-07-05      79.3    25.4       0 2003-07-20    81.4    24.3       0
- 7     7 2001-12-28      86.4    NA         0 2003-12-11    88.4    NA         0
- 8     8 2002-09-17      77.1    26.2       0 2004-09-01    79.0    25.1       0
- 9     9 2001-09-14      79.8    30         0 2003-08-30    81.8    30         0
-10    10 2001-09-21      69.0    29.1       0 2003-09-27    71.0    29.4       0
-# … with 2,990 more rows, 19 more variables: Date_wave3 &lt;date&gt;,
-#   age_wave3 &lt;dbl&gt;, mmse_wave3 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;,
-#   age_wave4 &lt;dbl&gt;, mmse_wave4 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;,
-#   age_wave5 &lt;dbl&gt;, mmse_wave5 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, Date_wave6 &lt;date&gt;,
-#   age_wave6 &lt;dbl&gt;, mmse_wave6 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;, age_base &lt;dbl&gt;,
-#   sex &lt;dbl&gt;, education &lt;dbl&gt;, and abbreviated variable names ¹​mmse_wave1,
-#   ²​dementia_wave1, ³​age_wave2, ⁴​mmse_wave2, ⁵​dementia_wave2
+   Lopnr Date_wave1 age_wave1 mmse_wave1 dementia_…¹ Date_wave2 age_w…² mmse_…³ demen…⁴
+   &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1 2001-06-11      77.6         29           0 2003-06-03    79.5      29       0
+ 2     2 2002-04-08      72.6         18           0 2004-03-07    74.5      15       0
+ 3     3 2001-09-12      80.0         22           0 NA            NA        NA      NA
+ 4     4 2001-06-13      79.9         26           0 2003-05-12    81.8      24       0
+ 5     5 2001-02-12      82.6         NA           0 2003-04-20    84.8      22       0
+ 6     6 2001-07-05      79.3         25           0 2003-07-20    81.4      24       0
+ 7     7 2001-12-28      86.4         NA           0 2003-12-11    88.4      NA       1
+ 8     8 2002-09-17      77.1         26           0 2004-09-01    79.0      25       0
+ 9     9 2001-09-14      79.8         30           0 2003-08-30    81.8      30       0
+10    10 2001-09-21      69.0         29           0 2003-09-27    71.0      29       0
+# … with 2,990 more rows, 19 more variables: Date_wave3 &lt;date&gt;, age_wave3 &lt;dbl&gt;,
+#   mmse_wave3 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;, age_wave4 &lt;dbl&gt;,
+#   mmse_wave4 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;, age_wave5 &lt;dbl&gt;,
+#   mmse_wave5 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, Date_wave6 &lt;date&gt;, age_wave6 &lt;dbl&gt;,
+#   mmse_wave6 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;, age_base &lt;dbl&gt;, sex &lt;dbl&gt;,
+#   education &lt;dbl&gt;, and abbreviated variable names ¹​dementia_wave1, ²​age_wave2,
+#   ³​mmse_wave2, ⁴​dementia_wave2
 ```
 
 ???
@@ -1086,12 +1075,70 @@ class: center, middle
 
 ## Markdown
 
+* Markdownis a lightweight markup language for creating formatted text using a plain-text editor.&lt;sup&gt;*&lt;/sup&gt;
+--
+
+* Advantage: 
+  * You do not need to worry about the format. Just focus on writing itself. Could be superfast.
+  * Little chance of making the format consistent across the whole documentation.
+--
+
+* Disadvantage:
+  * A steep learning curve in the beginning.
+--
+  * However, this disadvantage greatly remedied by many user-friendly editor, e.g. overleaf
+
+Let me give a live example via an [online markdown editor](https://stackedit.io/app#)
+
+.footnote[[*] https://en.wikipedia.org/wiki/Markdown]
+
+
+
+???
+This slide is written with markdown syntax.
+
+Before I had to a thing called LaTex editor, compile &amp; debug all the time.
+
+With overleaf, life becomes much easier. I wrote my master thesis with it.
+
 ---
 
 ## code chunk options
 
+--
+
+* Code chunk options in RMD can help you control the execution of your code in the file. 
+--
+
+* Some useful ones are as follows:&lt;sup&gt;*&lt;/sup&gt;
+
+- `include` = FALSE prevents code and results from appearing in the finished file. R Markdown still runs the code in the chunk, and the results can be used by other chunks.
+- `echo` = FALSE prevents code, but not the results from appearing in the finished file. This is a useful way to embed figures.
+- `message` = FALSE prevents messages that are generated by code from appearing in the finished file.
+- `warning` = FALSE prevents warnings that are generated by code from appearing in the finished.
+
+.footnote[[*] https://rmarkdown.rstudio.com/lesson-3.html]
+
 ---
 
+### Example
+
+````markdown
+```{r, message = FALSE}
+# the message of this code chunk will be surpressed.
+library(tidyverse)
+```
+````
+
+--
+
+### RMD chunk option exercise 
+
+* Print the column names of `fake_data`, but do not show the code itself.
+
+---
+
+---
 ## YAML
 
 ```yaml
@@ -1100,6 +1147,30 @@ title: "A Cool Presentation"
 output: html_document
 ---
 ```
+
+Or 
+
+
+```yaml
+---
+title: "A Cool Presentation"
+output:
+  word_document:
+    toc: yes
+    toc_depth: 2
+---
+```
+
+--
+
+* The YAML heading basically defines the type of output file, layout, etc.
+
+---
+
+### Live demo in R studio
+
+* Get the template:
+
 
 ---
 
@@ -1118,12 +1189,11 @@ output: html_document
 
 ```
 # A tibble: 3 × 9
-  Lopnr wave  Date       age_base sex        education         age  mmse demen…¹
-  &lt;dbl&gt; &lt;chr&gt; &lt;date&gt;        &lt;dbl&gt; &lt;dbl+lbl&gt;  &lt;dbl+lbl&gt;       &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     1 wave1 2001-06-11     77.6 1 [female] 2 [high school]  77.6  28.7       0
-2     1 wave2 2003-06-03     77.6 1 [female] 2 [high school]  79.5  28.6       0
-3     1 wave3 2005-05-27     77.6 1 [female] 2 [high school]  81.5  28.5       0
-# … with abbreviated variable name ¹​dementia
+  Lopnr wave  Date       age_base sex        education         age  mmse dementia
+  &lt;dbl&gt; &lt;chr&gt; &lt;date&gt;        &lt;dbl&gt; &lt;dbl+lbl&gt;  &lt;dbl+lbl&gt;       &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+1     1 wave1 2001-06-11     77.6 1 [female] 2 [high school]  77.6    29        0
+2     1 wave2 2003-06-03     77.6 1 [female] 2 [high school]  79.5    29        0
+3     1 wave3 2005-05-27     77.6 1 [female] 2 [high school]  81.5    28        0
 ```
 
 
