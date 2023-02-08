@@ -30,20 +30,18 @@ This workshop focuses at intermidiate level.
 - **bin** variables by percentiles (*cut*)
 - **assign** function 
 
-The slide is available [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
-
-The code is available [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/rscript/tidyverse_2023.R)
+The slide is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf) and the code is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/rscript/tidyverse_2023.R).
 
 
 ## R markdown
-[Bolin](https://staff.ki.se/people/bolin-wu) leads this session. Bolin explains the basic uses of R markdown and it's integration into daily work:
+[Bolin](https://staff.ki.se/people/bolin-wu) leads this session. Bolin explains the basic uses of R markdown and its integration into daily work:
 
 - markdown 
 - yaml heading 
 - code chunk options
 - live code demo
 
-The slide is available [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
+The slide is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
 
 One can use `workshopr::get_rmd_2023()` in R to retrieve rmd templates.
 
