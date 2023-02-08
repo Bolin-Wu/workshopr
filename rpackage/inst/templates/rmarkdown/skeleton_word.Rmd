@@ -25,7 +25,7 @@ This document is to demonstrate some rmd basic functions.
 
 
 # Flextable
-`flextable` is a useful package for printing tables for **word** file output. It is similar to `kable()`.
+`flextable` is a useful package for printing tables for **word** file output. It is similar to `kable()` for PDF file output.
 
 
 If one wants to generate tables by loop:

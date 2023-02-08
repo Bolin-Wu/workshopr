@@ -9,7 +9,7 @@
 The goal of `workshopr` is to make example data and script easily
 accessible.
 
-## Installation
+# Installation
 
 You can install the development version of workshopr from
 [GitHub](https://github.com/Bolin-Wu/workshopr):
@@ -19,31 +19,34 @@ install.packages("remotes")
 remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
 ```
 
-## Data
+# Data
 
 ``` r
-workshopr::fake_snack_df 
+workshopr::fake_data 
 ```
 
-## R script
+# R script
 
-### Loop
+## Loop
 
-[Xin Xia](https://ki-su-arc.se/staff/xin-xia/) leads this session. Load
-her example code:
+Load the example code (further update expected):
 
     workshopr::get_code_2023(session = "loop")
 
-### Tidyverse & Rmarkdown
+## Tidyverse & Rmarkdown
 
-[Bolin](https://staff.ki.se/people/bolin-wu) leads this session. Load
-the data:
+Author: [Bolin](https://staff.ki.se/people/bolin-wu).
 
 Load example R code:
 
     workshopr::get_code_2023(session = "tidyverse")
 
-## Issues
+Get the rmd templates with html and word output:
+
+    workshopr::get_rmd_2023(output_file = "html")
+    workshopr::get_rmd_2023(output_file = "word")
+
+# Issues
 
 You can raise bug reports
 [here](https://github.com/Bolin-Wu/workshopr/issues).

@@ -15,32 +15,35 @@ This workshop focuses at intermidiate level.
 
 ## Loop
 [Ashley Tate](https://staff.ki.se/people/ashley-tate) leads this session. 
-Get her example code:
 
-```
-workshopr::get_code_2023(session = "loop")
-```
 
 ## Tidyverse
-[Bolin](https://staff.ki.se/people/bolin-wu) leads this session. The slide is available [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
+[Bolin](https://staff.ki.se/people/bolin-wu) leads this session. Bolin introduces useful data manipulation functions in daily work tasks:
 
-Get the example data:
+- %>% syntax
+- **join** data frames (*join function*)
+- **transform** data shape (*pivot_longer*)
+- **filter** variables based on name pattern (*select*)
+- **extract** the label from DTA and SPSS in R (*filter*)
+- **check** missing values (*summarise & across*)
+- **mutate data** based on column types (*mutate & across*)
+- **bin** variables by percentiles (*cut*)
+- **assign** function 
 
-```
-workshopr::fake_data
-```
+The slide is available [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
 
-Get example R code:
-```
-workshopr::get_code_2023(session = "tidyverse")
-```
+The code is available [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/rscript/tidyverse_2023.R)
+
 
 ## R markdown
-[Bolin](https://staff.ki.se/people/bolin-wu) leads this session. The slide is available [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
+[Bolin](https://staff.ki.se/people/bolin-wu) leads this session. Bolin explains the basic uses of R markdown and it's integration into daily work:
 
-Get the rmd templates with html and word output:
+- markdown 
+- yaml heading 
+- code chunk options
+- live code demo
 
-```
-workshopr::get_rmd_2023(output_file = "html")
-workshopr::get_rmd_2023(output_file = "word")
-```
+The slide is available [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
+
+One can use `workshopr::get_rmd_2023()` in R to retrieve rmd templates.
+
