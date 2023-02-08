@@ -29,13 +29,15 @@ workshopr::fake_data
 
 ## Loop
 
+Author: [Xin Xia](https://ki-su-arc.se/staff/xin-xia/).
+
 Load the example code (further update expected):
 
     workshopr::get_code_2023(session = "loop")
 
 ## Tidyverse & Rmarkdown
 
-Author: [Bolin](https://staff.ki.se/people/bolin-wu).
+Author: [Bolin Wu](https://staff.ki.se/people/bolin-wu).
 
 Load example R code:
 
