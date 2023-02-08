@@ -18,7 +18,7 @@ This workshop focuses at intermidiate level.
 
 
 ## Tidyverse
-[Bolin](https://staff.ki.se/people/bolin-wu) leads this session. Bolin introduces useful data manipulation functions in daily work tasks:
+[Bolin](https://staff.ki.se/people/bolin-wu) introduces useful data manipulation functions in daily work tasks:
 
 - %>% syntax
 - **join** data frames (*join function*)
@@ -34,7 +34,7 @@ The slide is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/202
 
 
 ## R markdown
-[Bolin](https://staff.ki.se/people/bolin-wu) leads this session. Bolin explains the basic uses of R markdown and its integration into daily work:
+[Bolin](https://staff.ki.se/people/bolin-wu) explains the basic uses of R markdown and its integration into daily work:
 
 - markdown 
 - yaml heading 
