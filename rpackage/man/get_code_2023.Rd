@@ -16,7 +16,7 @@ get_code_2023(session = NULL, open = interactive(), ...)
 \description{
 This function creates a new folder "R_example_code" at root of project and create an R script file.
 
-Author: Xin Xia (loop) and Bolin Wu (tidyverse)
+Author: Ashley Tate (loop) and Bolin Wu (tidyverse)
 }
 \examples{
 \dontrun{
