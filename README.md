@@ -18,7 +18,7 @@ This workshop focuses at intermidiate level.
 
 
 ## Tidyverse
-[Bolin](https://staff.ki.se/people/bolin-wu) introduces useful data manipulation functions in daily work tasks:
+[Bolin Wu](https://staff.ki.se/people/bolin-wu) introduces useful data manipulation functions in daily work tasks:
 
 - %>% syntax
 - **join** data frames (*join function*)
@@ -34,7 +34,7 @@ The slide is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/202
 
 
 ## R markdown
-[Bolin](https://staff.ki.se/people/bolin-wu) explains the basic uses of R markdown and its integration into daily work:
+[Bolin Wu](https://staff.ki.se/people/bolin-wu) explains the basic uses of R markdown and its integration into daily work:
 
 - markdown 
 - yaml heading 
@@ -48,5 +48,5 @@ One can use `workshopr::get_rmd_2023()` in R to retrieve rmd templates.
 ## Other resources
 
 - 'stringr' and regex (in r) [cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf).
-- data transformation with 'dplyr' [cheatsheet](https://nyu-cdsc.github.io/learningr/assets/data-transformation.pdf)
+- data transformation with 'dplyr' [cheatsheet](https://nyu-cdsc.github.io/learningr/assets/data-transformation.pdf).
 
