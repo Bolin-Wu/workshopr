@@ -19,7 +19,7 @@ output:
 
 
 ```{r setup, include=FALSE, purl=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = NA, purl = TRUE, message=FALSE)
+knitr::opts_chunk$set(echo = TRUE, comment = NA, purl = TRUE, message = FALSE)
 options(
   htmltools.dir.version = FALSE,
   htmltools.preserve.raw = FALSE
@@ -880,7 +880,7 @@ pkg_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/r
 material_path <- "/Users/bolin/Documents/KI_local/work_tasks/presentation/workshopr/material/2023_intermediate/tidyverse_rmd_session/rscript"
 
 knitr::purl("index.Rmd",
-  output =paste0(material_path,"/tidyverse_2023.R"),
+  output = paste0(material_path, "/tidyverse_2023.R"),
   documentation = 1
 )
 
@@ -889,4 +889,3 @@ knitr::purl("index.Rmd",
   documentation = 1
 )
 ```
-

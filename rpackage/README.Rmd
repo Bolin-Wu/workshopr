@@ -38,7 +38,7 @@ workshopr::fake_data
 # R script
 
 ## Loop 
-Author: [Xin Xia](https://ki-su-arc.se/staff/xin-xia/).
+Author: [Ashley Tate](https://staff.ki.se/people/ashley-tate).
 
 Load the example code (further update expected):
 ```

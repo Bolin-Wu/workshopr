@@ -34,8 +34,8 @@ get_code_2023 <-
 
     # usethis::use_package("usethis")
     if (session == "loop") {
-      use_template("rscript/workshop_xinxia2023.R",
-        save_as = paste0(subDir, "/workshop_xinxia2023.R"),
+      use_template("rscript/ashly_loop_2023.R",
+        save_as = paste0(subDir, "/ashly_loop_2023.R"),
         data = list(),
         package = "workshopr", ..., open = open
       )
