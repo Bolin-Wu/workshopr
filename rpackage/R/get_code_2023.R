@@ -1,7 +1,7 @@
 #' @title Get R code for workshop in year 2023
 #' @description This function creates a new folder "R_example_code" at root of project and create an R script file.
 #'
-#' Author: Xin Xia (loop) and Bolin Wu (tidyverse)
+#' Author: Ashley Tate (loop) and Bolin Wu (tidyverse)
 #'
 #' @param session Either 'loop' or 'tidyverse'.
 #' @param open should the file be opened after being created

@@ -82,14 +82,16 @@ This session is to share useful data manipulation skills at daily epidemiology w
 
 It can make our code more readable and reduce our chance of making mistakes.
 
+???
+
+For example, change a variable name in the code, but forget to change other places
+
+
 --
 
 *Note: Data frames may seem to be unfit in the slides. I do not user any html widges since the code will be pulled out for tutorial purpose. Attendants can run the code on their on machine instead to get better view.*
 
 
-???
-
-For example, change a variable name in the code, but forget to change other places
 
 ---
 
@@ -102,8 +104,8 @@ I hope by the end of the workshop, you will have them in your toolbox:
 - %>% syntax
 - **join** data frames (*join function*)
 - **transform** data shape (*pivot_longer*)
-- **filter** variables based on name pattern (*select*)
-- **extract** the label from DTA and SPSS in R (*filter*)
+- **select** variables based on name pattern (*select*)
+- **extract** the label from DTA and SPSS in R (*filter & sjlabelled*)
 - **check** missing values (*summarise & across*)
 - **mutate data** based on column types (*mutate & across*)
 - **bin** variables by percentiles (*cut*)
@@ -140,6 +142,17 @@ Many times we just `library(tidyverse)`. Actually [Tidyverse](https://www.tidyve
 ???
 
 Just heads up, in case in the future you find one function does not work as it expected. Then you know it could because of the conflicts of tidyverse.
+
+
+---
+
+
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/f/fa/Hadley-wickham2016-02-04.jpg)
+background-size: 40% auto
+background-position: center
+class: center, bottom, inverse
+
+.footnote[picture credit: [Wikimedia of Hadley Wickham](https://www.redarmy.in/)]
 
 ---
 
@@ -380,16 +393,18 @@ fake_data %>%
   select(starts_with("Date"))
 ```
 
+--
+
 ### contains
 
 ```{r, eval=FALSE}
 fake_data %>%
-  select(contains("Date") & contains("wave"))
+  select(contains("Date") & contains("1"))
 ```
 
 --
 
-- Imagine if only using `contains('Date')` without '&' operator. What result would look like? Then try it.
+- If we want to select variables containing 'Date' or 'age', how to do it? Let's try it.
 
 ---
 
@@ -399,17 +414,23 @@ fake_data %>%
 
 --
 
-- There are many regex cheatsheets online. For exmaple [this](https://www.rexegg.com/regex-quickstart.html).
+- There are many regex cheatsheets online. For exmaple [this](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf).
+
+???
+
+Please note, the regex in r could be slightly different from ones in other programming languages, e.g. Python
+
 
 --
 
-- One useful website to test regex is [here](https://regex101.com).
+- One useful website to test regex is [here](https://regex101.com). 
 
 ```{r, eval=FALSE}
 fake_data %>%
   select(matches("Date_wave\\d"))
 ```
 
+---> Live demo
 
 ???
 
@@ -579,7 +600,7 @@ fake_data %>%
 
 --
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 fake_data %>%
   mutate(across(is.numeric, ~ round(., digits = 2)))
 ```
@@ -701,7 +722,7 @@ class: center, middle
 - A complete Rmarkdown documentation could be found [here](https://rmarkdown.rstudio.com/lesson-2.html).
 --
 
-- My understanding is: 
+- The key is to understand these three pillows: 
 
 **Rmarkdown = markdown + yaml heading + code chunk options.**
 
@@ -769,7 +790,7 @@ knitr::include_graphics(here("pic", "global_set.png"))
 ```
 
 
---
+---
 
 ### RMD chunk option exercise 
 
