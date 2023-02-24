@@ -39,6 +39,8 @@ workshopr::fake_data
 
 # R script
 
+Please see below to retrieve code used in this workshop.
+
 ## Loop 
 Author: [Ashley Tate](https://staff.ki.se/people/ashley-tate).
 

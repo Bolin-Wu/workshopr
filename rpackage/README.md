@@ -21,11 +21,15 @@ remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
 
 # Data
 
+Author: [Xin Xia](https://ki-su-arc.se/staff/xin-xia/).
+
 ``` r
 workshopr::fake_data 
 ```
 
 # R script
+
+Please see below to retrieve code used in this workshop.
 
 ## Loop
 
