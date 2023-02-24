@@ -152,7 +152,7 @@ background-size: 40% auto
 background-position: center
 class: center, bottom, inverse
 
-.footnote[picture credit: [Wikimedia of Hadley Wickham](https://www.redarmy.in/)]
+.footnote[picture credit: [Wikipedia of Hadley Wickham](https://www.redarmy.in/)]
 
 ---
 
@@ -889,7 +889,7 @@ fake_data %>%
 
 ```{r, include=FALSE, eval=TRUE, purl=FALSE}
 # remotes::install_github("rstudio/pagedown", force = TRUE)
-# pagedown::chrome_print("index.html")
+pagedown::chrome_print("index.html")
 # renderthis::to_pdf("index.html")
 # pagedown::chrome_print("index.Rmd")
 ```

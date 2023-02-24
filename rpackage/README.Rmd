@@ -31,6 +31,8 @@ remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
 
 # Data
 
+Author: [Xin Xia](https://ki-su-arc.se/staff/xin-xia/).
+
 ```{r example_data, eval=FALSE}
 workshopr::fake_data 
 ```
