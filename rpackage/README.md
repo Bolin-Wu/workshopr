@@ -35,7 +35,7 @@ Please see below to retrieve code used in this workshop.
 
 Author: [Ashley Tate](https://staff.ki.se/people/ashley-tate).
 
-Load the example code (further update expected):
+Load the example code:
 
     workshopr::get_code_2023(session = "loop")
 
