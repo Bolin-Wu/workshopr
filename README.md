@@ -11,7 +11,7 @@ The course has its own R package `workshopr`. The aim is to make example data an
 This workshop focuses on beginner level.  The slides are  [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/slide.pdf) and R code is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/example.R).
 
 # Workshop 2023
-This workshop focuses at intermediate level.
+This workshop focuses at intermediate level. Register link is [here](https://news.ki.se/calendar/r-programming-workshop-2023-intermediate-level).
 
 ## Loop
 [Ashley Tate](https://staff.ki.se/people/ashley-tate) leads this session. 
