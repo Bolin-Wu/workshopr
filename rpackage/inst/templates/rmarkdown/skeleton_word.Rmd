@@ -14,6 +14,7 @@ urlcolor: blue
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, include = FALSE, comment = NA, ft_max_row = 6, tab.topcaption = FALSE, ft.align = "left")
 library(knitr)
 library(tidyverse)
+# remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
 library(workshopr)
 library(flextable)
 set_flextable_defaults(font.size = 11, padding = 3)
@@ -67,3 +68,18 @@ fake_data %>%
     values = cbPalette
   )
 ```
+
+# Descriptive statistics
+
+Just use `describe` from `psych` as an example. 
+
+```{r , include = TRUE, eval=TRUE, echo=TRUE}
+# install.packages('psych')
+library(psych)
+
+kable(describe(fake_data, na.rm = TRUE), 
+      format='markdown',
+      caption="Example",
+      digits=2)
+```
+

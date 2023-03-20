@@ -44,8 +44,10 @@ options(
   - Statistics
   - Data manipulation
   - guitar
-]
 
+???
+
+At my daily work, I need to deal with data of many cohorts and follow ups.
 
 
 ---
@@ -67,6 +69,10 @@ library(workshopr)
 library(tidyverse)
 library(here)
 ```
+
+???
+
+One can download the slide from my github page.
 
 ---
 class: center, middle
@@ -420,6 +426,8 @@ fake_data %>%
 
 Please note, the regex in r could be slightly different from ones in other programming languages, e.g. Python
 
+Regex is a powerful tool to help with finding the patterns in a string.
+
 
 --
 
@@ -553,6 +561,14 @@ fake_data %>%
 
 - It is a purrr-style [lambda function](https://en.wikipedia.org/wiki/Anonymous_function).
 
+--
+
+- You may also wonderL what is `across`?
+
+--
+
+- It tells `summarise` to do what operations, on which columns.
+
 ???
 The wikipedia explanation is not straight-forward. My personal comprehension is that lambda function is any function you defined by yourself, which usually can not be found as a standard function like mean or sd.
 
@@ -602,7 +618,7 @@ fake_data %>%
 
 ```{r, message=FALSE, warning=FALSE}
 fake_data %>%
-  mutate(across(is.numeric, ~ round(., digits = 2)))
+  mutate(across(where(is.numeric), ~ round(., digits = 2)))
 ```
 
 ???
@@ -614,7 +630,7 @@ This I often use for data visualization.
 
 --
 
-- `cut()` function can do the work for us easily, it accommodates well with pipeline syntax.
+- `case_when()` function can do the work for us easily, it accommodates well with pipeline syntax.
 
 --
 
@@ -622,10 +638,15 @@ This I often use for data visualization.
 
 ```{r}
 fake_data %>%
-  transmute(education, edu_bin = cut(education,
-    breaks = 3,
-    labels = c("low", "medium", "high")
-  ))
+  transmute(mmse_wave1,
+    mmse_wave1_bin = case_when(
+      between(mmse_wave1, 0, 9) ~ "Severe dementia",
+      between(mmse_wave1, 10, 18) ~ "Moderate dementia",
+      between(mmse_wave1, 19, 23) ~ "Mild dementia",
+      mmse_wave1 >= 24 ~ "Mild dementia",
+      TRUE ~ NA_character_
+    )
+  )
 ```
 
 
@@ -705,8 +726,11 @@ clean_names[1:5]
 - Check your 'Environment' panel again.
 --
 
-- The `gsub()` part can be customized with regex syntax. Basically you can fix any kind of unclean dataframe names.
+- The `gsub()` part can be customized with regex syntax. Basically you can fix any kind of messy dataframe names.
 
+???
+
+Another application of assign is to use it in ggplot.
 
 ---
 class: center, middle
@@ -716,6 +740,16 @@ class: center, middle
 ## Basics and daily work uses
 
 ---
+
+---
+
+background-image: url(https://d33wubrfki0l68.cloudfront.net/22b5294b277483dd102640b43b5e70d013f677de/08292/resources/rstudioconf-2018/create-and-maintain-websites-with-r-markdown-and-blogdown/thumbnail_hubae0b01a3d61d8344b113ddc4adfe671_69897_1000x0_resize_q75_box.jpg)
+
+.footnote[picture credit: https://www.redarmy.in/]
+
+
+---
+
 
 ## Introduction
 
@@ -731,7 +765,7 @@ class: center, middle
 
 ## Markdown
 
-* Markdownis a lightweight markup language for creating formatted text using a plain-text editor.<sup>*</sup>
+* Markdownis a lightweight language for creating formatted text using a plain-text editor.<sup>*</sup>
 --
 
 * Advantage: 
@@ -832,8 +866,14 @@ output:
 * Get the templates of html or word output:
 
 ```{r, include = TRUE, eval = FALSE}
-workshopr::get_rmd_2023(name = "pretty_template", output_file = "word")
-workshopr::get_rmd_2023(name = "pretty_template", output_file = "html")
+workshopr::get_rmd_2023(
+  name = "pretty_template",
+  output_file = "word"
+)
+workshopr::get_rmd_2023(
+  name = "pretty_template",
+  output_file = "html"
+)
 ```
 
 --
@@ -846,7 +886,7 @@ workshopr::get_rmd_2023(name = "pretty_template", output_file = "html")
 
 
 - Calculate the NA of all columns except for id column.
-- Bin the education variable with your own defined cut points instead of setting the number of bins.
+- Remove all decimals in numeric columns. 
 - (optional) Read `stringr` documentation, find appropriate function to filter out 'objects_name' that contains "SNAC".
 - (optional) Pivot the original 'fake_data' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. 
 
