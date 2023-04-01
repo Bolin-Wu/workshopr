@@ -1,73 +1,110 @@
-## ---------------------------------------------------------------------------------------------
+---
+title: "Loops R workshop"
+author: "Ashley Tate"
+date: "2/17/2023"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Loops and apply
+
+Loops and apply (lapppy & sapply) are powerful tools that can drastically shorten the length of your code and save you time! This is especially true in epidemiology where we often have many datasets, variables, and analysis. 
+
+#### Start by loading or installing the R workpackage if you haven't already
+press the green arrow in the corner to run this section of code or copy and paste into the console
+```{r}
 install.packages("remotes")
 remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
+```
 
-
-## ---------------------------------------------------------------------------------------------
+Load the package, and let's create a copy of the dataset so that we can easily make and revert changes
+```{r}
 library(workshopr)
+```
 
-
-## ---------------------------------------------------------------------------------------------
+```{r}
 dem_dat = workshopr::fake_data
+```
 
+## Loop basics
 
-## ---------------------------------------------------------------------------------------------
+### 1.1 Loop over numbers
+
+```{r}
 for (i in 1:5){
   print(i)
 }
 
+```
 
-
-## ---------------------------------------------------------------------------------------------
+What happens when we change the character for i?
+```{r}
 for (a in c(1,3:5)){
   print(a)
 }
 
+```
 
-
-## ---------------------------------------------------------------------------------------------
+print all even numbers from 1 to 15
+```{r}
 for (i in seq(from=2,to=15,by=2)){
   print(i)
 }
 
+```
 
+If else can be used within loops too
 
-## ---------------------------------------------------------------------------------------------
+```{r}
 #with if else
 for (i in 1:5){
   if(i<3){NULL} 
   else{print(i)}
 }
 
+```
+
+### Try it yourself!
+Print all numbers divisable by 3, i.e. can be divided without decimals, from 1 - 25
+HINT: %%3 == 0
+```{r}
 
 
-## ---------------------------------------------------------------------------------------------
+```
 
-
-
-
-## ---------------------------------------------------------------------------------------------
+What if you have multiple if/else statements?
+Use else if
+```{r}
 for (i in 1:10){
   if(i<2){NULL}
   else if(i>=3&i<8){print(i+1)}
   else{print(i)}
 }
 
+```
 
+### 1.2 Loop over strings
 
-## ---------------------------------------------------------------------------------------------
+Just like with numbers, we can use lists or strings
+```{r}
 for (i in c("apple","orange","flower","bee")){
   print(i)
 }
+```
 
-
-## ---------------------------------------------------------------------------------------------
+We can call individual items in the list using brackets
+```{r}
 random_stuff<-c("apple","orange","flower","bee")
 length(random_stuff)
 random_stuff[3]
+```
 
-
-## ---------------------------------------------------------------------------------------------
+```{r}
 for (i in 1:length(random_stuff)){
   print(random_stuff[[i]])
 }
@@ -77,108 +114,160 @@ for (i in 1:length(random_stuff)){
 for (i in random_stuff){
   print(i)
 }
+```
 
-
-## ---------------------------------------------------------------------------------------------
+### Try it yourself!
+Print all variable names in our dataset, dem_dat, related to wave 5
+```{r}
 for (i in colnames(dem_dat)){
   if(grepl("wave5", i, fixed=TRUE)){print(i)}
   else{NULL}
 }
+```
 
 
-## ---------------------------------------------------------------------------------------------
+## 2. apply
+What if we'd like to apply a function across multiple objects?
+
+### 2.1 Matrices
+Create a matrix dataset
+```{r}
 mat_dat = matrix(1:8, nrow=2)
 mat_dat
+```
 
+Now apply several functions.
+What does the 1 and 2 in the code refer to? 
 
-## ---------------------------------------------------------------------------------------------
+```{r}
 apply(mat_dat, 1, mean)
 apply(mat_dat, 1, sum)
 apply(mat_dat, 1, max)
+```
 
-
-## ---------------------------------------------------------------------------------------------
+```{r}
 apply(mat_dat, 2, mean)
 apply(mat_dat, 2, sum)
 apply(mat_dat, 2, max)
+```
 
+### 2.2 Lists and lapply
 
-## ---------------------------------------------------------------------------------------------
+```{r}
 lapply(list(a = matrix(1:8,nrow=2),
             b=matrix(1:9,nrow=3)), mean)
 
+```
 
-
-## ---------------------------------------------------------------------------------------------
+It can become unreadable if our values print horizontally, let's use unlist
+```{r}
 unlist(lapply(list(a=matrix(1:8,nrow=2),
                    b=matrix(1:9,nrow=3)), mean))
 
+```
 
-
-## ---------------------------------------------------------------------------------------------
+What if we'd like to use an equation that doesn't have a function?
+```{r}
 lapply(list(a=matrix(1:8,nrow=2),
             b=matrix(1:9,nrow=3)), function(x) x-2)
+```
 
-
-## ---------------------------------------------------------------------------------------------
+```{r}
 lapply(list(a=matrix(1:8,nrow=2),
             b=matrix(1:9,nrow=3)), function(x) round(x/3,digits = 0))
+```
+
+We can also easily turn it into a dataframe
+
+```{r}
+
+mean_res = lapply(dem_dat[,grepl("mmse", colnames(dem_dat))], 
+       function(x) mean(x, na.rm =T))
+
+mean_df = as.data.frame(do.call(rbind, mean_res))
+
+mean_df
+
+```
 
 
-## ---------------------------------------------------------------------------------------------
+### 2.3 sapply
+```{r}
 sapply(list(a=matrix(1:8,nrow=2),
             b=matrix(1:9,nrow=3)), mean)
+```
 
 
-## ---------------------------------------------------------------------------------------------
+```{r}
 sapply(list(a=matrix(1:8,nrow=2),
             b=matrix(1:9,nrow=3)), function(x) round(x/3,digits = 0))
+```
 
 
-## ---------------------------------------------------------------------------------------------
+##### What's the difference between lapply and sapply?
+lapply() always returns a list, whereas sapply() returns the result into a vector or matrix.
+
+
+Let's use our dataset and find the mean of each mmse wave
+```{r}
 
 sapply(dem_dat[,grepl("mmse", colnames(dem_dat))], 
        function(x) mean(x, na.rm =T))
 
+```
 
-
-## ---------------------------------------------------------------------------------------------
+Now in a for loop
+```{r}
 for (i in colnames(dem_dat[,grepl("mmse", colnames(dem_dat))])){
   print(i)
   print(mean(dem_dat[[i]], na.rm = T))
   print(median(dem_dat[[i]], na.rm = T))
 }
 
+```
 
 
-## ---------------------------------------------------------------------------------------------
+
+### 2.3 mapply and tapply
+
+mapply works for multiple lists or vectors of integers
+```{r}
 mapply(rep,1:4,4:1)
 
+```
 
-
-## ---------------------------------------------------------------------------------------------
+```{r}
 unlist(mapply(rep,1:4,4:1))
+```
 
 
-## ---------------------------------------------------------------------------------------------
+```{r}
 vec1 = c(600, 5, 30, 9)
 vec2 = c(300, 6000, 9000, 2)
 mapply(max, vec1, vec2)
+```
 
 
-## ---------------------------------------------------------------------------------------------
+tapply
+apply a function over an array (variable column!)
+```{r}
 #tapply-subset of objects
 
 tapply(dem_dat$mmse_wave1, dem_dat$sex, mean, na.rm=TRUE)
 tapply(dem_dat$mmse_wave1, list(dem_dat$sex,dem_dat$education), mean, na.rm=TRUE)
 
+```
 
+### Try it yourself!
+Find the number of NAs for mmse_wave 6 for males and females
+hint: what do we do when the task doesn't have a specific function
+```{r}
 
-## ---------------------------------------------------------------------------------------------
+```
 
+## 3. Generate variables and graphs with loops 
 
-
-## ---------------------------------------------------------------------------------------------
+```{r}
 #generate an empty data frame with 500 rows
 data_ex2<-data.frame(matrix(nrow = 500))[-1]
 #generate random numbers as values of each variable
@@ -189,9 +278,12 @@ for (i in c("A","B","C")){
 }
 
 head(data_ex2)
+```
 
 
-## ---------------------------------------------------------------------------------------------
+Returning back to loops, let's find estimates for all age variables
+
+```{r}
 
 for (i in colnames(dem_dat[,grepl("age", colnames(dem_dat))])){
   print(i)
@@ -205,18 +297,23 @@ for (i in colnames(dem_dat[,grepl("age", colnames(dem_dat))])){
   print(max(dem_dat[[i]], na.rm =T))
 }
 
+```
 
 
-## ---------------------------------------------------------------------------------------------
+it's not very readable. Let's turn it into a dataframe
+
+Let's start by creating an empty dataframe
+```{r}
 sum_dat = data.frame(wave_num = as.character(),
                      mean = as.numeric(),
                      median = as.numeric(),
                      min = as.numeric(),
                      max = as.numeric(),
                      stringsAsFactors = F)
+```
 
-
-## ---------------------------------------------------------------------------------------------
+Now letäs create the loop again
+```{r}
 
 for(i in colnames(dem_dat[,grepl("age", colnames(dem_dat))])) {
   # creating a vector to append
@@ -235,35 +332,53 @@ for(i in colnames(dem_dat[,grepl("age", colnames(dem_dat))])) {
   sum_dat[,2:5] <- sapply(sum_dat[,2:5],as.numeric)
 }
 sum_dat
+```
 
+Now that we've created a data frame we can easily plot it!
+Note: pop out the graph to see the full names for each bar
 
-## ---------------------------------------------------------------------------------------------
+```{r}
 barplot(sum_dat$mean,names.arg=sum_dat$wave_num,xlab="Wave",ylab="Mean",col="blue",
         main="Mean age of participants")
 
+```
 
+### Try it yourself!
+create a dataset containing the mean, 1st quartile, 3rd quartile, and minimum of MMSE scores
+hint quantile()
 
-## ---------------------------------------------------------------------------------------------
+Create empty dataframe
+```{r}
 
+```
 
+Create loop
+```{r}
 
-## ---------------------------------------------------------------------------------------------
+```
 
+### Try it yourself!
+Create a separate bar graph for each created variable using a loop, use a different color for each graph
+hint, specify a vector with the color names before the loop
 
+```{r}
 
-## ---------------------------------------------------------------------------------------------
+```
 
+## 4. Generate loops over models
 
+#### 5.1. use loop to run linear regression with different sets of covariates
 
-## ---------------------------------------------------------------------------------------------
+```{r}
 cov_list<-c("age_base","age_base+sex","age_base+sex+education")
 for (i in 1:length(cov_list)){
   print(summary(glm(formula = as.formula(paste0("mmse_wave5~",cov_list[[i]])),family = "gaussian",data = dem_dat)))
 }
 
+```
 
-
-## ---------------------------------------------------------------------------------------------
+#### 5.2. use loop to run linear regression with different datasets
+```{r}
 #combine datasets to a list
 data_list<-list(subset(dem_dat,sex==0),subset(dem_dat,sex==1))
 names(data_list)<-c("dem_dat_female","dem_dat_male")
@@ -274,9 +389,9 @@ for (i in 1:length(cov_list2)){
     print(summary(glm(formula = as.formula(paste0("mmse_wave5~",cov_list2[[i]])),family = "gaussian",data = data_list[[j]])))
   }
 }
+```
 
-
-## ---------------------------------------------------------------------------------------------
+```{r }
 #Alternative: use function to run models with different covariates through datasets
 lm_exa<-lapply(cov_list2,function(i){
   lapply(data_list,function(j){
@@ -284,41 +399,57 @@ lm_exa<-lapply(cov_list2,function(i){
   })
 })
 
+```
+
+### Try it yourself!
+Create a model for each mmse wave with the following covariates, age_basedate; age_basedate + sex; sex + education;age_basedate + sex + education
+
+```{r}
+
+```
+
+```{r }
+
+```
 
 
-## ---------------------------------------------------------------------------------------------
+That's too many outputs,
+Lets use a loop to summarize the results 
 
+###5.3 use loop to summarize results
 
-
-## ---------------------------------------------------------------------------------------------
-
-
-
-## ---------------------------------------------------------------------------------------------
+run a single model
+```{r}
 model_exe<-glm(formula = mmse_wave1~age_base+sex+education,family = "gaussian",data = dem_dat)
 
+```
 
-
-## ---------------------------------------------------------------------------------------------
+summarize model
+```{r}
 summary(model_exe)
 summary(model_exe)$coefficients
 class(summary(model_exe)$coefficients)
 row.names(summary(model_exe)$coefficients)
 summary(model_exe)$coefficients[2,1]
+```
 
-
-## ---------------------------------------------------------------------------------------------
+Get confidence interval
+```{r}
 confint(model_exe)
 class(confint(model_exe))
 row.names(confint(model_exe))
 
+```
 
+Now lets put everything together in a dataset 
 
-## ---------------------------------------------------------------------------------------------
+First, create an empty dataframe
+```{r}
 lm_results<-data.frame(model=character(0),dataset=character(0),predictor=character(0),estimates=numeric(0),lb=numeric(0),ub=numeric(0),p_value=numeric(0))
+```
 
-
-## ---------------------------------------------------------------------------------------------
+Now create the loop 
+```{r}
 
 for (i in 1:length(cov_list2)){
   for (j in 1:length(data_list)){
@@ -338,18 +469,30 @@ for (i in 1:length(cov_list2)){
   }
 }
 
+```
 
 
-## ---------------------------------------------------------------------------------------------
+#concatenate point estimates, lower bound and upper bound of the confidence interval
+#note: this can be done inside loop too
+
+```{r}
 lm_results$point_ci<-paste0(lm_results$estimates," (",lm_results$lb,",",lm_results$ub,")")
 lm_results$point_ci2<-paste0(lm_results$estimates," (",lm_results$lb,"-",lm_results$ub,")")
 lm_results$p_value<-ifelse(lm_results$p_value<0.0001,"<0.0001",lm_results$p_value)
 
 lm_results
+```
+
+### Try it yourself!
+Create a dataframe containing the third model, i.e. cov_list3
+use the full dataset, i.e. do not break it up by sex
+
+```{r }
+
+```
 
 
+```{r}
 
-
-## ---------------------------------------------------------------------------------------------
-
+```
 
