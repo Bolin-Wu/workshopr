@@ -49,7 +49,9 @@ fake_data %>%
   scale_fill_manual(
     name = "MMSE Measures",
     values = cbPalette
-  )
+  ) + 
+  labs(title = "Boxplots of MMSE Measures") +
+  theme_minimal()
 ```
 
 ## Table

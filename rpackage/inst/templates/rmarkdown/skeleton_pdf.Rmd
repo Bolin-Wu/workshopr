@@ -1,49 +1,33 @@
 ---
 title: "Template"
-author: "Your Name"
+author:
+- Author One
+- Author Two
 date: 'YYYY-MM-DD (updated: `r Sys.Date()`) '
 output:
-  word_document:
-    toc: yes
+  pdf_document: 
+    toc: true
     toc_depth: 2
 urlcolor: blue
 ---
 
 ```{r setup, include=FALSE}
 # By default, all codes are hidden.
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, include = FALSE, comment = NA, ft_max_row = 6, tab.topcaption = FALSE, ft.align = "left")
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, include = TRUE, echo = FALSE, eval = TRUE, comment = NA, tab.topcaption = TRUE)
+library(haven)
 library(knitr)
 library(tidyverse)
-# remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)
+library(here)
 library(workshopr)
 library(flextable)
 set_flextable_defaults(font.size = 11, padding = 3)
+# use_df_printer()
 ```
 
+More options yaml please see posts here: https://rstudio.github.io/distill/basics.html
 # Introduction
 
 This document is to demonstrate some rmd basic functions.
-
-
-# Flextable
-`flextable` is a useful package for printing tables for **word** file output. It is similar to `kable()` for PDF file output.
-
-
-If one wants to generate tables by loop:
-
-```{r, include=TRUE, echo=FALSE, results='asis'}
-for (i in 1:10) {
-  cat("Table: ", i)
-  ft <- flextable(cars[i, ])
-  caption_name <- paste0("Print row: ", i)
-  ft <- set_caption(ft, caption_name)
-  ft <- autofit(ft)
-  flextable_to_rmd(ft)
-}
-```
-
-This could be useful when one needs to do repetitive work, e.g. printing significant variables from `lm()` function. Please note that the result has to be set to 'asis'.
-
 
 # Visualization
 
@@ -66,7 +50,7 @@ fake_data %>%
   scale_fill_manual(
     name = "MMSE Measures",
     values = cbPalette
-  ) + 
+  ) +
   labs(title = "Boxplots of MMSE Measures") +
   theme_minimal()
 ```
@@ -79,9 +63,9 @@ Just use `describe` from `psych` as an example.
 # install.packages('psych')
 library(psych)
 
-kable(describe(fake_data, na.rm = TRUE), 
-      format='markdown',
-      caption="Example",
-      digits=2)
+kable(describe(fake_data, na.rm = TRUE),
+  format = "markdown",
+  caption = "Example",
+  digits = 2
+)
 ```
-

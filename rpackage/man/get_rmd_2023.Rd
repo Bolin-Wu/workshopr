@@ -13,13 +13,13 @@ get_rmd_2023(
 )
 }
 \arguments{
-\item{name}{Name of rmd file. Please do not use '/' in the the file name. (no need to add suffix ".Rmd")}
+\item{name}{Name of rmd file. Please do not use '/' in the the file name (no need to add suffix ".Rmd").}
 
 \item{subDir}{Name of the folder where rmd file will be created. Remember to connect sub-dir names with '/'. By default it is 'rmd'.}
 
-\item{output_file}{"word" or "html", by default it is "html"}
+\item{output_file}{"word" or "html" or "pdf", by default it is "html".}
 
-\item{open}{Should the file be opened after being created}
+\item{open}{Should the file be opened after being created.}
 
 \item{...}{Arguments to be passed to \link[usethis]{use_template}}
 }
@@ -28,7 +28,7 @@ Use the preset rmd template. By default, this function creates a new folder "rmd
 }
 \examples{
 \dontrun{
- workshopr::get_rmd_2023(subDir = 'rmd',name = "pretty_template",output_file = "word")
+workshopr::get_rmd_2023(subDir = "rmd", name = "pretty_template", output_file = "word")
 }
 
 }
