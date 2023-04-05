@@ -61,6 +61,7 @@ Get the rmd templates with html and word output:
 ```
 workshopr::get_rmd_2023(output_file = "html")
 workshopr::get_rmd_2023(output_file = "word")
+workshopr::get_rmd_2023(output_file = "pdf")
 ```
 # Issues
 
