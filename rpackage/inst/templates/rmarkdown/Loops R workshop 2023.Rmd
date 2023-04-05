@@ -15,6 +15,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Loops and apply (lapppy & sapply) are powerful tools that can drastically shorten the length of your code and save you time! This is especially true in epidemiology where we often have many datasets, variables, and analysis. 
 
+In the Try It Yourself sections don't be afraid to look through the already 
+written code/syntax for hints and guidance. It's not cheating :) 
+
 #### Start by loading or installing the R workpackage if you haven't already
 press the green arrow in the corner to run this section of code or copy and paste into the console
 ```{r}
@@ -29,6 +32,9 @@ library(workshopr)
 
 ```{r}
 dem_dat = workshopr::fake_data
+
+colnames(dem_dat)
+str(dem_dat)
 ```
 
 ## Loop basics
@@ -118,11 +124,9 @@ for (i in random_stuff){
 
 ### Try it yourself!
 Print all variable names in our dataset, dem_dat, related to wave 5
+hint: use grepl()
 ```{r}
-for (i in colnames(dem_dat)){
-  if(grepl("wave5", i, fixed=TRUE)){print(i)}
-  else{NULL}
-}
+
 ```
 
 
@@ -344,7 +348,8 @@ barplot(sum_dat$mean,names.arg=sum_dat$wave_num,xlab="Wave",ylab="Mean",col="blu
 ```
 
 ### Try it yourself!
-create a dataset containing the mean, 1st quartile, 3rd quartile, and minimum of MMSE scores
+create a dataset containing the mean, 1st quartile, 3rd quartile, and minimum 
+of MMSE scores at each wave
 hint quantile()
 
 Create empty dataframe
@@ -358,7 +363,8 @@ Create loop
 ```
 
 ### Try it yourself!
-Create a separate bar graph for each created variable using a loop, use a different color for each graph
+Create a separate bar graph for each created variable using a loop (mean,  
+1st quartile, 3rd quartile, and minimum ), use a different color for each graph
 hint, specify a vector with the color names before the loop
 
 ```{r}
@@ -404,10 +410,12 @@ lm_exa<-lapply(cov_list2,function(i){
 ### Try it yourself!
 Create a model for each mmse wave with the following covariates, age_basedate; age_basedate + sex; sex + education;age_basedate + sex + education
 
+Create the covariate list
 ```{r}
 
 ```
 
+Create the loop
 ```{r }
 
 ```
@@ -484,14 +492,22 @@ lm_results
 ```
 
 ### Try it yourself!
-Create a dataframe containing the third model, i.e. cov_list3
+Create a dataframe containing models which use the following covariates:
+ age_basedate; age_basedate + sex; sex + education;age_basedate + sex + education
 use the full dataset, i.e. do not break it up by sex
+Note: these are the same covariates used in the previous Try It Yourself example
 
+Create empty dataframe
+```{r}
+
+```
+
+Create loop 
 ```{r }
 
 ```
 
-
+Optional, create the point estimates 
 ```{r}
 
 ```
