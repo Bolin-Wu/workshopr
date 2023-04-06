@@ -26,17 +26,15 @@ options(
 )
 ```
 
----
 
-## About me 
+
+## About me
 
 .pull-left[
-
 ![](pic/Bolin_pic.png)
 ] 
 
-.pull-left[
-
+.pull-right[
 - Statistician at [NEAR](https://www.near-aging.se/), KI.
 - MSc in Statistics, Uppsala University.
 - Interests: 
@@ -44,6 +42,7 @@ options(
   - Statistics
   - Data manipulation
   - guitar
+]
 
 ???
 
@@ -54,7 +53,7 @@ At my daily work, I need to deal with data of many cohorts and follow ups.
 ## `workshopr` package
 
 ### Install
-```{r install package, results= FALSE}
+```{r install package, results= FALSE, eval= FALSE}
 install.packages("remotes")
 remotes::install_github("Bolin-Wu/workshopr",
   subdir = "rpackage",
@@ -500,7 +499,10 @@ knitr::kable(label_char)
 The result looks terrible, so we have to fix it by transforming it to be tibble:
 
 ```{r}
-label_df <- tibble::rownames_to_column(as.data.frame(label_char), "variable")
+label_df <- tibble::rownames_to_column(
+  as.data.frame(label_char),
+  "variable"
+)
 label_df <- tibble::as_tibble(label_df)
 label_df
 ```
@@ -618,7 +620,10 @@ fake_data %>%
 
 ```{r, message=FALSE, warning=FALSE}
 fake_data %>%
-  mutate(across(where(is.numeric), ~ round(., digits = 2)))
+  mutate(across(
+    where(is.numeric),
+    ~ round(., digits = 2)
+  ))
 ```
 
 ???
@@ -741,7 +746,6 @@ class: center, middle
 
 ---
 
----
 
 background-image: url(https://d33wubrfki0l68.cloudfront.net/22b5294b277483dd102640b43b5e70d013f677de/08292/resources/rstudioconf-2018/create-and-maintain-websites-with-r-markdown-and-blogdown/thumbnail_hubae0b01a3d61d8344b113ddc4adfe671_69897_1000x0_resize_q75_box.jpg)
 
@@ -826,14 +830,21 @@ knitr::include_graphics(here("pic", "global_set.png"))
 
 ---
 
-### RMD chunk option exercise 
+### RMD chunk option exercises
 
 * Print the column names of `fake_data`, but do not show the code itself.
 
----
+* Print the code above, but do not show the result.
+
+* Neither print the code nor the result, but preserve the evaluation of execution for further analysis.
+
+
 
 ---
+
 ## YAML
+
+--
 
 ```yaml
 ---
@@ -885,17 +896,10 @@ workshopr::get_rmd_2023(
 # Final exercise
 
 
-- Calculate the NA of all columns except for id column.
-- Remove all decimals in numeric columns. 
-- (optional) Read `stringr` documentation, find appropriate function to filter out 'objects_name' that contains "SNAC".
-- (optional) Pivot the original 'fake_data' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column. 
-
-*Hint: check the `names_to` argument and `relocate()` function*. 
-
 ---
 
-```{r, echo=FALSE, purl=FALSE}
-# answer
+```{r, echo=FALSE, purl=FALSE, eval=FALSE}
+# - (optional) Pivot the original 'fake_data' by using only one `pivot_longer()` function. Put wave and date after 'Lopnr' column.
 fake_data %>%
   pivot_longer(contains("wave"),
     names_to = c(".value", "wave"),
@@ -907,9 +911,10 @@ fake_data %>%
 ```
 
 
----
 
 ## Wrap up
+
+--
 
 * Many times, avoiding repetitive coding can help you, also others to review your code.
 --

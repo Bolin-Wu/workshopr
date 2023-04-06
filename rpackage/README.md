@@ -49,8 +49,9 @@ Load example R code:
 
 Get the rmd templates with html and word output:
 
-    workshopr::get_rmd_2023(output_file = "html")
-    workshopr::get_rmd_2023(output_file = "word")
+    workshopr::get_rmd_2023(name = "pdf_example",output_file = "pdf")
+    workshopr::get_rmd_2023(name = "word_example",output_file = "word")
+    workshopr::get_rmd_2023(name = "html_example",output_file = "html")
 
 # Issues
 

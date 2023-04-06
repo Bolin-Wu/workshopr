@@ -11,6 +11,7 @@
 #' workshopr::get_rmd_2023(subDir = "rmd", name = "pretty_template", output_file = "word")
 #' }
 #'
+#'
 #' @export
 #'
 get_rmd_2023 <-

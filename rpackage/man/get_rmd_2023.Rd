@@ -31,4 +31,5 @@ Use the preset rmd template. By default, this function creates a new folder "rmd
 workshopr::get_rmd_2023(subDir = "rmd", name = "pretty_template", output_file = "word")
 }
 
+
 }

@@ -43,7 +43,14 @@ The slide is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/202
 
 The slide is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
 
-One can use `workshopr::get_rmd_2023()` in R to retrieve rmd templates.
+To retrieve rmd templates in R, one can use commands:
+
+```
+workshopr::get_rmd_2023(name = "pdf_example",output_file = "pdf")
+workshopr::get_rmd_2023(name = "word_example",output_file = "word")
+workshopr::get_rmd_2023(name = "html_example",output_file = "html")
+```
+
 
 ## Other resources
 
