@@ -27,7 +27,7 @@ This workshop focuses at intermediate level. Register link is [here](https://new
 - **extract** the label from DTA and SPSS in R (*filter*)
 - **check** missing values (*summarise & across*)
 - **mutate data** based on column types (*mutate & across*)
-- **bin** variables by percentiles (*cut*)
+- **bin** variables by percentiles (*case_when*)
 - **assign** function 
 
 The slide is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf) and the code is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/rscript/tidyverse_2023.R).
