@@ -2,4 +2,5 @@
 
 export(get_code_2023)
 export(get_rmd_2023)
+export(get_solution_2023)
 importFrom(usethis,use_template)

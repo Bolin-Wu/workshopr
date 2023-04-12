@@ -895,7 +895,6 @@ workshopr::get_rmd_2023(
 
 # Final exercise
 
-
 ---
 
 ```{r, echo=FALSE, purl=FALSE, eval=FALSE}

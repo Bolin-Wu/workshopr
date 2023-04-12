@@ -1,0 +1,155 @@
+---
+title: "Template"
+author:
+  - name: "Your Name"
+    affiliation: "Your company/university"
+date: 'YYYY-MM-DD (updated: `r Sys.Date()`) '
+output:
+  rmdformats::downcute:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: false
+    highlight: tango
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+# By default, all codes are hidden. 
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, include = TRUE)
+library(workshopr)
+library(tidyverse)
+library(DT)
+```
+
+# 1.Summary statistics of the datasets
+```{r}
+fake_data = fake_data %>%
+  mutate(across(c("education", "sex") | contains('dementia'),  as.factor))
+
+
+#summary statistics for continuous variables 
+fake_data %>%
+  select(where(is.numeric), -Lopnr) %>%
+  summarise(across(everything(),list(~mean(.,na.rm = TRUE),
+                                     ~sd(.,na.rm = TRUE),
+                                     ~sum(is.na(.))))) %>% 
+  matrix(ncol = 3,byrow = T,
+         dimnames = list(colnames(fake_data %>% select(where(is.numeric), -Lopnr)),
+                         c("mean","sd","num_na")))
+
+
+
+#summary statistics for continuous variables using sapply
+t(sapply(fake_data %>%
+           select(where(is.numeric), -Lopnr),
+         function(x) c(mean=mean(x, na.rm=TRUE), sd=sd(x,na.rm = TRUE),
+                       num_na=sum(is.na(x))),
+         USE.NAMES = T)
+)
+
+#summary statistics for categorical variables
+lapply(fake_data %>% 
+         select(where(is.factor), -Lopnr),
+       function(x) {
+         as.data.frame(cbind(category = names(table(x, useNA = "ifany")),
+                             count = table(x, useNA = "ifany"),
+                             proportion = paste0(round(prop.table(table(x, useNA = "ifany"))*100,digits = 1),"%")))})
+
+#one can also "cheat" using "table1()" function from the "table1" library
+library(table1)
+table1(~.,data=fake_data %>% 
+         select(where(is.numeric),where(is.factor), -Lopnr))
+```
+
+
+
+# 2.Summary statistics of the datasets by sex 
+```{r}
+#summary statistics for continuous variables by sex
+for (i in 1:length(fake_data %>% 
+                   select(where(is.numeric), -Lopnr))){
+  print(colnames((fake_data %>% 
+                    select(where(is.numeric), -Lopnr))[,i]))
+  print(setNames(tapply((fake_data %>% 
+                           select(where(is.numeric), -Lopnr))[[i]],fake_data$sex,
+                        function(x) c(mean=mean(x, na.rm=TRUE), sd=sd(x,na.rm = TRUE), 
+                                      num_na=sum(is.na(x)))),
+                 c("males","females")))
+}
+
+#summary statistics for categorical variables by sex
+for (i in 1:length(fake_data %>% 
+                   select(where(is.factor), -Lopnr))){
+  print(colnames((fake_data %>% 
+                    select(where(is.factor), -Lopnr))[,i]))
+  print(setNames(tapply((fake_data %>% 
+                  select(where(is.factor), -Lopnr))[[i]],fake_data$sex, function(x) {
+                    as.data.frame(cbind(category = names(table(x, useNA = "ifany")), 
+                                        count = table(x, useNA = "ifany"),
+                                        proportion = paste0(round(prop.table(table(x, useNA = "ifany"))*100,
+                                                                  digits = 1),"%")))}),
+                 c("males","females")))
+}
+
+#one can also "cheat" using "table1()" function from the "table1" library
+table1(~.|sex,data=fake_data %>% 
+         select(where(is.numeric),where(is.factor), -Lopnr))
+```
+
+# 3.An example ggplot: individual trajectories of MMSE scores over time by sex
+```{r}
+#create a spaghetti plot for MMSE change over time by sex
+#reshape data from wide format to long format
+fake_data_long<-fake_data %>%
+  select(Lopnr,sex,contains(c("age","mmse"))) %>% 
+  pivot_longer(
+    cols = contains(c("age","mmse")),
+    names_to = c(".value", "wave"),
+    names_pattern = "(.*)_wave(.*)"
+  )
+
+#ggolot-a spaghetti plot for MMSE change over time by sex
+ggplot(fake_data_long, aes(x=age, y=mmse, group=Lopnr, color=sex))+
+  geom_line(size=0.8,alpha=0.2)+
+  # specify the title of the legend which is indicated by color
+  labs(x="Age (years)",y="MMSE",color="Sex")+
+  scale_x_continuous(limits = c(70,110),breaks =seq(70,110,by=5))+
+  # y-axis limit to 0-30
+  scale_y_continuous(limits = c(0,30),breaks =seq(0,30,by=2))+
+  #use color from RColorBrewer
+  scale_color_brewer(palette="Set2")+
+  theme(panel.background = element_rect(fill = "white"),
+        axis.line = element_line(color="black"),
+        #set font size to 12 pt
+        text = element_text(size = 12),
+        #change legend direction
+        legend.box = "horizontal",
+        legend.direction = "horizontal",
+        #change legend position
+        legend.position = "bottom",
+        #set plot margin
+        plot.margin = margin(1,0.2,0.2,0.2, "cm"))
+```
+
+# 4.Summarise the associations of MMSE score at wave 1 with age at wave 1, sex, and educational levels 
+```{r}
+model_exe<-glm(formula = mmse_wave1~age_base+sex+education,
+               family = "gaussian",data = fake_data) 
+
+lm_results<-data.frame(predictor=character(0),estimates=numeric(0),
+                       lb=numeric(0),ub=numeric(0),p_value=numeric(0))
+
+for (i in 2:length(row.names(summary(model_exe)$coefficients))){
+  predictor<-row.names(summary(model_exe)$coefficients)[i]
+  estimates<-round(summary(model_exe)$coefficients[i,1],digits = 2)
+  p_value<-round(summary(model_exe)$coefficients[i,4],digits = 3)
+  lb<-round(confint(model_exe)[i,1],digits = 2)
+  ub<-round(confint(model_exe)[i,2],digits = 2)
+  temp_results<-data.frame(predictor=predictor,estimates=estimates,
+                           lb=lb,ub=ub,p_value=p_value)
+  lm_results<-rbind(lm_results,temp_results)
+}
+
+lm_results
+```
