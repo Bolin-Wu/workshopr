@@ -895,6 +895,8 @@ workshopr::get_rmd_2023(
 
 # Final exercise
 
+Please check this link [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/rmd/final_exercise.pdf).
+
 ---
 
 ```{r, echo=FALSE, purl=FALSE, eval=FALSE}

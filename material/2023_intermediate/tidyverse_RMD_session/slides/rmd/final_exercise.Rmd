@@ -1,8 +1,6 @@
 ---
 title: "Final exercise"
-author:
-  - name: "Xin Xia"
-    affiliation: "KI"
+author: "Xin Xia"
 date: '2024-04-12 (updated: `r Sys.Date()`) '
 output:
   pdf_document: 
@@ -71,4 +69,5 @@ You can find solutions from Xin Xia by
 ```{r, eval=FALSE}
 workshopr::get_solution_2023(name = "practice_solution")
 ```
+
 

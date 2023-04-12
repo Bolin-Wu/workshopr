@@ -305,20 +305,20 @@ head(fake_data, n = 5)
 
 ```
 # A tibble: 5 × 28
-  Lopnr Date_wave1 age_wave1 mmse_wave1 dement…¹ Date_wave2 age_w…² mmse_…³ demen…⁴
-  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1     1 2001-06-11      77.6         29        0 2003-06-03    79.5      29       0
-2     2 2002-04-08      72.6         18        0 2004-03-07    74.5      15       0
-3     3 2001-09-12      79.9         22        0 NA            NA        NA      NA
-4     4 2001-06-13      79.9         26        0 2003-05-12    81.8      24       0
-5     5 2001-02-12      82.6         NA        0 2003-04-20    84.8      22       0
-# … with 19 more variables: Date_wave3 &lt;date&gt;, age_wave3 &lt;dbl&gt;, mmse_wave3 &lt;dbl&gt;,
-#   dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;, age_wave4 &lt;dbl&gt;, mmse_wave4 &lt;dbl&gt;,
-#   dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;, age_wave5 &lt;dbl&gt;, mmse_wave5 &lt;dbl&gt;,
-#   dementia_wave5 &lt;dbl&gt;, Date_wave6 &lt;date&gt;, age_wave6 &lt;dbl&gt;, mmse_wave6 &lt;dbl&gt;,
-#   dementia_wave6 &lt;dbl&gt;, age_base &lt;dbl&gt;, sex &lt;dbl+lbl&gt;, education &lt;dbl+lbl&gt;, and
-#   abbreviated variable names ¹​dementia_wave1, ²​age_wave2, ³​mmse_wave2,
-#   ⁴​dementia_wave2
+  Lopnr Date_wave1 age_wave1 mmse_w…¹ demen…² Date_wave2 age_w…³ mmse_…⁴ demen…⁵
+  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1     1 2001-06-11      77.6       29       0 2003-06-03    79.5      29       0
+2     2 2002-04-08      72.6       18       0 2004-03-07    74.5      15       0
+3     3 2001-09-12      79.9       22       0 NA            NA        NA      NA
+4     4 2001-06-13      79.9       26       0 2003-05-12    81.8      24       0
+5     5 2001-02-12      82.6       NA       0 2003-04-20    84.8      22       0
+# … with 19 more variables: Date_wave3 &lt;date&gt;, age_wave3 &lt;dbl&gt;,
+#   mmse_wave3 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;, age_wave4 &lt;dbl&gt;,
+#   mmse_wave4 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;, age_wave5 &lt;dbl&gt;,
+#   mmse_wave5 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, Date_wave6 &lt;date&gt;, age_wave6 &lt;dbl&gt;,
+#   mmse_wave6 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;, age_base &lt;dbl&gt;, sex &lt;dbl+lbl&gt;,
+#   education &lt;dbl+lbl&gt;, and abbreviated variable names ¹​mmse_wave1,
+#   ²​dementia_wave1, ³​age_wave2, ⁴​mmse_wave2, ⁵​dementia_wave2
 ```
 
 ???
@@ -855,15 +855,16 @@ Explain why I prefer the pipeline version
 
 ```
 # A tibble: 1 × 22
-  Lopnr age_wave1 mmse_wa…¹ demen…² age_w…³ mmse_…⁴ demen…⁵ age_w…⁶ mmse_…⁷ demen…⁸
-  &lt;int&gt;     &lt;int&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     0         0       135       0     207     323     207     489     605     489
+  Lopnr age_wa…¹ mmse_…² demen…³ age_w…⁴ mmse_…⁵ demen…⁶ age_w…⁷ mmse_…⁸ demen…⁹
+  &lt;int&gt;    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+1     0        0     135       0     207     323     207     489     605     489
 # … with 12 more variables: age_wave4 &lt;int&gt;, mmse_wave4 &lt;int&gt;,
-#   dementia_wave4 &lt;int&gt;, age_wave5 &lt;int&gt;, mmse_wave5 &lt;int&gt;, dementia_wave5 &lt;int&gt;,
-#   age_wave6 &lt;int&gt;, mmse_wave6 &lt;int&gt;, dementia_wave6 &lt;int&gt;, age_base &lt;int&gt;,
-#   sex &lt;int&gt;, education &lt;int&gt;, and abbreviated variable names ¹​mmse_wave1,
-#   ²​dementia_wave1, ³​age_wave2, ⁴​mmse_wave2, ⁵​dementia_wave2, ⁶​age_wave3,
-#   ⁷​mmse_wave3, ⁸​dementia_wave3
+#   dementia_wave4 &lt;int&gt;, age_wave5 &lt;int&gt;, mmse_wave5 &lt;int&gt;,
+#   dementia_wave5 &lt;int&gt;, age_wave6 &lt;int&gt;, mmse_wave6 &lt;int&gt;,
+#   dementia_wave6 &lt;int&gt;, age_base &lt;int&gt;, sex &lt;int&gt;, education &lt;int&gt;, and
+#   abbreviated variable names ¹​age_wave1, ²​mmse_wave1, ³​dementia_wave1,
+#   ⁴​age_wave2, ⁵​mmse_wave2, ⁶​dementia_wave2, ⁷​age_wave3, ⁸​mmse_wave3,
+#   ⁹​dementia_wave3
 ```
 
 ```
@@ -896,25 +897,25 @@ fake_data %&gt;%
 
 ```
 # A tibble: 3,000 × 28
-   Lopnr Date_wave1 age_wave1 mmse_wave1 demen…¹ Date_wave2 age_w…² mmse_…³ demen…⁴
-   &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1     1 2001-06-11      77.6         29       0 2003-06-03    79.5      29       0
- 2     2 2002-04-08      72.6         18       0 2004-03-07    74.5      15       0
- 3     3 2001-09-12      80.0         22       0 NA            NA        NA      NA
- 4     4 2001-06-13      79.9         26       0 2003-05-12    81.8      24       0
- 5     5 2001-02-12      82.6         NA       0 2003-04-20    84.8      22       0
- 6     6 2001-07-05      79.3         25       0 2003-07-20    81.4      24       0
- 7     7 2001-12-28      86.4         NA       0 2003-12-11    88.4      NA       1
- 8     8 2002-09-17      77.1         26       0 2004-09-01    79.0      25       0
- 9     9 2001-09-14      79.8         30       0 2003-08-30    81.8      30       0
-10    10 2001-09-21      69.0         29       0 2003-09-27    71.0      29       0
-# … with 2,990 more rows, 19 more variables: Date_wave3 &lt;date&gt;, age_wave3 &lt;dbl&gt;,
-#   mmse_wave3 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;, age_wave4 &lt;dbl&gt;,
-#   mmse_wave4 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;, age_wave5 &lt;dbl&gt;,
-#   mmse_wave5 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, Date_wave6 &lt;date&gt;, age_wave6 &lt;dbl&gt;,
-#   mmse_wave6 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;, age_base &lt;dbl&gt;, sex &lt;dbl&gt;,
-#   education &lt;dbl&gt;, and abbreviated variable names ¹​dementia_wave1, ²​age_wave2,
-#   ³​mmse_wave2, ⁴​dementia_wave2
+   Lopnr Date_wave1 age_wave1 mmse_…¹ demen…² Date_wave2 age_w…³ mmse_…⁴ demen…⁵
+   &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1 2001-06-11      77.6      29       0 2003-06-03    79.5      29       0
+ 2     2 2002-04-08      72.6      18       0 2004-03-07    74.5      15       0
+ 3     3 2001-09-12      80.0      22       0 NA            NA        NA      NA
+ 4     4 2001-06-13      79.9      26       0 2003-05-12    81.8      24       0
+ 5     5 2001-02-12      82.6      NA       0 2003-04-20    84.8      22       0
+ 6     6 2001-07-05      79.3      25       0 2003-07-20    81.4      24       0
+ 7     7 2001-12-28      86.4      NA       0 2003-12-11    88.4      NA       1
+ 8     8 2002-09-17      77.1      26       0 2004-09-01    79.0      25       0
+ 9     9 2001-09-14      79.8      30       0 2003-08-30    81.8      30       0
+10    10 2001-09-21      69.0      29       0 2003-09-27    71.0      29       0
+# … with 2,990 more rows, 19 more variables: Date_wave3 &lt;date&gt;,
+#   age_wave3 &lt;dbl&gt;, mmse_wave3 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;,
+#   age_wave4 &lt;dbl&gt;, mmse_wave4 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;,
+#   age_wave5 &lt;dbl&gt;, mmse_wave5 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, Date_wave6 &lt;date&gt;,
+#   age_wave6 &lt;dbl&gt;, mmse_wave6 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;, age_base &lt;dbl&gt;,
+#   sex &lt;dbl&gt;, education &lt;dbl&gt;, and abbreviated variable names ¹​mmse_wave1,
+#   ²​dementia_wave1, ³​age_wave2, ⁴​mmse_wave2, ⁵​dementia_wave2
 ```
 
 ???
@@ -1214,6 +1215,8 @@ workshopr::get_rmd_2023(
 ---
 
 # Final exercise
+
+Please check this link [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/rmd/final_exercise.pdf).
 
 ---
 
