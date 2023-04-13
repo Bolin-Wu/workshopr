@@ -58,4 +58,5 @@ workshopr::get_rmd_2023(name = "html_example",output_file = "html")
 
 - 'stringr' and regex (in r) [cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf).
 - data transformation with 'dplyr' [cheatsheet](https://nyu-cdsc.github.io/learningr/assets/data-transformation.pdf).
+- R markdown [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf).
 
