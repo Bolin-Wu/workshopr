@@ -16,6 +16,8 @@ This workshop focuses at intermediate level. Register link is [here](https://new
 ## Loop
 [Ashley Tate](https://staff.ki.se/people/ashley-tate) leads this session. 
 
+The code is [here](https://github.com/Bolin-Wu/workshopr/tree/main/material/2023_intermediate/loop_session).
+
 
 ## Tidyverse
 [Bolin Wu](https://staff.ki.se/people/bolin-wu) introduces useful data manipulation functions in daily work tasks:
@@ -62,4 +64,5 @@ workshopr::get_rmd_2023(name = "html_example",output_file = "html")
 
 - 'stringr' and regex (in r) [cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf).
 - data transformation with 'dplyr' [cheatsheet](https://nyu-cdsc.github.io/learningr/assets/data-transformation.pdf).
+- R markdown [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf).
 
