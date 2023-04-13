@@ -16,7 +16,7 @@ This workshop focuses at intermediate level. Register link is [here](https://new
 ## Loop
 [Ashley Tate](https://staff.ki.se/people/ashley-tate) leads this session. 
 
-The code is [here](https://github.com/Bolin-Wu/workshopr/tree/main/material/2023_intermediate/loop_session).
+One can find example code [here](https://github.com/Bolin-Wu/workshopr/tree/main/material/2023_intermediate/loop_session) or in R `workshopr::get_code_2023(session = "loop")` .
 
 
 ## Tidyverse
@@ -32,13 +32,7 @@ The code is [here](https://github.com/Bolin-Wu/workshopr/tree/main/material/2023
 - **bin** variables by percentiles (*case_when*)
 - **assign** function 
 
-The slide is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf) and the code is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/rscript/tidyverse_2023.R).
-
-One can also get the code in R
-
-```
-workshopr::get_code_2023(session = "tidyverse")
-```
+One can get the slide [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf) and the code [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/rscript/tidyverse_2023.R). Or in R `workshopr::get_code_2023(session = "tidyverse")`.
 
 
 ## R markdown
