@@ -32,7 +32,7 @@ One can find example code [here](https://github.com/Bolin-Wu/workshopr/tree/main
 - **bin** variables by percentiles (*case_when*)
 - **assign** function 
 
-One can get the slide [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf) and the code [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/rscript/tidyverse_2023.R). Or in R `workshopr::get_code_2023(session = "tidyverse")`.
+One can find the slide [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf) and example code [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/rscript/tidyverse_2023.R) or  in R `workshopr::get_code_2023(session = "tidyverse")`.
 
 
 ## R markdown

@@ -1,3 +1,7 @@
+## ---- include=FALSE,purl=TRUE--------------------------------------------------------------------------------
+# Slide link: https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf
+
+
 ## ----install package, results= FALSE, eval= FALSE------------------------------------------------------------
 ## install.packages("remotes")
 ## remotes::install_github("Bolin-Wu/workshopr",
@@ -10,6 +14,16 @@
 library(workshopr)
 library(tidyverse)
 library(here)
+
+
+## ---- eval=FALSE---------------------------------------------------------------------------------------------
+## df$cohort1_edu = as.factor(df$cohort1_edu )
+## df$cohort2_edu  = as.factor(df$cohort2_edu)
+## # and so on...
+
+
+## ------------------------------------------------------------------------------------------------------------
+workshopr::get_code_2023(session = "tidyverse")
 
 
 ## ------------------------------------------------------------------------------------------------------------
