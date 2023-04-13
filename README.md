@@ -32,6 +32,12 @@ This workshop focuses at intermediate level. Register link is [here](https://new
 
 The slide is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf) and the code is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/rscript/tidyverse_2023.R).
 
+One can also get the code in R
+
+```
+workshopr::get_code_2023(session = "tidyverse")
+```
+
 
 ## R markdown
 [Bolin Wu](https://staff.ki.se/people/bolin-wu) explains the basic uses of R markdown and its integration into daily work:

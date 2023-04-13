@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 ### NEAR, Aging Research Center
 ]
 .date[
-### 2023/01/26 (updated: 2023-04-12)
+### 2023/01/26 (updated: 2023-04-13)
 ]
 
 ---
@@ -96,18 +96,38 @@ class: center, middle
 ---
 ## Introduction
 
-This session is to share useful data manipulation skills at daily epidemiology work. My main goal is to follow the "don't repeat yourself" (DRY) principle. 
+This session is to share useful data manipulation skills at daily data harmonization work. My main goal is to follow the "don't repeat yourself" (DRY) principle. 
 
 It can make our code more readable and reduce our chance of making mistakes.
+
+--
+
+Suppose you want to change column class.
+
+
+```r
+df$cohort1_edu = as.factor(df$cohort1_edu )
+df$cohort2_edu  = as.factor(df$cohort2_edu) 
+# and so on...
+```
+
+
 
 ???
 
 For example, change a variable name in the code, but forget to change other places
 
 
---
+---
 
-*Note: Data frames may seem to be unfit in the slides. I do not user any html widges since the code will be pulled out for tutorial purpose. Attendants can run the code on their on machine instead to get better view.*
+### Get the code
+
+*Note: Data frames may seem to be unfit in the PDF. I do not user any html widges since the code will be pulled out for tutorial purpose. Attendants can run the code on their on machine instead to get better view.*
+
+
+```r
+workshopr::get_code_2023(session = "tidyverse")
+```
 
 
 
@@ -305,20 +325,18 @@ head(fake_data, n = 5)
 
 ```
 # A tibble: 5 × 28
-  Lopnr Date_wave1 age_wave1 mmse_w…¹ demen…² Date_wave2 age_w…³ mmse_…⁴ demen…⁵
-  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1     1 2001-06-11      77.6       29       0 2003-06-03    79.5      29       0
-2     2 2002-04-08      72.6       18       0 2004-03-07    74.5      15       0
-3     3 2001-09-12      79.9       22       0 NA            NA        NA      NA
-4     4 2001-06-13      79.9       26       0 2003-05-12    81.8      24       0
-5     5 2001-02-12      82.6       NA       0 2003-04-20    84.8      22       0
-# … with 19 more variables: Date_wave3 &lt;date&gt;, age_wave3 &lt;dbl&gt;,
-#   mmse_wave3 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;, age_wave4 &lt;dbl&gt;,
-#   mmse_wave4 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;, age_wave5 &lt;dbl&gt;,
-#   mmse_wave5 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, Date_wave6 &lt;date&gt;, age_wave6 &lt;dbl&gt;,
-#   mmse_wave6 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;, age_base &lt;dbl&gt;, sex &lt;dbl+lbl&gt;,
-#   education &lt;dbl+lbl&gt;, and abbreviated variable names ¹​mmse_wave1,
-#   ²​dementia_wave1, ³​age_wave2, ⁴​mmse_wave2, ⁵​dementia_wave2
+  Lopnr Date_wave1 age_wave1 mmse_wave1 dementi…¹ Date_wave2 age_w…² mmse_…³ demen…⁴ Date_wave3 age_w…⁵ mmse_…⁶
+  &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+1     1 2001-06-11      77.6         29         0 2003-06-03    79.5      29       0 2005-05-27    81.5      28
+2     2 2002-04-08      72.6         18         0 2004-03-07    74.5      15       0 2006-02-08    76.5      12
+3     3 2001-09-12      79.9         22         0 NA            NA        NA      NA NA            NA        NA
+4     4 2001-06-13      79.9         26         0 2003-05-12    81.8      24       0 2005-04-20    83.8      22
+5     5 2001-02-12      82.6         NA         0 2003-04-20    84.8      22       0 2005-04-06    86.7      20
+# … with 16 more variables: dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;, age_wave4 &lt;dbl&gt;, mmse_wave4 &lt;dbl&gt;,
+#   dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;, age_wave5 &lt;dbl&gt;, mmse_wave5 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;,
+#   Date_wave6 &lt;date&gt;, age_wave6 &lt;dbl&gt;, mmse_wave6 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;, age_base &lt;dbl&gt;, sex &lt;fct&gt;,
+#   education &lt;dbl+lbl&gt;, and abbreviated variable names ¹​dementia_wave1, ²​age_wave2, ³​mmse_wave2,
+#   ⁴​dementia_wave2, ⁵​age_wave3, ⁶​mmse_wave3
 ```
 
 ???
@@ -335,12 +353,10 @@ sort(colnames(fake_data))
 ```
 
 ```
- [1] "age_base"       "age_wave1"      "age_wave2"      "age_wave3"     
- [5] "age_wave4"      "age_wave5"      "age_wave6"      "Date_wave1"    
- [9] "Date_wave2"     "Date_wave3"     "Date_wave4"     "Date_wave5"    
-[13] "Date_wave6"     "dementia_wave1" "dementia_wave2" "dementia_wave3"
-[17] "dementia_wave4" "dementia_wave5" "dementia_wave6" "education"     
-[21] "Lopnr"          "mmse_wave1"     "mmse_wave2"     "mmse_wave3"    
+ [1] "age_base"       "age_wave1"      "age_wave2"      "age_wave3"      "age_wave4"      "age_wave5"     
+ [7] "age_wave6"      "Date_wave1"     "Date_wave2"     "Date_wave3"     "Date_wave4"     "Date_wave5"    
+[13] "Date_wave6"     "dementia_wave1" "dementia_wave2" "dementia_wave3" "dementia_wave4" "dementia_wave5"
+[19] "dementia_wave6" "education"      "Lopnr"          "mmse_wave1"     "mmse_wave2"     "mmse_wave3"    
 [25] "mmse_wave4"     "mmse_wave5"     "mmse_wave6"     "sex"           
 ```
 
@@ -630,34 +646,26 @@ label_char
 ```
 
 ```
-                        Lopnr                    Date_wave1 
-                         "ID"  "date examination 2011-2012" 
-                    age_wave1                    mmse_wave1 
-     "age at visit 2011-2012"     "mmse at visit 2011-2012" 
-               dementia_wave1                    Date_wave2 
-"dementia at visit 2011-2012"  "date examination 2011-2012" 
-                    age_wave2                    mmse_wave2 
-     "age at visit 2011-2012"     "mmse at visit 2011-2012" 
-               dementia_wave2                    Date_wave3 
-"dementia at visit 2011-2012"  "date examination 2011-2012" 
-                    age_wave3                    mmse_wave3 
-     "age at visit 2011-2012"     "mmse at visit 2011-2012" 
-               dementia_wave3                    Date_wave4 
-"dementia at visit 2011-2012"  "date examination 2011-2012" 
-                    age_wave4                    mmse_wave4 
-     "age at visit 2011-2012"     "mmse at visit 2011-2012" 
-               dementia_wave4                    Date_wave5 
-"dementia at visit 2011-2012"  "date examination 2011-2012" 
-                    age_wave5                    mmse_wave5 
-     "age at visit 2011-2012"     "mmse at visit 2011-2012" 
-               dementia_wave5                    Date_wave6 
-"dementia at visit 2011-2012"  "date examination 2011-2012" 
-                    age_wave6                    mmse_wave6 
-     "age at visit 2011-2012"     "mmse at visit 2011-2012" 
-               dementia_wave6                      age_base 
-"dementia at visit 2011-2012"                            "" 
-                          sex                     education 
-                     "gender"                   "education" 
+                        Lopnr                    Date_wave1                     age_wave1 
+                         "ID"  "date examination 2011-2012"      "age at visit 2011-2012" 
+                   mmse_wave1                dementia_wave1                    Date_wave2 
+    "mmse at visit 2011-2012" "dementia at visit 2011-2012"  "date examination 2011-2012" 
+                    age_wave2                    mmse_wave2                dementia_wave2 
+     "age at visit 2011-2012"     "mmse at visit 2011-2012" "dementia at visit 2011-2012" 
+                   Date_wave3                     age_wave3                    mmse_wave3 
+ "date examination 2011-2012"      "age at visit 2011-2012"     "mmse at visit 2011-2012" 
+               dementia_wave3                    Date_wave4                     age_wave4 
+"dementia at visit 2011-2012"  "date examination 2011-2012"      "age at visit 2011-2012" 
+                   mmse_wave4                dementia_wave4                    Date_wave5 
+    "mmse at visit 2011-2012" "dementia at visit 2011-2012"  "date examination 2011-2012" 
+                    age_wave5                    mmse_wave5                dementia_wave5 
+     "age at visit 2011-2012"     "mmse at visit 2011-2012" "dementia at visit 2011-2012" 
+                   Date_wave6                     age_wave6                    mmse_wave6 
+ "date examination 2011-2012"      "age at visit 2011-2012"     "mmse at visit 2011-2012" 
+               dementia_wave6                      age_base                           sex 
+"dementia at visit 2011-2012"                            ""                            "" 
+                    education 
+                  "education" 
 ```
 
 
@@ -689,7 +697,7 @@ label_char
 |mmse_wave6     |mmse at visit 2011-2012     |
 |dementia_wave6 |dementia at visit 2011-2012 |
 |age_base       |                            |
-|sex            |gender                      |
+|sex            |                            |
 |education      |education                   |
 
 ---
@@ -854,17 +862,14 @@ Explain why I prefer the pipeline version
 
 
 ```
-# A tibble: 1 × 22
-  Lopnr age_wa…¹ mmse_…² demen…³ age_w…⁴ mmse_…⁵ demen…⁶ age_w…⁷ mmse_…⁸ demen…⁹
-  &lt;int&gt;    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
-1     0        0     135       0     207     323     207     489     605     489
-# … with 12 more variables: age_wave4 &lt;int&gt;, mmse_wave4 &lt;int&gt;,
-#   dementia_wave4 &lt;int&gt;, age_wave5 &lt;int&gt;, mmse_wave5 &lt;int&gt;,
-#   dementia_wave5 &lt;int&gt;, age_wave6 &lt;int&gt;, mmse_wave6 &lt;int&gt;,
-#   dementia_wave6 &lt;int&gt;, age_base &lt;int&gt;, sex &lt;int&gt;, education &lt;int&gt;, and
-#   abbreviated variable names ¹​age_wave1, ²​mmse_wave1, ³​dementia_wave1,
-#   ⁴​age_wave2, ⁵​mmse_wave2, ⁶​dementia_wave2, ⁷​age_wave3, ⁸​mmse_wave3,
-#   ⁹​dementia_wave3
+# A tibble: 1 × 21
+  Lopnr age_w…¹ mmse_…² demen…³ age_w…⁴ mmse_…⁵ demen…⁶ age_w…⁷ mmse_…⁸ demen…⁹ age_w…˟ mmse_…˟ demen…˟ age_w…˟
+  &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+1     0       0     135       0     207     323     207     489     605     489     748     838     748     983
+# … with 7 more variables: mmse_wave5 &lt;int&gt;, dementia_wave5 &lt;int&gt;, age_wave6 &lt;int&gt;, mmse_wave6 &lt;int&gt;,
+#   dementia_wave6 &lt;int&gt;, age_base &lt;int&gt;, education &lt;int&gt;, and abbreviated variable names ¹​age_wave1,
+#   ²​mmse_wave1, ³​dementia_wave1, ⁴​age_wave2, ⁵​mmse_wave2, ⁶​dementia_wave2, ⁷​age_wave3, ⁸​mmse_wave3,
+#   ⁹​dementia_wave3, ˟​age_wave4, ˟​mmse_wave4, ˟​dementia_wave4, ˟​age_wave5
 ```
 
 ```
@@ -897,25 +902,23 @@ fake_data %&gt;%
 
 ```
 # A tibble: 3,000 × 28
-   Lopnr Date_wave1 age_wave1 mmse_…¹ demen…² Date_wave2 age_w…³ mmse_…⁴ demen…⁵
-   &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1     1 2001-06-11      77.6      29       0 2003-06-03    79.5      29       0
- 2     2 2002-04-08      72.6      18       0 2004-03-07    74.5      15       0
- 3     3 2001-09-12      80.0      22       0 NA            NA        NA      NA
- 4     4 2001-06-13      79.9      26       0 2003-05-12    81.8      24       0
- 5     5 2001-02-12      82.6      NA       0 2003-04-20    84.8      22       0
- 6     6 2001-07-05      79.3      25       0 2003-07-20    81.4      24       0
- 7     7 2001-12-28      86.4      NA       0 2003-12-11    88.4      NA       1
- 8     8 2002-09-17      77.1      26       0 2004-09-01    79.0      25       0
- 9     9 2001-09-14      79.8      30       0 2003-08-30    81.8      30       0
-10    10 2001-09-21      69.0      29       0 2003-09-27    71.0      29       0
-# … with 2,990 more rows, 19 more variables: Date_wave3 &lt;date&gt;,
-#   age_wave3 &lt;dbl&gt;, mmse_wave3 &lt;dbl&gt;, dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;,
-#   age_wave4 &lt;dbl&gt;, mmse_wave4 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;,
-#   age_wave5 &lt;dbl&gt;, mmse_wave5 &lt;dbl&gt;, dementia_wave5 &lt;dbl&gt;, Date_wave6 &lt;date&gt;,
-#   age_wave6 &lt;dbl&gt;, mmse_wave6 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;, age_base &lt;dbl&gt;,
-#   sex &lt;dbl&gt;, education &lt;dbl&gt;, and abbreviated variable names ¹​mmse_wave1,
-#   ²​dementia_wave1, ³​age_wave2, ⁴​mmse_wave2, ⁵​dementia_wave2
+   Lopnr Date_wave1 age_wave1 mmse_wave1 dement…¹ Date_wave2 age_w…² mmse_…³ demen…⁴ Date_wave3 age_w…⁵ mmse_…⁶
+   &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1 2001-06-11      77.6         29        0 2003-06-03    79.5      29       0 2005-05-27    81.5      28
+ 2     2 2002-04-08      72.6         18        0 2004-03-07    74.5      15       0 2006-02-08    76.5      12
+ 3     3 2001-09-12      80.0         22        0 NA            NA        NA      NA NA            NA        NA
+ 4     4 2001-06-13      79.9         26        0 2003-05-12    81.8      24       0 2005-04-20    83.8      22
+ 5     5 2001-02-12      82.6         NA        0 2003-04-20    84.8      22       0 2005-04-06    86.7      20
+ 6     6 2001-07-05      79.3         25        0 2003-07-20    81.4      24       0 2005-09-03    83.5      23
+ 7     7 2001-12-28      86.4         NA        0 2003-12-11    88.4      NA       1 2005-12-18    90.4      30
+ 8     8 2002-09-17      77.1         26        0 2004-09-01    79.0      25       0 2006-08-10    81.0      24
+ 9     9 2001-09-14      79.8         30        0 2003-08-30    81.8      30       0 NA            NA        NA
+10    10 2001-09-21      69.0         29        0 2003-09-27    71.0      29       0 2005-10-01    73.0      30
+# … with 2,990 more rows, 16 more variables: dementia_wave3 &lt;dbl&gt;, Date_wave4 &lt;date&gt;, age_wave4 &lt;dbl&gt;,
+#   mmse_wave4 &lt;dbl&gt;, dementia_wave4 &lt;dbl&gt;, Date_wave5 &lt;date&gt;, age_wave5 &lt;dbl&gt;, mmse_wave5 &lt;dbl&gt;,
+#   dementia_wave5 &lt;dbl&gt;, Date_wave6 &lt;date&gt;, age_wave6 &lt;dbl&gt;, mmse_wave6 &lt;dbl&gt;, dementia_wave6 &lt;dbl&gt;,
+#   age_base &lt;dbl&gt;, sex &lt;fct&gt;, education &lt;dbl&gt;, and abbreviated variable names ¹​dementia_wave1, ²​age_wave2,
+#   ³​mmse_wave2, ⁴​dementia_wave2, ⁵​age_wave3, ⁶​mmse_wave3
 ```
 
 ???
@@ -1040,8 +1043,8 @@ clean_names[1:5]
 ```
 
 ```
-[1] "Cohort1_Baseline_BMI"  "Cohort1_FU1_BMI"       "Cohort1_FU2_BMI"      
-[4] "Cohort1FU3_Cohort2FU2" "Cohort2_Baseline_BMI" 
+[1] "Cohort1_Baseline_BMI"  "Cohort1_FU1_BMI"       "Cohort1_FU2_BMI"       "Cohort1FU3_Cohort2FU2"
+[5] "Cohort2_Baseline_BMI" 
 ```
 
 --
@@ -1130,6 +1133,8 @@ No need to worry about the font size, color, logo, etc. Just write!
 - `echo` = FALSE prevents code, but not the results from appearing in the finished file. This is a useful way to embed figures.
 - `message` = FALSE prevents messages that are generated by code from appearing in the finished file.
 - `warning` = FALSE prevents warnings that are generated by code from appearing in the finished.
+- No need to memorize by heart, one can use [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf).
+
 
 .footnote[[*] https://rmarkdown.rstudio.com/lesson-3.html]
 
