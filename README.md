@@ -16,6 +16,8 @@ This workshop focuses at intermediate level. Register link is [here](https://new
 ## Loop
 [Ashley Tate](https://staff.ki.se/people/ashley-tate) leads this session. 
 
+The code is [here](https://github.com/Bolin-Wu/workshopr/tree/main/material/2023_intermediate/loop_session).
+
 
 ## Tidyverse
 [Bolin Wu](https://staff.ki.se/people/bolin-wu) introduces useful data manipulation functions in daily work tasks:
