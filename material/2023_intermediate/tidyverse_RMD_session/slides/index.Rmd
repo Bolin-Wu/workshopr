@@ -34,8 +34,10 @@ options(
 ## About me
 
 .pull-left[
-![](pic/Bolin_pic.png)
+![](https://ki-su-arc.se/wp-content/uploads/2021/10/Bolin-Wu_foto-Maria-Yohuang-683x1024.jpg)
 ] 
+
+.footnote[Photo: Maria Yohuang]
 
 .pull-right[
 - Statistician at [NEAR](https://www.near-aging.se/), KI.
