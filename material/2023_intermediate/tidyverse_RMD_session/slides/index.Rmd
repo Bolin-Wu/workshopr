@@ -171,12 +171,12 @@ Just heads up, in case in the future you find one function does not work as it e
 
 ---
 
-background-image: url(pic/py_r.jpg)
+background-image: url(https://media.licdn.com/dms/image/C4E22AQHzxOsNkxPj-g/feedshare-shrink_800/0/1667950242189?e=1684368000&v=beta&t=MCGoT60B0dPjoZeWWdlGiARrnEbg5J_obake7sT5cT8)
 background-size: 80% auto
 background-position: center
 class: center, bottom, inverse
 
-.footnote[From Linkedin]
+.footnote[From Matt Dancho's Linkedin]
 
 ---
 
