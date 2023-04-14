@@ -599,7 +599,7 @@ fake_data %>%
 
 --
 
-- You may also wonderL what is `across`?
+- You may also wonder what is `across`?
 
 --
 
@@ -682,7 +682,7 @@ fake_data %>%
       between(mmse_wave1, 0, 9) ~ "Severe dementia",
       between(mmse_wave1, 10, 18) ~ "Moderate dementia",
       between(mmse_wave1, 19, 23) ~ "Mild dementia",
-      mmse_wave1 >= 24 ~ "Mild dementia",
+      mmse_wave1 >= 24 ~ "Severe dementia",
       TRUE ~ NA_character_
     )
   )

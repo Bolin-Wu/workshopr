@@ -65,7 +65,7 @@ workshopr::get_rmd_2023(name = "pdf_example",output_file = "pdf")
 workshopr::get_rmd_2023(name = "word_example",output_file = "word")
 workshopr::get_rmd_2023(name = "html_example",output_file = "html")
 ```
-
+Get the final exercise [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/rmd/final_exercise.pdf)
 
 ## Other resources
 
