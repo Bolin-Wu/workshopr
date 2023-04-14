@@ -11,13 +11,18 @@ The course has its own R package `workshopr`. The aim is to make example data an
 This workshop focuses on beginner level.  The slides are  [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/slide.pdf) and R code is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/example.R).
 
 # Workshop 2023
-This workshop focuses at intermediate level. Register link is [here](https://news.ki.se/calendar/r-programming-workshop-2023-intermediate-level).
+This workshop focuses at intermediate level. 
+
+- Register link is [here](https://news.ki.se/calendar/r-programming-workshop-2023-intermediate-level). 
+- The flyer is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/flyer_R_programming_workshop_2023_intermediate_level.pdf)
 
 ## Loop
 [Ashley Tate](https://staff.ki.se/people/ashley-tate) leads this session. 
 
-One can find example code [here](https://github.com/Bolin-Wu/workshopr/tree/main/material/2023_intermediate/loop_session) or in R `workshopr::get_code_2023(session = "loop")` .
+Example code
 
+- View  online [here](https://github.com/Bolin-Wu/workshopr/tree/main/material/2023_intermediate/loop_session)
+- Get script directly in R  `workshopr::get_code_2023(session = "loop")`
 
 ## Tidyverse
 [Bolin Wu](https://staff.ki.se/people/bolin-wu) introduces useful data manipulation functions in daily work tasks:
