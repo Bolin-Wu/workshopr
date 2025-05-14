@@ -2,16 +2,20 @@
 Welcome to the Github repo for the R workshop in KI. This repo contains all necessary material and information for the course.
 
 # R package
-The course has its own R package `workshopr`. The aim is to make example data and script easily accessible. To install the package just run the following code in R studio. For more details, please check the '[rpackage](https://github.com/Bolin-Wu/workshopr/tree/main/rpackage)' folder.
+The course has its own R package, `workshop`, which aims to make example data and script easily accessible. To install the package, run the following code in R Studio. For more details, please check the '[rpackage](https://github.com/Bolin-Wu/workshopr/tree/main/rpackage)' folder.
 
 1. `install.packages("remotes")`
 2. `remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)`
 
 # Workshop 2022
-This workshop focuses on beginner level.  The slides are  [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/slide.pdf) and R code is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/example.R).
+This workshop focuses on the beginner level.  The slides are [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/slide.pdf) and R code is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/example.R).
 
 # Workshop 2023
-This workshop focuses at intermediate level. 
+This workshop is an extension of workshop in 2022, which focuses on the intermediate level. The topic consists of
+
+* Loop function
+* Tidyverse toolkits
+* R markdown
 
 - Register link is [here](https://news.ki.se/calendar/r-programming-workshop-2023-intermediate-level). 
 - The flyer is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/flyer_R_programming_workshop_2023_intermediate_level.pdf)
@@ -58,7 +62,7 @@ Example code
 
 The slide is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
 
-To retrieve rmd templates in R, one can use commands:
+To retrieve rmd templates in R, one can run following commands in RStudio:
 
 ```
 workshopr::get_rmd_2023(name = "pdf_example",output_file = "pdf")
