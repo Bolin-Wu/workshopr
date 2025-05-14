@@ -8,17 +8,22 @@ The course has its own R package, `workshop`, which aims to make example data an
 2. `remotes::install_github("Bolin-Wu/workshopr", subdir = "rpackage", force = TRUE)`
 
 # Workshop 2022
-This workshop focuses on the beginner level.  The slides are [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/slide.pdf) and R code is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/example.R).
+This workshop focuses on the beginner level.  
+
+- The slides are [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/slide.pdf) 
+- R code is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2022_beginner/example.R).
 
 # Workshop 2023
+
+- Register link is [here](https://news.ki.se/calendar/r-programming-workshop-2023-intermediate-level). 
+- The flyer is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/flyer_R_programming_workshop_2023_intermediate_level.pdf)
+
 This workshop is an extension of workshop in 2022, which focuses on the intermediate level. The topic consists of
 
 * Loop function
 * Tidyverse toolkits
 * R markdown
 
-- Register link is [here](https://news.ki.se/calendar/r-programming-workshop-2023-intermediate-level). 
-- The flyer is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/flyer_R_programming_workshop_2023_intermediate_level.pdf)
 
 ## Loop
 [Ashley Tate](https://staff.ki.se/people/ashley-tate) leads this session. 
@@ -62,7 +67,7 @@ Example code
 
 The slide is [here](https://github.com/Bolin-Wu/workshopr/blob/main/material/2023_intermediate/tidyverse_RMD_session/slides/index.pdf).
 
-To retrieve rmd templates in R, one can run following commands in RStudio:
+To retrieve R markdown templates in R, one can run the following commands in RStudio:
 
 ```
 workshopr::get_rmd_2023(name = "pdf_example",output_file = "pdf")
